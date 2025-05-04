@@ -1,0 +1,97 @@
+import {
+  initialEducation,
+  initialProfile,
+  initialProject,
+  initialWorkExperience,
+} from "lib/redux/resumeSlice";
+import type { Resume } from "lib/redux/types";
+import { deepClone } from "lib/deep-clone";
+import kenan from "public/assets/kenan.jpg";
+
+export const END_HOME_RESUME: Resume = {
+  profile: {
+    name: "江户川 柯南",
+    summary: ["身体虽然缩小，头脑依然灵活", "身体虽然缩小，头脑依然灵活"], // 修改为数组
+    email: "",
+    phone: "12345678912",
+    location: "米花町 5 丁目毛利侦探事务所",
+    url: "",
+    photoUrl: kenan.src, // 使用kenan.src获取图片路径
+  },
+  workExperiences: [
+    {
+      company: "少年侦探团",
+      jobTitle: "团长",
+      date: "身体缩小至今",
+      descriptions: [
+        "带领少年侦探团成员步美、元太、光彦及灰原哀，解决各类儿童失踪、寻宝解谜等案件，累计处理案件 50 余起，培养团队成员的侦查与协作能力。",
+        "在 “失踪的光彦” 案件中，冷静分析线索，利用团队成员各自优势，在废弃工厂找到被绑架的光彦；在 “少年侦探团寻宝事件” 里，凭借对暗号的解读，带领团队成功找到隐藏的宝藏，锻炼了团队的推理与实践能力。",
+        "在 “图书馆杀人事件” 中，发现图书馆管理员的异常举动，带领团队在深夜潜入图书馆。面对黑暗阴森的环境和狡猾的凶手，柯南引导大家仔细搜索，最终在电梯顶部发现尸体，并巧妙设计让凶手露出马脚，成功将其制服。",
+      ],
+    },
+    {
+      company: "毛利侦探事务所",
+      jobTitle: "实习侦探",
+      date: "身体缩小至今",
+      descriptions: [
+        "协助毛利小五郎处理各类案件，独立完成线索收集、嫌疑人调查、现场勘查等工作，主导或参与侦破案件超 500 起",
+        "在 “浴室密室杀人事件” 中，柯南对密室进行细致分析，注意到门锁的特殊构造和水渍痕迹，通过还原案发过程，识破凶手利用胶带和拖把制造密室的诡计，为案件侦破提供了关键突破。",
+      ],
+    },
+  ],
+  educations: [
+    {
+      school: "帝丹小学",
+      degree: "小学课程",
+      date: "在读",
+      gpa: "3.8",
+      descriptions: [],
+    },
+  ],
+  projects: [
+    {
+      project: "黑衣组织调查项目",
+      date: "Spring 2023",
+      descriptions: [
+        "作为核心调查人员，持续对黑衣组织展开深度调查。通过收集组织成员遗留的蛛丝马迹，如在 “电玩公司杀人事件” 中，从组织成员交易现场残留的特殊烟蒂和加密手机信息入手，顺藤摸瓜追踪到组织在米花町的一处秘密据点 。面对组织成员的高度警惕和反侦察手段，巧妙利用少年侦探团成员的身份作掩护，暗中观察组织人员行动，获取关键情报。",
+        "在调查过程中，成功破解组织内部使用的多种加密通讯方式，例如通过分析组织邮件中的特殊符号组合规律，破译出其时间与地点的传递密码，从而掌握了组织多起交易和暗杀计划。还协助警方布局，在关键时机对组织行动进行干扰和破坏，成功阻止了一起跨国走私武器的非法交易。同时，不断挖掘组织高层的身份信息，逐步揭开黑衣组织背后庞大的犯罪网络架构，为后续打击黑衣组织犯罪活动积累了大量核心情报支持。",
+      ],
+    },
+  ],
+  skills: {
+    featuredSkills: [
+      { skill: "HTML", rating: 4 },
+      { skill: "CSS", rating: 4 },
+      { skill: "Python", rating: 3 },
+      { skill: "TypeScript", rating: 3 },
+      { skill: "React", rating: 3 },
+      { skill: "C++", rating: 2 },
+    ],
+    descriptions: [
+      "Tech: React Hooks, GraphQL, Node.js, SQL, Postgres, NoSql, Redis, REST API, Git",
+      "Soft: Teamwork, Creative Problem Solving, Communication, Learning Mindset, Agile",
+    ],
+  },
+  custom: {
+    descriptions: [],
+  },
+};
+
+export const START_HOME_RESUME: Resume = {
+  profile: deepClone(initialProfile),
+  workExperiences: END_HOME_RESUME.workExperiences.map(() =>
+    deepClone(initialWorkExperience)
+  ),
+  educations: [deepClone(initialEducation)],
+  projects: [deepClone(initialProject)],
+  skills: {
+    featuredSkills: END_HOME_RESUME.skills.featuredSkills.map((item) => ({
+      skill: "",
+      rating: item.rating,
+    })),
+    descriptions: [],
+  },
+  custom: {
+    descriptions: [],
+  },
+};
