@@ -30,7 +30,10 @@ export const extractResumeFromSections = (
   const { skills } = extractSkills(sections);
 
   return {
-    profile,
+    profile: {
+      ...profile,
+      photoUrl: "", // 添加缺少的photoUrl属性
+    },
     educations,
     workExperiences,
     projects,
