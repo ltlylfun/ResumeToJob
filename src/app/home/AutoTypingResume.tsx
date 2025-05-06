@@ -60,7 +60,7 @@ export const AutoTypingResume = () => {
 
   return (
     <>
-      <ResumeIframeCSR documentSize="Letter" scale={isLg ? 0.7 : 0.5}>
+      <ResumeIframeCSR documentSize="A4" scale={isLg ? 0.7 : 0.5}>
         <ResumePDF
           resume={resume}
           settings={{

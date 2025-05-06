@@ -48,7 +48,7 @@ export const initialSettings: Settings = {
   themeColor: DEFAULT_THEME_COLOR,
   fontFamily: DEFAULT_FONT_FAMILY,
   fontSize: DEFAULT_FONT_SIZE,
-  documentSize: "Letter",
+  documentSize: "A4", // 将默认值从 "Letter" 改为 "A4",因为日常使用确实是a4
   template: DEFAULT_TEMPLATE,
   formToShow: {
     workExperiences: true,
