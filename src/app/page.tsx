@@ -1,11 +1,38 @@
 import { Hero } from "home/Hero";
-import { Steps } from "home/Steps";
+import { Features } from "home/Features";
+import { FAQ } from "home/FAQ";
+import { CTA } from "home/CTA";
+import { Metadata } from "next";
+import { LogoFallingAnimation } from "components/animations/LogoFallingAnimation";
+
+export const metadata: Metadata = {
+  title: "ResumeToJob - 专业简历生成器",
+  description:
+    "使用我们的免费简历生成器，轻松创建专业简历。多种精美模板可供选择，支持AI简历解析。",
+};
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-screen-2xl bg-dot px-8 pb-32 text-gray-900 lg:px-12">
-      <Hero />
-      <Steps />
-    </main>
+    <div className="relative min-h-screen">
+      {/* 放在最外层容器中，覆盖整个页面区域 */}
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <LogoFallingAnimation
+          logoCount={36}
+          minSize={20}
+          maxSize={60}
+          minSpeed={0.3}
+          maxSpeed={1.2}
+          minOpacity={0.3}
+          maxOpacity={0.8}
+        />
+      </div>
+
+      <main className="relative z-10">
+        <Hero />
+        <Features />
+        <FAQ />
+        <CTA />
+      </main>
+    </div>
   );
 }
