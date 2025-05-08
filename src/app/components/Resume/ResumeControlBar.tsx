@@ -14,12 +14,14 @@ const ResumeControlBar = ({
   documentSize,
   document,
   fileName,
+  showToolbar = true,
 }: {
   scale: number;
   setScale: (scale: number) => void;
   documentSize: string;
   document: JSX.Element;
   fileName: string;
+  showToolbar?: boolean;
 }) => {
   const { scaleOnResize, setScaleOnResize } = useSetDefaultScale({
     setScale,
@@ -32,6 +34,8 @@ const ResumeControlBar = ({
   useEffect(() => {
     update();
   }, [update, document]);
+
+  if (!showToolbar) return null;
 
   return (
     <div className="sticky bottom-0 left-0 right-0 flex h-[var(--resume-control-bar-height)] items-center justify-center px-[var(--resume-padding)] text-gray-600 lg:justify-between">
