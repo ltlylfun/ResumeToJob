@@ -8,6 +8,8 @@ import { START_HOME_RESUME, END_HOME_RESUME } from "home/constants";
 import { makeObjectCharIterator } from "lib/make-object-char-iterator";
 import { useTailwindBreakpoints } from "lib/hooks/useTailwindBreakpoints";
 import { deepClone } from "lib/deep-clone";
+import { getAllTemplates } from "components/Resume/ResumePDF/templates";
+import { TemplateSelector } from "home/TemplateSelector";
 
 // countObjectChar(END_HOME_RESUME) -> ~1800 chars
 const INTERVAL_MS = 50; // 20 Intervals Per Second
@@ -15,69 +17,95 @@ const CHARS_PER_INTERVAL = 10;
 // Auto Typing Time:
 //  10 CHARS_PER_INTERVAL -> ~1800 / (20*10) = 9s (let's go with 9s so it feels fast)
 //  9 CHARS_PER_INTERVAL -> ~1800 / (20*9) = 10s
-//  8 CHARS_PER_INTERVAL -> ~1800 / (20*8) = 11s
-
-const RESET_INTERVAL_MS = 60 * 1000; // 60s
 
 export const AutoTypingResume = () => {
-  const [resume, setResume] = useState(deepClone(initialResumeState));
-  const resumeCharIterator = useRef(
-    makeObjectCharIterator(START_HOME_RESUME, END_HOME_RESUME)
-  );
-  const hasSetEndResume = useRef(false);
-  const { isLg } = useTailwindBreakpoints();
+  const [resume, setResume] = useState(START_HOME_RESUME);
+  const [settings, setSettings] = useState({
+    ...initialSettings,
+    template: "classic", // 默认使用经典模板
+    themeColor: "#0ea5e9", // 设置默认主题颜色
+  });
+  const [isComplete, setIsComplete] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const { md } = useTailwindBreakpoints();
+
+  // 添加模板状态管理
+  const templates = getAllTemplates();
+
+  // 切换模板
+  const handleTemplateChange = (templateId: string) => {
+    setSettings({
+      ...settings,
+      template: templateId,
+    });
+  };
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      let next = resumeCharIterator.current.next();
-      for (let i = 0; i < CHARS_PER_INTERVAL - 1; i++) {
-        next = resumeCharIterator.current.next();
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
-      if (!next.done) {
-        setResume(next.value);
-      } else {
-        // Sometimes the iterator doesn't end on the last char,
-        // so we manually set its end state here
-        if (!hasSetEndResume.current) {
-          setResume(END_HOME_RESUME);
-          hasSetEndResume.current = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    // On mobile, just show the completed resume
+    if (!md) {
+      setResume(END_HOME_RESUME);
+      setIsComplete(true);
+      return;
+    }
+
+    // Auto type resume with interval
+    const resumeCharIterator = makeObjectCharIterator(
+      START_HOME_RESUME,
+      END_HOME_RESUME,
+      CHARS_PER_INTERVAL
+    );
+    let iter = resumeCharIterator.next();
+
+    if (!iter.done) {
+      setResume(iter.value);
+    }
+
+    intervalRef.current = setInterval(() => {
+      iter = resumeCharIterator.next();
+      if (iter.done) {
+        setIsComplete(true);
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
         }
+      } else {
+        setResume(iter.value);
       }
     }, INTERVAL_MS);
-    return () => clearInterval(intervalId);
-  }, []);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      resumeCharIterator.current = makeObjectCharIterator(
-        START_HOME_RESUME,
-        END_HOME_RESUME
-      );
-      hasSetEndResume.current = false;
-    }, RESET_INTERVAL_MS);
-    return () => clearInterval(intervalId);
-  }, []);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [md]);
 
   return (
-    <>
-      <ResumeIframeCSR documentSize="A4" scale={isLg ? 0.7 : 0.5}>
-        <ResumePDF
-          resume={resume}
-          settings={{
-            ...initialSettings,
-            fontSize: "12",
-            formToHeading: {
-              workExperiences: resume.workExperiences[0].company
-                ? "工作经历"
-                : "",
-              educations: resume.educations[0].school ? "教育经历" : "",
-              projects: resume.projects[0].project ? "项目经历" : "",
-              skills: resume.skills.featuredSkills[0].skill ? "技能" : "",
-              custom: "自定义部分",
-            },
-          }}
+    <div className="relative mt-10 ">
+      <div className="absolute -top-12 left-0 right-0 flex justify-center">
+        <TemplateSelector
+          templates={templates}
+          currentTemplate={settings.template}
+          onTemplateChange={handleTemplateChange}
         />
+      </div>
+      <ResumeIframeCSR
+        documentSize="A4"
+        scale={0.6}
+        enablePDFViewer={false}
+        showToolbar={false}
+      >
+        <ResumePDF resume={resume} settings={settings} isPDF={false} />
       </ResumeIframeCSR>
-    </>
+    </div>
   );
 };

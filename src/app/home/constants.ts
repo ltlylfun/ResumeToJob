@@ -11,11 +11,11 @@ import kenan from "public/assets/kenan.jpg";
 export const END_HOME_RESUME: Resume = {
   profile: {
     name: "江户川 柯南",
-    summary: ["身体虽然缩小，头脑依然灵活", "身体虽然缩小，头脑依然灵活"], // 修改为数组
-    email: "",
-    phone: "12345678912",
-    location: "米花町 5 丁目毛利侦探事务所",
-    url: "",
+    summary: ["帝丹高中-休学中", "帝丹小学-在读"], // 修改为数组
+    email: "Konan@Konan.cpm",
+    phone: "11111111111",
+    location: "米花町5丁目毛利侦探事务所",
+    url: "konan.com",
     photoUrl: kenan.src, // 使用kenan.src获取图片路径
   },
   workExperiences: [
@@ -39,19 +39,11 @@ export const END_HOME_RESUME: Resume = {
       ],
     },
   ],
-  educations: [
-    {
-      school: "帝丹小学",
-      degree: "小学课程",
-      date: "在读",
-      gpa: "3.8",
-      descriptions: [],
-    },
-  ],
+  educations: [],
   projects: [
     {
       project: "黑衣组织调查项目",
-      date: "Spring 2023",
+      date: "",
       descriptions: [
         "作为核心调查人员，持续对黑衣组织展开深度调查。通过收集组织成员遗留的蛛丝马迹，如在 “电玩公司杀人事件” 中，从组织成员交易现场残留的特殊烟蒂和加密手机信息入手，顺藤摸瓜追踪到组织在米花町的一处秘密据点 。面对组织成员的高度警惕和反侦察手段，巧妙利用少年侦探团成员的身份作掩护，暗中观察组织人员行动，获取关键情报。",
         "在调查过程中，成功破解组织内部使用的多种加密通讯方式，例如通过分析组织邮件中的特殊符号组合规律，破译出其时间与地点的传递密码，从而掌握了组织多起交易和暗杀计划。还协助警方布局，在关键时机对组织行动进行干扰和破坏，成功阻止了一起跨国走私武器的非法交易。同时，不断挖掘组织高层的身份信息，逐步揭开黑衣组织背后庞大的犯罪网络架构，为后续打击黑衣组织犯罪活动积累了大量核心情报支持。",
@@ -60,16 +52,16 @@ export const END_HOME_RESUME: Resume = {
   ],
   skills: {
     featuredSkills: [
-      { skill: "HTML", rating: 4 },
-      { skill: "CSS", rating: 4 },
-      { skill: "Python", rating: 3 },
-      { skill: "TypeScript", rating: 3 },
-      { skill: "React", rating: 3 },
-      { skill: "C++", rating: 2 },
+      { skill: "推理能力", rating: 5 },
+      { skill: "道具大师", rating: 5 },
+      { skill: "足球特技", rating: 5 },
+      { skill: "语言能力", rating: 5 },
+      { skill: "伪装天赋", rating: 5 },
+      { skill: "音乐天赋", rating: 1 },
     ],
     descriptions: [
-      "Tech: React Hooks, GraphQL, Node.js, SQL, Postgres, NoSql, Redis, REST API, Git",
-      "Soft: Teamwork, Creative Problem Solving, Communication, Learning Mindset, Agile",
+      "精通犯罪现场分析与逻辑推演，通过微表情和细节锁定真凶",
+      "灵活运用蝴蝶结变声器、麻醉手表及增强脚力鞋，以足球为武器",
     ],
   },
   custom: {
@@ -82,7 +74,7 @@ export const START_HOME_RESUME: Resume = {
   workExperiences: END_HOME_RESUME.workExperiences.map(() =>
     deepClone(initialWorkExperience)
   ),
-  educations: [deepClone(initialEducation)],
+  educations: [],
   projects: [deepClone(initialProject)],
   skills: {
     featuredSkills: END_HOME_RESUME.skills.featuredSkills.map((item) => ({
