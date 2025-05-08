@@ -29,5 +29,17 @@ export const useTailwindBreakpoints = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return { isSm, isMd, isLg, isXl, is2xl };
+  return {
+    isSm,
+    isMd,
+    isLg,
+    isXl,
+    is2xl,
+    // 添加断点值本身
+    sm: TailwindBreakpoint.sm,
+    md: TailwindBreakpoint.md,
+    lg: TailwindBreakpoint.lg,
+    xl: TailwindBreakpoint.xl,
+    "2xl": TailwindBreakpoint["2xl"],
+  };
 };
