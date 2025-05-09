@@ -73,7 +73,7 @@ export const ThemeForm = () => {
           </div>
         </div>
         <div>
-          <InputGroupWrapper label="字体" />
+          <InputGroupWrapper label="字体（注意中英文字体，仅英文导出无中文）" />
           <FontFamilySelectionsCSR
             selectedFontFamily={fontFamily}
             themeColor={themeColor}
