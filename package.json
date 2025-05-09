@@ -8,7 +8,35 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "setup-electron": "node setup-electron.js",
+    "electron-dev": "concurrently \"npm run dev\" \"electron .\"",
+    "electron": "wait-on http://localhost:3000 && electron .",
+    "pack": "electron-builder --dir",
+    "dist": "next build && electron-builder"
+  },
+  "main": "main.js",
+  "build": {
+    "appId": "com.resumetojob.app",
+    "productName": "ResumeToJob",
+    "files": [
+      "main.js",
+      "preload.js",
+      ".next/**/*",
+      "public/**/*",
+      "node_modules/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    }
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
@@ -39,8 +67,12 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
+    "concurrently": "^8.2.0",
+    "electron": "^25.2.0",
+    "electron-builder": "^24.4.0",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
-    "prettier-plugin-tailwindcss": "^0.2.1"
+    "prettier-plugin-tailwindcss": "^0.2.1",
+    "wait-on": "^7.0.1"
   }
 }

@@ -5,13 +5,17 @@ const nextConfig = {
   // building the app. Since pdfjs-dist is only used on client side, we disable
   // the canvas package for webpack
   // https://github.com/mozilla/pdf.js/issues/16214
-  output: 'standalone',
+  output: "standalone",
   webpack: (config) => {
     // Setting resolve.alias to false tells webpack to ignore a module
     // https://webpack.js.org/configuration/resolve/#resolvealias
     config.resolve.alias.canvas = false;
     config.resolve.alias.encoding = false;
     return config;
+  },
+  // 使Next.js兼容Electron
+  images: {
+    unoptimized: true,
   },
 };
 
