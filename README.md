@@ -4,7 +4,9 @@
 
 # ResumeToJob 简历制作网站
 
-## ✨ 主要功能
+<div align="center">
+  <img src="public/assets/1.png" alt="ResumeToJob Screenshot" width="800" />
+</div>
 
 ## 🚀 使用指南
 
@@ -24,6 +26,8 @@ npm run dev
 ```
 
 ## 📄 许可证
+
+本项目使用 [AGPL-3.0 license](LICENSE)。
 
 ## 🙏 致谢
 
