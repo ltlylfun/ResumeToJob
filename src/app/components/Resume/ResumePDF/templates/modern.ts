@@ -8,12 +8,9 @@ export const modernTemplate: Template = {
     return {
       header: {
         backgroundColor: themeColor,
-        padding: spacing[4],
-        paddingBottom: spacing[6],
+        padding: spacing[1],
       },
-      headerText: {
-        color: "white",
-      },
+      headerText: {},
       content: {
         padding: `${spacing[0]} ${spacing[10]}`, // 修改从20减小到10
       },
