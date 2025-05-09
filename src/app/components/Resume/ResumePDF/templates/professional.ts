@@ -6,12 +6,7 @@ export const professionalTemplate: Template = {
   description: "强调专业性和清晰度的企业风格",
   getStyles: (themeColor: string, spacing: any): TemplateStyles => {
     return {
-      header: {
-        width: spacing["full"],
-        height: spacing[3],
-        backgroundColor: themeColor,
-        paddingBottom: spacing[2],
-      },
+      header: { backgroundColor: themeColor, padding: spacing[1] },
       headerText: {}, // 保持默认样式
       content: {
         padding: `${spacing[3]} ${spacing[10]}`,
@@ -67,7 +62,6 @@ export const professionalTemplate: Template = {
         fontWeight: "bold",
         backgroundColor: `${themeColor}15`,
         padding: `${spacing[0.5]} ${spacing[1]}`,
-        // 修改 display: "inline" 为 flex 以解决不能将类型"inline"分配给类型"flex" | "none" | undefined"的错误
         display: "flex",
       },
       contact: {

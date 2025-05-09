@@ -51,7 +51,45 @@ export const ResumePDF = ({
   } = settings;
   const themeColor = settings.themeColor || DEFAULT_FONT_COLOR;
 
-  const showFormsOrder = formsOrder.filter((form) => formToShow[form]);
+  // 检查各个板块是否有内容
+  const hasContent = {
+    workExperiences:
+      workExperiences.length > 0 &&
+      workExperiences.some(
+        (exp) =>
+          exp.company ||
+          exp.jobTitle ||
+          exp.date ||
+          (exp.descriptions && exp.descriptions.length > 0)
+      ),
+    educations:
+      educations.length > 0 &&
+      educations.some(
+        (edu) =>
+          edu.school ||
+          edu.degree ||
+          edu.date ||
+          edu.gpa ||
+          (edu.descriptions && edu.descriptions.length > 0)
+      ),
+    projects:
+      projects.length > 0 &&
+      projects.some(
+        (proj) =>
+          proj.project ||
+          proj.date ||
+          (proj.descriptions && proj.descriptions.length > 0)
+      ),
+    skills:
+      skills.featuredSkills.some((skill) => skill.skill) ||
+      (skills.descriptions && skills.descriptions.length > 0),
+    custom: custom.descriptions && custom.descriptions.length > 0,
+  };
+
+  // 过滤出有内容且被设置为显示的板块
+  const showFormsOrder = formsOrder.filter(
+    (form) => formToShow[form] && hasContent[form]
+  );
 
   // 从模板文件中获取样式
   const templateStyles = getTemplateStyles(

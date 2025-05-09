@@ -53,7 +53,7 @@ export const EducationsForm = () => {
               label="学校"
               labelClassName="col-span-4"
               name="school"
-              placeholder="如：清华大学"
+              placeholder=""
               value={school}
               onChange={handleEducationChange}
             />
@@ -61,7 +61,7 @@ export const EducationsForm = () => {
               label="日期"
               labelClassName="col-span-2"
               name="date"
-              placeholder="如：2018年6月"
+              placeholder=""
               value={date}
               onChange={handleEducationChange}
             />
@@ -69,7 +69,7 @@ export const EducationsForm = () => {
               label="学位与专业"
               labelClassName="col-span-4"
               name="degree"
-              placeholder="如：计算机科学与技术学士"
+              placeholder=""
               value={degree}
               onChange={handleEducationChange}
             />
@@ -77,7 +77,7 @@ export const EducationsForm = () => {
               label="GPA"
               labelClassName="col-span-2"
               name="gpa"
-              placeholder="如：3.81"
+              placeholder=""
               value={gpa}
               onChange={handleEducationChange}
             />

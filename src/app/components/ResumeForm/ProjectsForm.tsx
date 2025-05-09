@@ -40,7 +40,7 @@ export const ProjectsForm = () => {
             <Input
               name="project"
               label="项目名称"
-              placeholder="如：在线简历生成器"
+              placeholder=""
               value={project}
               onChange={handleProjectChange}
               labelClassName="col-span-4"
@@ -48,7 +48,7 @@ export const ProjectsForm = () => {
             <Input
               name="date"
               label="日期"
-              placeholder="如：2022年冬"
+              placeholder=""
               value={date}
               onChange={handleProjectChange}
               labelClassName="col-span-2"
@@ -56,7 +56,7 @@ export const ProjectsForm = () => {
             <BulletListTextarea
               name="descriptions"
               label="项目描述"
-              placeholder="列出项目职责和成就"
+              placeholder=""
               value={descriptions}
               onChange={handleProjectChange}
               labelClassName="col-span-full"

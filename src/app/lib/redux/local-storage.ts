@@ -2,7 +2,7 @@ import type { RootState } from "lib/redux/store";
 
 // Reference: https://dev.to/igorovic/simplest-way-to-persist-redux-state-to-localstorage-e67
 
-const LOCAL_STORAGE_KEY = "open-resume-state";
+const LOCAL_STORAGE_KEY = "resume-to-job-state";
 
 export const loadStateFromLocalStorage = () => {
   try {

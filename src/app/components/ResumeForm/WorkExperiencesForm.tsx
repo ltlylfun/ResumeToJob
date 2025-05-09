@@ -48,7 +48,7 @@ export const WorkExperiencesForm = () => {
               label="公司"
               labelClassName="col-span-full"
               name="company"
-              placeholder="如：阿里巴巴"
+              placeholder=""
               value={company}
               onChange={handleWorkExperienceChange}
             />
@@ -56,7 +56,7 @@ export const WorkExperiencesForm = () => {
               label="职位"
               labelClassName="col-span-4"
               name="jobTitle"
-              placeholder="如：软件工程师"
+              placeholder=""
               value={jobTitle}
               onChange={handleWorkExperienceChange}
             />
@@ -64,7 +64,7 @@ export const WorkExperiencesForm = () => {
               label="日期"
               labelClassName="col-span-2"
               name="date"
-              placeholder="如：2022年6月 - 至今"
+              placeholder=""
               value={date}
               onChange={handleWorkExperienceChange}
             />
@@ -72,7 +72,7 @@ export const WorkExperiencesForm = () => {
               label="职责描述"
               labelClassName="col-span-full"
               name="descriptions"
-              placeholder="列出工作职责和成就"
+              placeholder=""
               value={descriptions}
               onChange={handleWorkExperienceChange}
             />

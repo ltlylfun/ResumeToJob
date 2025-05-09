@@ -35,6 +35,7 @@ const getIframeInitialContent = (isA4: boolean) => {
     .join("");
 
   return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     ${allFontFamiliesPreloadLinks}
@@ -57,11 +58,13 @@ const ResumeIframe = ({
   scale,
   children,
   enablePDFViewer = false,
+  showToolbar = true,
 }: {
   documentSize: string;
   scale: number;
   children: React.ReactNode;
   enablePDFViewer?: boolean;
+  showToolbar?: boolean;
 }) => {
   const isA4 = documentSize === "A4";
   const iframeInitialContent = useMemo(

@@ -31,7 +31,6 @@ export const elegantTemplate: Template = {
       },
       bullet: {
         color: themeColor,
-        fontFamily: "Times-Roman",
         fontSize: "10pt",
       },
       name: {
@@ -39,7 +38,6 @@ export const elegantTemplate: Template = {
         fontWeight: "normal",
         textAlign: "center",
         marginBottom: spacing[1],
-        fontFamily: "Times-Roman",
         letterSpacing: "1pt",
         color: themeColor,
       },

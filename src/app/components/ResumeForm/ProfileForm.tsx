@@ -61,7 +61,7 @@ export const ProfileForm = () => {
           label="姓名"
           labelClassName="col-span-full"
           name="name"
-          placeholder="如：张三"
+          placeholder=""
           value={name}
           onChange={handleProfileChange}
         />
@@ -70,7 +70,7 @@ export const ProfileForm = () => {
             label="个人简介"
             labelClassName="col-span-full"
             name="summary"
-            placeholder="简要描述你的职业目标和专业特长"
+            placeholder=""
             value={summary}
             onChange={handleProfileChange}
             showBulletPoints={showBulletPoints}
@@ -86,7 +86,7 @@ export const ProfileForm = () => {
           label="邮箱"
           labelClassName="col-span-4"
           name="email"
-          placeholder="如：example@163.com"
+          placeholder="仔细检查，别填错"
           value={email}
           onChange={handleProfileChange}
         />
@@ -94,7 +94,7 @@ export const ProfileForm = () => {
           label="电话"
           labelClassName="col-span-2"
           name="phone"
-          placeholder="如：13812345678"
+          placeholder="仔细检查，别填错"
           value={phone}
           onChange={handleProfileChange}
         />
@@ -102,7 +102,7 @@ export const ProfileForm = () => {
           label="个人网站"
           labelClassName="col-span-4"
           name="url"
-          placeholder="如：github.com/yourname"
+          placeholder="如：github，博客之类的"
           value={url}
           onChange={handleProfileChange}
         />
@@ -110,7 +110,7 @@ export const ProfileForm = () => {
           label="所在地"
           labelClassName="col-span-2"
           name="location"
-          placeholder="如：北京市"
+          placeholder=""
           value={location}
           onChange={handleProfileChange}
         />
@@ -156,8 +156,7 @@ export const ProfileForm = () => {
               )}
             </div>
             <div className="text-sm text-gray-500">
-              <p>上传专业证件照（可选）</p>
-              <p>建议尺寸：200x200像素</p>
+              <p>上传专业证件照</p>
             </div>
           </div>
         </div>

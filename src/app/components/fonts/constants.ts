@@ -79,17 +79,17 @@ export const FONT_FAMILY_TO_STANDARD_SIZE_IN_PT: Record<FontFamily, number> = {
 
 export const FONT_FAMILY_TO_DISPLAY_NAME: Record<FontFamily, string> = {
   // Sans Serif Fonts
-  Roboto: "Roboto",
-  Lato: "Lato",
-  Montserrat: "Montserrat",
-  OpenSans: "Open Sans",
-  Raleway: "Raleway",
+  Roboto: "Roboto (仅英文)",
+  Lato: "Lato (仅英文)",
+  Montserrat: "Montserrat (仅英文)",
+  OpenSans: "Open Sans (仅英文)",
+  Raleway: "Raleway (仅英文)",
   // Serif Fonts
-  Caladea: "Caladea",
-  Lora: "Lora",
-  RobotoSlab: "Roboto Slab",
-  PlayfairDisplay: "Playfair Display",
-  Merriweather: "Merriweather",
+  Caladea: "Caladea (仅英文)",
+  Lora: "Lora (仅英文)",
+  RobotoSlab: "Roboto Slab (仅英文)",
+  PlayfairDisplay: "Playfair Display (仅英文)",
+  Merriweather: "Merriweather (仅英文)",
   // Non-English Fonts
   NotoSansSC: "思源黑体(简体)",
 };
