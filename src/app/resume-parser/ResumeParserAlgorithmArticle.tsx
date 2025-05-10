@@ -220,7 +220,7 @@ export const ResumeParserAlgorithmArticle = ({
         en: "Written by",
         zh: "作者",
       },
-      date: {
+      publicationDate: {
         en: "June 2023",
         zh: "2023年6月",
       },
@@ -558,7 +558,7 @@ export const ResumeParserAlgorithmArticle = ({
       <Paragraph>
         {translate("authorCredit")}{" "}
         <Link href="https://github.com/xitanggg">Xitang</Link>{" "}
-        {translate("date")}
+        {translate("publicationDate")}
       </Paragraph>
     </article>
   );
