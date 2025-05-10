@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { BaseForm } from "components/ResumeForm/Form";
 import {
   Input,
@@ -14,6 +14,7 @@ import Image from "next/image";
 import {
   selectShowBulletPoints,
   changeShowBulletPoints,
+  changeFormHeading,
 } from "lib/redux/settingsSlice";
 import { useLanguage } from "../../i18n/LanguageContext";
 
@@ -106,6 +107,8 @@ export const ProfileForm = () => {
       fileInputRef.current.value = "";
     }
   };
+
+  // ProfileForm本身不在formToHeading中，所以不需要调用changeFormHeading
 
   return (
     <BaseForm>
