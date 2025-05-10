@@ -14,7 +14,9 @@ export const techTemplate: Template = {
       section: {
         marginTop: spacing[4],
         paddingTop: spacing[2],
-        borderTop: `2pt dashed ${themeColor}`,
+        borderTopWidth: "2pt",
+        borderTopStyle: "dashed",
+        borderTopColor: themeColor,
       },
       sectionTitle: {
         fontSize: "12pt",
@@ -57,7 +59,9 @@ export const techTemplate: Template = {
         fontSize: "11pt",
         color: themeColor,
         padding: `${spacing[0.5]} 0`,
-        borderBottom: `1pt solid ${themeColor}`,
+        borderBottomWidth: "1pt",
+        borderBottomStyle: "solid",
+        borderBottomColor: themeColor,
       },
       contact: {
         padding: `${spacing[1]} ${spacing[2]}`,

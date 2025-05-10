@@ -44,6 +44,35 @@ export const DEFAULT_FONT_SIZE = "11"; // text-base https://tailwindcss.com/docs
 export const DEFAULT_FONT_COLOR = "#000000"; // text-neutral-800
 export const DEFAULT_TEMPLATE = "elegant"; // 默认模板
 
+// 为了适应不同语言环境的初始表单标题
+export const formHeadings = {
+  zh: {
+    workExperiences: "工作经历",
+    educations: "教育经历",
+    projects: "项目经历",
+    skills: "技能",
+    custom: "自定义部分",
+  },
+  en: {
+    workExperiences: "Work Experience",
+    educations: "Education",
+    projects: "Projects",
+    skills: "Skills",
+    custom: "Custom Section",
+  },
+};
+
+// 从localStorage获取当前语言设置或者使用默认值
+function getCurrentLanguage(): "zh" | "en" {
+  if (typeof window !== "undefined") {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage && (savedLanguage === "zh" || savedLanguage === "en")) {
+      return savedLanguage;
+    }
+  }
+  return "zh"; // 默认使用中文
+}
+
 export const initialSettings: Settings = {
   themeColor: DEFAULT_THEME_COLOR,
   fontFamily: DEFAULT_FONT_FAMILY,
@@ -58,11 +87,8 @@ export const initialSettings: Settings = {
     custom: false,
   },
   formToHeading: {
-    workExperiences: "工作经历",
-    educations: "教育经历",
-    projects: "项目经历",
-    skills: "技能",
-    custom: "自定义部分",
+    // 根据语言设置初始表单标题，默认使用中文
+    ...formHeadings.zh,
   },
   formsOrder: ["workExperiences", "educations", "projects", "skills", "custom"],
   showBulletPoints: {

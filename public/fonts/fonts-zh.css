@@ -2,11 +2,19 @@
   font-family: "NotoSansSC";
   src: url("/fonts/NotoSansSC-Regular.ttf");
   font-weight: 400;
+}
+@font-face {
+  font-family: "NotoSansSC";
+  src: url("/fonts/NotoSansSC-Regular.ttf");
   font-weight: normal;
 }
 @font-face {
   font-family: "NotoSansSC";
   src: url("/fonts/NotoSansSC-Bold.ttf");
   font-weight: 700;
+}
+@font-face {
+  font-family: "NotoSansSC";
+  src: url("/fonts/NotoSansSC-Bold.ttf");
   font-weight: bold;
 }
