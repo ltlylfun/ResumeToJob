@@ -1,11 +1,16 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   useAppSelector,
+  useAppDispatch,
   useSaveStateToLocalStorageOnChange,
   useSetInitialStore,
 } from "lib/redux/hooks";
-import { ShowForm, selectFormsOrder } from "lib/redux/settingsSlice";
+import {
+  ShowForm,
+  selectFormsOrder,
+  changeFormHeading,
+} from "lib/redux/settingsSlice";
 import { ProfileForm } from "components/ResumeForm/ProfileForm";
 import { WorkExperiencesForm } from "components/ResumeForm/WorkExperiencesForm";
 import { EducationsForm } from "components/ResumeForm/EducationsForm";
@@ -31,6 +36,49 @@ export const ResumeForm = () => {
 
   const formsOrder = useAppSelector(selectFormsOrder);
   const [isHover, setIsHover] = useState(false);
+  const { language } = useLanguage();
+  const dispatch = useAppDispatch();
+
+  // 初始化所有表单标题
+  useEffect(() => {
+    // 根据当前语言设置所有表单标题
+    const updateFormHeadings = () => {
+      const translations: Record<ShowForm, Record<string, string>> = {
+        workExperiences: {
+          en: "Work Experience",
+          zh: "工作经历",
+        },
+        educations: {
+          en: "Education",
+          zh: "教育经历",
+        },
+        projects: {
+          en: "Projects",
+          zh: "项目经历",
+        },
+        skills: {
+          en: "Skills",
+          zh: "技能",
+        },
+        custom: {
+          en: "Custom Section",
+          zh: "自定义部分",
+        },
+      };
+
+      // 为每个表单设置正确的标题
+      Object.entries(translations).forEach(([form, texts]) => {
+        dispatch(
+          changeFormHeading({
+            field: form as ShowForm,
+            value: texts[language] || texts["zh"],
+          })
+        );
+      });
+    };
+
+    updateFormHeadings();
+  }, [dispatch, language]);
 
   return (
     <div
