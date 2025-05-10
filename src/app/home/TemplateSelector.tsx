@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { cx } from "lib/cx";
 import type { Template } from "components/Resume/ResumePDF/templates";
+import { useLanguage } from "../i18n/LanguageContext";
 
 interface TemplateSelectorProps {
   templates: Template[];
@@ -17,6 +17,61 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
   onTemplateChange,
 }) => {
   const [showSelector, setShowSelector] = useState(false);
+  const { language } = useLanguage();
+
+  // 翻译函数，处理所有文本内容
+  const translate = (key: string): string => {
+    const translations: Record<string, Record<string, string>> = {
+      switchTemplate: {
+        en: "Switch Template",
+        zh: "切换模板",
+      },
+    };
+
+    // 所有模板翻译
+    const templateTranslations: Record<string, Record<string, string>> = {
+      elegant: {
+        en: "Elegant",
+        zh: "优雅",
+      },
+      modern: {
+        en: "Modern",
+        zh: "现代",
+      },
+      minimal: {
+        en: "Minimal",
+        zh: "简约",
+      },
+      professional: {
+        en: "Professional",
+        zh: "专业",
+      },
+      classic: {
+        en: "Classic",
+        zh: "经典",
+      },
+      creative: {
+        en: "Creative",
+        zh: "创意",
+      },
+      tech: {
+        en: "Tech",
+        zh: "科技",
+      },
+      compact: {
+        en: "Compact",
+        zh: "紧凑",
+      },
+    };
+
+    // 处理嵌套的模板名称翻译
+    if (key.startsWith("templates.")) {
+      const templateId = key.split(".")[1];
+      return templateTranslations[templateId]?.[language] || key;
+    }
+
+    return translations[key]?.[language] || key;
+  };
 
   return (
     <div className="relative">
@@ -24,7 +79,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
         onClick={() => setShowSelector(!showSelector)}
         className="rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-sky-700 shadow-md transition-colors hover:bg-sky-50"
       >
-        切换模板
+        {translate("switchTemplate")}
       </button>
 
       <AnimatePresence>
@@ -50,7 +105,13 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
                 )}
                 title={template.description}
               >
-                {template.name}
+                {(() => {
+                  // 使用本地翻译
+                  const translatedName = translate(`templates.${template.id}`);
+                  return translatedName === `templates.${template.id}`
+                    ? template.name
+                    : translatedName;
+                })()}
               </button>
             ))}
           </motion.div>

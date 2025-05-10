@@ -4,10 +4,29 @@ import Link from "next/link";
 import Image from "next/image";
 import logoSrc from "public/logo-500.png";
 import { cx } from "lib/cx";
+import { useLanguage } from "../i18n/LanguageContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export const TopNavBar = () => {
   const pathName = usePathname();
   const isHomePage = pathName === "/";
+  const { language } = useLanguage();
+
+  // 本地翻译函数，替代全局翻译
+  const translate = (key: string) => {
+    const translations: Record<string, Record<string, string>> = {
+      build: {
+        en: "Build",
+        zh: "构建",
+      },
+      parse: {
+        en: "Parse",
+        zh: "解析",
+      },
+    };
+
+    return translations[key]?.[language] || key;
+  };
 
   return (
     <header
@@ -24,14 +43,14 @@ export const TopNavBar = () => {
           <span className="text-lg font-semibold text-gray-800">
             ResumeToJob
           </span>
-        </Link>
+        </Link>{" "}
         <nav
           aria-label="Site Nav Bar"
           className="flex items-center gap-2 text-sm font-medium"
         >
           {[
-            ["/resume-builder", "构建"],
-            ["/resume-parser", "解析"],
+            ["/resume-builder", translate("build")],
+            ["/resume-parser", translate("parse")],
           ].map(([href, text]) => (
             <Link
               key={text}
@@ -41,6 +60,7 @@ export const TopNavBar = () => {
               {text}
             </Link>
           ))}
+          <LanguageSwitcher />
           <div className="ml-1 mt-1">
             <iframe
               src="https://ghbtns.com/github-btn.html?user=&repo=&type=star&count=true"
