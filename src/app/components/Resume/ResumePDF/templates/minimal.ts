@@ -19,7 +19,9 @@ export const minimalTemplate: Template = {
         letterSpacing: "1pt",
         fontSize: "11pt",
         marginBottom: spacing[3],
-        borderBottom: `0.5pt solid ${themeColor}`,
+        borderBottomWidth: "0.5pt",
+        borderBottomStyle: "solid",
+        borderBottomColor: themeColor,
         paddingBottom: spacing[1],
       },
       bullet: {

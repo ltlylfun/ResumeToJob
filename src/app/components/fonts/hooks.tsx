@@ -15,11 +15,11 @@ export const useRegisterReactPDFFont = () => {
         fonts: [
           {
             src: `/fonts/${fontFamily}-Regular.ttf`,
-            fontWeight: "normal", // 明确指定常规字体的字重
+            fontWeight: 400, // 使用数字400替代"normal"更加明确
           },
           {
             src: `/fonts/${fontFamily}-Bold.ttf`,
-            fontWeight: "bold",
+            fontWeight: 700, // 使用数字700替代"bold"更加明确
           },
         ],
       });
