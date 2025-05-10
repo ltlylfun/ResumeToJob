@@ -81,44 +81,45 @@ export const FAQ = () => {
 
     return translations[key]?.[language] || key;
   };
-
   return (
-    <section className="mx-auto mt-16 max-w-3xl px-8 pb-20">
+    <section className="mx-auto mt-12 max-w-3xl px-4 pb-16 sm:mt-16 sm:px-8 sm:pb-20">
       <FadeIn direction="up">
-        <h2 className="text-center text-3xl font-bold text-gray-900">
+        <h2 className="text-center text-2xl font-bold text-gray-900 sm:text-3xl">
           {translate("title")}
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-gray-600">
+        <p className="mx-auto mt-3 max-w-2xl text-center text-base text-gray-600 sm:mt-4 sm:text-lg">
           {translate("subtitle")}
         </p>
       </FadeIn>
 
       <StaggeredFadeIn
         as="div"
-        className="mt-10 divide-y divide-gray-200 rounded-xl border border-gray-200 bg-white"
+        className="mt-8 divide-y divide-gray-200 rounded-xl border border-gray-200 bg-white sm:mt-10"
         staggerDelay={50}
       >
         {faqItems.map((item, idx) => (
-          <div key={idx} className="px-4">
+          <div key={idx} className="px-3 sm:px-4">
             <button
-              className="flex w-full items-center justify-between py-5 text-left text-lg font-medium text-gray-900 focus:outline-none"
+              className="flex w-full items-center justify-between py-4 text-left text-base font-medium text-gray-900 focus:outline-none sm:py-5 sm:text-lg"
               onClick={() => toggleFAQ(idx)}
             >
-              <span>{item.question}</span>
-              <span className="ml-6 flex-shrink-0">
+              <span className="pr-4">{item.question}</span>
+              <span className="ml-4 flex-shrink-0 sm:ml-6">
                 {openIndex === idx ? (
-                  <MinusIcon className="h-5 w-5 text-gray-500" />
+                  <MinusIcon className="h-4 w-4 text-gray-500 sm:h-5 sm:w-5" />
                 ) : (
-                  <PlusIcon className="h-5 w-5 text-gray-500" />
+                  <PlusIcon className="h-4 w-4 text-gray-500 sm:h-5 sm:w-5" />
                 )}
               </span>
             </button>
             <div
               className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                openIndex === idx ? "max-h-96 pb-5" : "max-h-0"
+                openIndex === idx ? "max-h-96 pb-4 sm:pb-5" : "max-h-0"
               }`}
             >
-              <p className="text-gray-600">{item.answer}</p>
+              <p className="text-sm text-gray-600 sm:text-base">
+                {item.answer}
+              </p>
             </div>
           </div>
         ))}

@@ -72,12 +72,11 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 
     return translations[key]?.[language] || key;
   };
-
   return (
     <div className="relative">
       <button
         onClick={() => setShowSelector(!showSelector)}
-        className="rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-sky-700 shadow-md transition-colors hover:bg-sky-50"
+        className="rounded-lg bg-white px-2 py-1 text-xs font-medium text-sky-700 shadow-md transition-colors hover:bg-sky-50 sm:px-3 sm:py-1.5 sm:text-sm"
       >
         {translate("switchTemplate")}
       </button>
@@ -88,7 +87,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute left-0 top-full z-10 mt-2 flex max-w-[300px] flex-wrap gap-2 overflow-x-auto rounded-lg bg-white p-2 shadow-lg"
+            className="absolute left-1/2 top-full z-10 mt-2 flex max-w-[300px] -translate-x-1/2 flex-wrap gap-2 overflow-x-auto rounded-lg bg-white p-2 shadow-lg sm:left-0 sm:translate-x-0"
           >
             {templates.map((template) => (
               <button
@@ -98,7 +97,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
                   setShowSelector(false);
                 }}
                 className={cx(
-                  "whitespace-nowrap rounded-md px-3 py-1.5 text-sm transition-colors",
+                  "whitespace-nowrap rounded-md px-2 py-1 text-xs transition-colors sm:px-3 sm:py-1.5 sm:text-sm",
                   currentTemplate === template.id
                     ? "bg-sky-100 font-medium text-sky-700"
                     : "text-gray-600 hover:bg-gray-100"

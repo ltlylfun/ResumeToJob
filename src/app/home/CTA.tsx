@@ -29,33 +29,32 @@ export const CTA = () => {
 
     return translations[key]?.[language] || key;
   };
-
   return (
     <FadeIn direction="up">
-      <section className="relative mx-auto mt-12 max-w-5xl overflow-hidden rounded-2xl bg-gradient-to-r from-[color:var(--theme-purple)] to-[color:var(--theme-blue)]">
+      <section className="relative mx-auto mt-10 max-w-5xl overflow-hidden rounded-xl bg-gradient-to-r from-[color:var(--theme-purple)] to-[color:var(--theme-blue)] sm:mt-12 sm:rounded-2xl">
         {/* 背景装饰元素 */}
         <div className="absolute inset-0 overflow-hidden opacity-20">
           <div className="absolute -left-10 bottom-0 h-64 w-64 rounded-full bg-white"></div>
           <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-white"></div>
         </div>
 
-        <div className="relative px-8 py-20 text-center text-white md:py-24">
-          <h2 className="text-3xl font-bold md:text-4xl">
+        <div className="relative px-4 py-12 text-center text-white sm:px-8 sm:py-20 md:py-24">
+          <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">
             {translate("title")}
           </h2>
-          <p className="mx-auto mt-6 max-w-lg text-lg opacity-90">
+          <p className="mx-auto mt-4 max-w-lg text-base opacity-90 sm:mt-6 sm:text-lg">
             {translate("subtitle")}
           </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:mt-10 sm:flex-row">
             <Link
               href="/resume-import"
-              className="inline-block rounded-full bg-white px-8 py-3 text-lg font-medium text-sky-700 transition-all duration-300 hover:scale-105 hover:bg-blue-50 hover:shadow-lg"
+              className="inline-block w-full rounded-full bg-white px-6 py-2.5 text-base font-medium text-sky-700 transition-all duration-300 hover:scale-105 hover:bg-blue-50 hover:shadow-lg sm:w-auto sm:px-8 sm:py-3 sm:text-lg"
             >
               {translate("button")}
             </Link>
             <Link
               href="/resume-parser"
-              className="inline-block rounded-full border-2 border-white px-8 py-3 text-lg font-medium text-white transition-all duration-300 hover:bg-white/10 hover:shadow-lg"
+              className="inline-block w-full rounded-full border-2 border-white px-6 py-2.5 text-base font-medium text-white transition-all duration-300 hover:bg-white/10 hover:shadow-lg sm:w-auto sm:px-8 sm:py-3 sm:text-lg"
             >
               {translate("testAts")}
             </Link>

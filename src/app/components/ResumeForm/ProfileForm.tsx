@@ -110,7 +110,6 @@ export const ProfileForm = () => {
   return (
     <BaseForm>
       <div className="grid grid-cols-6 gap-3">
-        {" "}
         <Input
           label={translate("name")}
           labelClassName="col-span-full"
@@ -120,12 +119,10 @@ export const ProfileForm = () => {
           onChange={handleProfileChange}
         />
         <div className="relative col-span-full">
-          {" "}
           <BulletListTextarea
-            label={translate("profile")}
-            labelClassName="col-span-full"
+            label={translate("summary")}
             name="summary"
-            placeholder=""
+            placeholder={translate("summaryPlaceholder")}
             value={summary}
             onChange={handleProfileChange}
             showBulletPoints={showBulletPoints}
@@ -136,7 +133,7 @@ export const ProfileForm = () => {
               onClick={handleShowBulletPoints}
             />
           </div>
-        </div>{" "}
+        </div>
         <Input
           label={translate("email")}
           labelClassName="col-span-4"
@@ -144,7 +141,7 @@ export const ProfileForm = () => {
           placeholder={translate("checkCarefully")}
           value={email}
           onChange={handleProfileChange}
-        />{" "}
+        />
         <Input
           label={translate("phone")}
           labelClassName="col-span-2"
@@ -152,7 +149,7 @@ export const ProfileForm = () => {
           placeholder={translate("checkCarefully")}
           value={phone}
           onChange={handleProfileChange}
-        />{" "}
+        />
         <Input
           label={translate("website")}
           labelClassName="col-span-4"
@@ -160,7 +157,7 @@ export const ProfileForm = () => {
           placeholder={translate("websiteExample")}
           value={url}
           onChange={handleProfileChange}
-        />{" "}
+        />
         <Input
           label={translate("location")}
           labelClassName="col-span-2"

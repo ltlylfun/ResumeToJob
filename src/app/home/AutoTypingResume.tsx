@@ -181,24 +181,34 @@ export const AutoTypingResume = () => {
       }
     };
   }, [md, imagesPreloaded, language, restartTypingEffect]);
+  // 根据屏幕尺寸获取适合的缩放比例
+  const getScaleForScreen = () => {
+    if (!md) {
+      // 移动设备使用更小的缩放比例
+      return 0.35; // 移动端缩放比例
+    }
+    return 0.6; // 桌面端缩放比例
+  };
 
   return (
-    <div className="relative mt-10">
-      <div className="absolute -top-12 left-0 right-0 flex justify-center">
+    <div className="relative mt-4 sm:mt-6 md:mt-10">
+      <div className="absolute -top-10 left-0 right-0 flex justify-center sm:-top-12">
         <TemplateSelector
           templates={templates}
           currentTemplate={settings.template}
           onTemplateChange={handleTemplateChange}
         />
       </div>
-      <ResumeIframeCSR
-        documentSize="A4"
-        scale={0.6}
-        enablePDFViewer={false}
-        showToolbar={false}
-      >
-        <ResumePDF resume={resume} settings={settings} isPDF={false} />
-      </ResumeIframeCSR>
+      <div className="mx-auto max-w-full">
+        <ResumeIframeCSR
+          documentSize="A4"
+          scale={getScaleForScreen()}
+          enablePDFViewer={false}
+          showToolbar={false}
+        >
+          <ResumePDF resume={resume} settings={settings} isPDF={false} />
+        </ResumeIframeCSR>
+      </div>
     </div>
   );
 };

@@ -102,7 +102,6 @@ export const EducationsForm = () => {
             showDelete={showDelete}
             deleteButtonTooltipText={translate("deleteEducation")}
           >
-            {" "}
             <Input
               label={translate("school")}
               labelClassName="col-span-4"
@@ -110,7 +109,7 @@ export const EducationsForm = () => {
               placeholder=""
               value={school}
               onChange={handleEducationChange}
-            />{" "}
+            />
             <Input
               label={translate("date")}
               labelClassName="col-span-2"
@@ -118,7 +117,7 @@ export const EducationsForm = () => {
               placeholder=""
               value={date}
               onChange={handleEducationChange}
-            />{" "}
+            />
             <Input
               label={translate("degree")}
               labelClassName="col-span-4"
@@ -126,7 +125,7 @@ export const EducationsForm = () => {
               placeholder=""
               value={degree}
               onChange={handleEducationChange}
-            />{" "}
+            />
             <Input
               label={translate("gpa")}
               labelClassName="col-span-2"
@@ -136,7 +135,6 @@ export const EducationsForm = () => {
               onChange={handleEducationChange}
             />
             <div className="relative col-span-full">
-              {" "}
               <BulletListTextarea
                 label={
                   language === "en"

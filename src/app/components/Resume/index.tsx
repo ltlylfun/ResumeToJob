@@ -33,7 +33,7 @@ export const Resume = () => {
     <>
       <NonEnglishFontsCSSLazyLoader />
       <div className="relative flex justify-center md:justify-start">
-        <FlexboxSpacer maxWidth={30} className="hidden md:block" />{" "}
+        <FlexboxSpacer maxWidth={30} className="hidden md:block" />
         {/* 从50减小到30 */}
         <div className="relative">
           <section className="h-[calc(100vh-var(--top-nav-bar-height)-var(--resume-control-bar-height))] overflow-hidden md:p-[var(--resume-padding)]">

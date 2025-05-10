@@ -14,11 +14,10 @@ export const LanguageSwitcher = () => {
     const newLanguage: SupportedLanguage = language === "zh" ? "en" : "zh";
     setLanguage(newLanguage);
   };
-
   return (
     <button
       onClick={toggleLanguage}
-      className="rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100"
+      className="whitespace-nowrap rounded-md px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 md:px-3"
       aria-label="Change language"
     >
       {translate()}

@@ -84,34 +84,37 @@ export const Features = () => {
 
     return translations[key]?.[language] || key;
   };
-
   return (
-    <section className="mx-auto mt-16 max-w-6xl px-8 pb-16">
+    <section className="mx-auto mt-12 max-w-6xl px-4 pb-12 sm:mt-16 sm:px-8 sm:pb-16">
       <FadeIn direction="up">
-        <h2 className="text-center text-3xl font-bold text-gray-900">
+        <h2 className="text-center text-2xl font-bold text-gray-900 sm:text-3xl">
           {translate("title")}
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-gray-600">
+        <p className="mx-auto mt-3 max-w-2xl text-center text-base text-gray-600 sm:mt-4 sm:text-lg">
           {translate("subtitle")}
         </p>
       </FadeIn>{" "}
       <StaggeredFadeIn
         as="div"
-        className="mt-14 grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3"
+        className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:mt-14 sm:gap-x-8 sm:gap-y-10 md:grid-cols-2 lg:grid-cols-3"
         staggerDelay={100}
       >
         {getFeatures(language).map(({ icon, title, description }, idx) => (
           <div
             key={idx}
-            className="group relative rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+            className="group relative rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-6"
           >
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-sky-50 text-sky-700 transition-colors group-hover:bg-sky-100">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50 text-sky-700 transition-colors group-hover:bg-sky-100 sm:h-12 sm:w-12">
                 {icon}
               </div>
-              <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+              <h3 className="text-base font-semibold text-gray-900 sm:text-lg">
+                {title}
+              </h3>
             </div>
-            <p className="mt-3 text-gray-600">{description}</p>
+            <p className="mt-2 text-sm text-gray-600 sm:mt-3 sm:text-base">
+              {description}
+            </p>
           </div>
         ))}
       </StaggeredFadeIn>
