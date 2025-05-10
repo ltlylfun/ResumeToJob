@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, memo } from "react";
 import { ResumePDF } from "components/Resume/ResumePDF";
 import { initialSettings } from "lib/redux/settingsSlice";
 import { ResumeIframeCSR } from "components/Resume/ResumeIFrame";
@@ -11,6 +11,7 @@ import { TemplateSelector } from "home/TemplateSelector";
 import { deepClone } from "lib/deep-clone";
 import { useLanguage } from "../i18n/LanguageContext";
 import React from "react";
+import Image from "next/image";
 
 // countObjectChar(END_HOME_RESUME) -> ~1800 chars
 const INTERVAL_MS = 16.6; // 20 Intervals Per Second
@@ -19,21 +20,80 @@ const CHARS_PER_INTERVAL = 28;
 //  10 CHARS_PER_INTERVAL -> ~1800 / (20*10) = 9s (let's go with 9s so it feels fast)
 //  9 CHARS_PER_INTERVAL -> ~1800 / (20*9) = 10s
 
+// 创建一个稳定的照片组件，使其完全独立于简历渲染
+const StableProfilePhoto = memo(
+  ({ photoUrl, scale }: { photoUrl: string; scale: number }) => {
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+      if (photoUrl) {
+        const img = new window.Image();
+        img.onload = () => setLoaded(true);
+        img.src = photoUrl;
+      }
+    }, [photoUrl]);
+
+    // 计算照片在A4页面上的相对位置
+    // A4纸张尺寸：210×297mm
+    // 根据简历模板中照片的位置，我们将它定位在页面的右上角
+    const photoSize = 100; // 照片尺寸与简历中相同
+
+    if (!photoUrl || !loaded) return null;
+    return (
+      <div
+        style={{
+          position: "absolute",
+          right: `calc(50% - ${240 * scale}px)`, // 更改为更大的值，向右移动
+          top: `calc(8% + ${-50 * scale}px)`, // 减小顶部边距，向上移动
+          width: `${photoSize * scale}px`,
+          height: `${photoSize * scale}px`,
+          borderRadius: "4px",
+          overflow: "hidden",
+          zIndex: 10, // 确保照片在最上层
+          pointerEvents: "none", // 让点击事件穿透到下面的元素
+        }}
+      >
+        <Image
+          src={photoUrl}
+          alt="简历照片"
+          width={photoSize}
+          height={photoSize}
+          style={{
+            objectFit: "contain",
+            width: "100%",
+            height: "100%",
+            display: "block",
+          }}
+          priority
+        />
+      </div>
+    );
+  }
+);
+
+StableProfilePhoto.displayName = "StableProfilePhoto";
+
 export const AutoTypingResume = () => {
   const { language } = useLanguage();
 
   // 根据当前语言获取对应的示例简历
   const endResume = getResumeByLang(language);
 
-  // 预先为起始状态添加照片，确保一开始就显示图片
+  // 创建不包含photoUrl属性的起始简历和结束简历
   const modifiedStartResume = React.useMemo(
     () => ({
       ...START_HOME_RESUME,
       profile: {
         ...START_HOME_RESUME.profile,
-        photoUrl: endResume.profile.photoUrl,
+        photoUrl: "", // 清空照片URL，我们会使用单独的组件显示照片
       },
     }),
+    []
+  );
+
+  // 单独保存照片URL
+  const photoUrl = React.useMemo(
+    () => endResume.profile.photoUrl,
     [endResume.profile.photoUrl]
   );
 
@@ -61,8 +121,6 @@ export const AutoTypingResume = () => {
 
   // 预加载简历中的图片
   useEffect(() => {
-    const photoUrl = endResume.profile.photoUrl;
-
     if (photoUrl) {
       const img = new window.Image();
       img.onload = () => {
@@ -75,7 +133,7 @@ export const AutoTypingResume = () => {
     } else {
       setImagesPreloaded(true);
     }
-  }, [endResume.profile.photoUrl]);
+  }, [photoUrl]);
 
   // 确保在组件卸载时清除interval
   useEffect(() => {
@@ -87,27 +145,38 @@ export const AutoTypingResume = () => {
     };
   }, []);
 
-  // 创建一个自定义的简历更新函数，确保图片在动画过程中不会被修改
-  const createResumeWithPreservedImage = useCallback(
+  // 创建一个自定义的简历更新函数，确保不包含照片
+  const createResumeWithoutImage = useCallback(
     (currentResume: any, updatedResume: any) => {
       // 深度克隆更新后的简历
       const result = deepClone(updatedResume);
 
-      // 确保图片URL保持不变（使用当前语言的最终图片）
-      if (endResume.profile?.photoUrl && result.profile) {
-        result.profile.photoUrl = endResume.profile.photoUrl;
+      // 确保清除照片URL，使用单独的组件显示照片
+      if (result.profile) {
+        result.profile = {
+          ...result.profile,
+          photoUrl: "", // 清空照片URL
+        };
       }
 
       return result;
     },
-    [endResume.profile.photoUrl]
+    []
   );
 
   // 当语言改变时更新简历
   useEffect(() => {
     if (isComplete) {
       const currentEndResume = getResumeByLang(language);
-      setResume(currentEndResume);
+      // 创建一个不含照片的结束简历
+      const finalResume = {
+        ...currentEndResume,
+        profile: {
+          ...currentEndResume.profile,
+          photoUrl: "",
+        },
+      };
+      setResume(finalResume);
     }
   }, [language, isComplete]);
 
@@ -122,8 +191,14 @@ export const AutoTypingResume = () => {
     // 重置完成状态
     setIsComplete(false);
 
-    // 获取当前语言的简历
-    const currentEndResume = getResumeByLang(language);
+    // 获取当前语言的简历，但不包含照片
+    const currentEndResume = {
+      ...getResumeByLang(language),
+      profile: {
+        ...getResumeByLang(language).profile,
+        photoUrl: "",
+      },
+    };
 
     // 设置初始状态
     setResume(modifiedStartResume);
@@ -137,7 +212,7 @@ export const AutoTypingResume = () => {
 
     let iter = resumeCharIterator.next();
     if (!iter.done) {
-      const updatedResume = createResumeWithPreservedImage(
+      const updatedResume = createResumeWithoutImage(
         modifiedStartResume,
         iter.value
       );
@@ -154,23 +229,30 @@ export const AutoTypingResume = () => {
           intervalRef.current = null;
         }
       } else {
-        const updatedResume = createResumeWithPreservedImage(
+        const updatedResume = createResumeWithoutImage(
           modifiedStartResume,
           iter.value
         );
         setResume(updatedResume);
       }
     }, INTERVAL_MS);
-  }, [modifiedStartResume, language, createResumeWithPreservedImage]);
+  }, [modifiedStartResume, language, createResumeWithoutImage]);
 
   // 当语言变化时重启打字效果
   useEffect(() => {
     if (md && imagesPreloaded) {
       restartTypingEffect();
     } else if (!md) {
-      // 在移动端直接显示完整简历
+      // 在移动端直接显示完整简历，但不包含照片
       const currentEndResume = getResumeByLang(language);
-      setResume(currentEndResume);
+      const finalResume = {
+        ...currentEndResume,
+        profile: {
+          ...currentEndResume.profile,
+          photoUrl: "",
+        },
+      };
+      setResume(finalResume);
       setIsComplete(true);
     }
 
@@ -181,6 +263,7 @@ export const AutoTypingResume = () => {
       }
     };
   }, [md, imagesPreloaded, language, restartTypingEffect]);
+
   // 根据屏幕尺寸获取适合的缩放比例
   const getScaleForScreen = () => {
     if (!md) {
@@ -189,6 +272,13 @@ export const AutoTypingResume = () => {
     }
     return 0.6; // 桌面端缩放比例
   };
+
+  const scale = getScaleForScreen();
+
+  // 创建简历PDF组件
+  const resumePDF = (
+    <ResumePDF resume={resume} settings={settings} isPDF={false} />
+  );
 
   return (
     <div className="relative mt-4 sm:mt-6 md:mt-10">
@@ -199,14 +289,17 @@ export const AutoTypingResume = () => {
           onTemplateChange={handleTemplateChange}
         />
       </div>
-      <div className="mx-auto max-w-full">
+      <div className="relative mx-auto max-w-full">
+        {/* 独立的稳定照片组件，位于简历iframe之外 */}
+        <StableProfilePhoto photoUrl={photoUrl} scale={scale} />
+
         <ResumeIframeCSR
           documentSize="A4"
-          scale={getScaleForScreen()}
+          scale={scale}
           enablePDFViewer={false}
           showToolbar={false}
         >
-          <ResumePDF resume={resume} settings={settings} isPDF={false} />
+          {resumePDF}
         </ResumeIframeCSR>
       </div>
     </div>
