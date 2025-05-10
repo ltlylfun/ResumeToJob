@@ -105,7 +105,6 @@ export const ResumePDFProfile = ({
         }}
       >
         <View style={{ flex: 1, marginRight: spacing["2"] }}>
-          {" "}
           {/* 添加右侧边距，为照片腾出更多空间 */}
           <ResumePDFText
             bold={true}

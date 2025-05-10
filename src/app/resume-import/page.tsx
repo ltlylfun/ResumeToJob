@@ -3,10 +3,13 @@ import { getHasUsedAppBefore } from "lib/redux/local-storage";
 import { ResumeDropzone } from "components/ResumeDropzone";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function ImportResume() {
   const [hasUsedAppBefore, setHasUsedAppBefore] = useState(false);
   const [hasAddedResume, setHasAddedResume] = useState(false);
+  const { language } = useLanguage();
+
   const onFileUrlChange = (fileUrl: string) => {
     setHasAddedResume(Boolean(fileUrl));
   };
@@ -15,24 +18,59 @@ export default function ImportResume() {
     setHasUsedAppBefore(getHasUsedAppBefore());
   }, []);
 
+  // 翻译函数
+  const translate = (key: string) => {
+    const translations: Record<string, Record<string, string>> = {
+      importFromExisting: {
+        en: "Import data from existing resume",
+        zh: "从现有简历导入数据",
+      },
+      noResume: {
+        en: "Don't have a resume yet?",
+        zh: "还没有简历？",
+      },
+      createFromScratch: {
+        en: "Create from scratch",
+        zh: "从头开始创建",
+      },
+      savedSession: {
+        en: "Your previous session data is saved in the browser",
+        zh: "浏览器中保存了您之前的会话数据",
+      },
+      continueWork: {
+        en: "Continue your work",
+        zh: "继续上次的工作",
+      },
+      overrideData: {
+        en: "Override data with a new resume",
+        zh: "使用新简历覆盖数据",
+      },
+      or: {
+        en: "or",
+        zh: "或",
+      },
+    };
+
+    return translations[key]?.[language] || key;
+  };
   return (
     <main>
       <div className="mx-auto mt-14 max-w-3xl rounded-md border border-gray-200 px-10 py-10 text-center shadow-md">
         {!hasUsedAppBefore ? (
           <>
             <h1 className="text-lg font-semibold text-gray-900">
-              从现有简历导入数据
+              {translate("importFromExisting")}
             </h1>
             <ResumeDropzone
               onFileUrlChange={onFileUrlChange}
               className="mt-5"
-            />
+            />{" "}
             {!hasAddedResume && (
               <>
                 <OrDivider />
                 <SectionWithHeadingAndCreateButton
-                  heading="还没有简历？"
-                  buttonText="从头开始创建"
+                  heading={translate("noResume")}
+                  buttonText={translate("createFromScratch")}
                 />
               </>
             )}
@@ -41,14 +79,17 @@ export default function ImportResume() {
           <>
             {!hasAddedResume && (
               <>
+                {" "}
                 <SectionWithHeadingAndCreateButton
-                  heading="浏览器中保存了您之前的会话数据"
-                  buttonText="继续上次的工作"
+                  heading={translate("savedSession")}
+                  buttonText={translate("continueWork")}
                 />
                 <OrDivider />
               </>
             )}
-            <h1 className="font-semibold text-gray-900">使用新简历覆盖数据</h1>
+            <h1 className="font-semibold text-gray-900">
+              {translate("overrideData")}
+            </h1>
             <ResumeDropzone
               onFileUrlChange={onFileUrlChange}
               className="mt-5"
@@ -60,13 +101,23 @@ export default function ImportResume() {
   );
 }
 
-const OrDivider = () => (
-  <div className="mx-[-2.5rem] flex items-center pb-6 pt-8" aria-hidden="true">
-    <div className="flex-grow border-t border-gray-200" />
-    <span className="mx-2 mt-[-2px] flex-shrink text-lg text-gray-400">或</span>
-    <div className="flex-grow border-t border-gray-200" />
-  </div>
-);
+const OrDivider = () => {
+  const { language } = useLanguage();
+  const orText = language === "en" ? "or" : "或";
+
+  return (
+    <div
+      className="mx-[-2.5rem] flex items-center pb-6 pt-8"
+      aria-hidden="true"
+    >
+      <div className="flex-grow border-t border-gray-200" />
+      <span className="mx-2 mt-[-2px] flex-shrink text-lg text-gray-400">
+        {orText}
+      </span>
+      <div className="flex-grow border-t border-gray-200" />
+    </div>
+  );
+};
 
 const SectionWithHeadingAndCreateButton = ({
   heading,

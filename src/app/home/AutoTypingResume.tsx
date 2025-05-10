@@ -1,14 +1,16 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { ResumePDF } from "components/Resume/ResumePDF";
 import { initialSettings } from "lib/redux/settingsSlice";
 import { ResumeIframeCSR } from "components/Resume/ResumeIFrame";
-import { START_HOME_RESUME, END_HOME_RESUME } from "home/constants";
+import { START_HOME_RESUME, getResumeByLang } from "home/constants";
 import { makeObjectCharIterator } from "lib/make-object-char-iterator";
 import { useTailwindBreakpoints } from "lib/hooks/useTailwindBreakpoints";
 import { getAllTemplates } from "components/Resume/ResumePDF/templates";
 import { TemplateSelector } from "home/TemplateSelector";
 import { deepClone } from "lib/deep-clone";
+import { useLanguage } from "../i18n/LanguageContext";
+import React from "react";
 
 // countObjectChar(END_HOME_RESUME) -> ~1800 chars
 const INTERVAL_MS = 16.6; // 20 Intervals Per Second
@@ -18,14 +20,22 @@ const CHARS_PER_INTERVAL = 28;
 //  9 CHARS_PER_INTERVAL -> ~1800 / (20*9) = 10s
 
 export const AutoTypingResume = () => {
+  const { language } = useLanguage();
+
+  // 根据当前语言获取对应的示例简历
+  const endResume = getResumeByLang(language);
+
   // 预先为起始状态添加照片，确保一开始就显示图片
-  const modifiedStartResume = {
-    ...START_HOME_RESUME,
-    profile: {
-      ...START_HOME_RESUME.profile,
-      photoUrl: END_HOME_RESUME.profile.photoUrl,
-    },
-  };
+  const modifiedStartResume = React.useMemo(
+    () => ({
+      ...START_HOME_RESUME,
+      profile: {
+        ...START_HOME_RESUME.profile,
+        photoUrl: endResume.profile.photoUrl,
+      },
+    }),
+    [endResume.profile.photoUrl]
+  );
 
   const [resume, setResume] = useState(modifiedStartResume);
   const [settings, setSettings] = useState({
@@ -51,7 +61,7 @@ export const AutoTypingResume = () => {
 
   // 预加载简历中的图片
   useEffect(() => {
-    const photoUrl = END_HOME_RESUME.profile.photoUrl;
+    const photoUrl = endResume.profile.photoUrl;
 
     if (photoUrl) {
       const img = new window.Image();
@@ -65,57 +75,76 @@ export const AutoTypingResume = () => {
     } else {
       setImagesPreloaded(true);
     }
-  }, []);
+  }, [endResume.profile.photoUrl]);
 
+  // 确保在组件卸载时清除interval
   useEffect(() => {
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
     };
   }, []);
 
   // 创建一个自定义的简历更新函数，确保图片在动画过程中不会被修改
-  const createResumeWithPreservedImage = (
-    currentResume: any,
-    updatedResume: any
-  ) => {
-    // 深度克隆更新后的简历
-    const result = deepClone(updatedResume);
+  const createResumeWithPreservedImage = useCallback(
+    (currentResume: any, updatedResume: any) => {
+      // 深度克隆更新后的简历
+      const result = deepClone(updatedResume);
 
-    // 确保图片URL保持不变（使用最终图片）
-    if (END_HOME_RESUME.profile?.photoUrl && result.profile) {
-      result.profile.photoUrl = END_HOME_RESUME.profile.photoUrl;
-    }
-
-    return result;
-  };
-
-  useEffect(() => {
-    // 确保图片已预加载完成并且在桌面端才开始打字效果
-    if (!md || !imagesPreloaded) {
-      if (!md) {
-        // 在移动端直接显示完整简历
-        setResume(END_HOME_RESUME);
-        setIsComplete(true);
+      // 确保图片URL保持不变（使用当前语言的最终图片）
+      if (endResume.profile?.photoUrl && result.profile) {
+        result.profile.photoUrl = endResume.profile.photoUrl;
       }
-      return;
+
+      return result;
+    },
+    [endResume.profile.photoUrl]
+  );
+
+  // 当语言改变时更新简历
+  useEffect(() => {
+    if (isComplete) {
+      const currentEndResume = getResumeByLang(language);
+      setResume(currentEndResume);
+    }
+  }, [language, isComplete]);
+
+  // 重启打字效果
+  const restartTypingEffect = useCallback(() => {
+    // 清除现有interval
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
 
-    // Auto type resume with interval
+    // 重置完成状态
+    setIsComplete(false);
+
+    // 获取当前语言的简历
+    const currentEndResume = getResumeByLang(language);
+
+    // 设置初始状态
+    setResume(modifiedStartResume);
+
+    // 创建迭代器
     const resumeCharIterator = makeObjectCharIterator(
       modifiedStartResume,
-      END_HOME_RESUME,
+      currentEndResume,
       CHARS_PER_INTERVAL
     );
-    let iter = resumeCharIterator.next();
 
+    let iter = resumeCharIterator.next();
     if (!iter.done) {
-      // 使用自定义函数处理更新，确保图片不会闪烁
-      const updatedResume = createResumeWithPreservedImage(resume, iter.value);
+      const updatedResume = createResumeWithPreservedImage(
+        modifiedStartResume,
+        iter.value
+      );
       setResume(updatedResume);
     }
 
+    // 设置interval
     intervalRef.current = setInterval(() => {
       iter = resumeCharIterator.next();
       if (iter.done) {
@@ -125,14 +154,25 @@ export const AutoTypingResume = () => {
           intervalRef.current = null;
         }
       } else {
-        // 使用自定义函数处理更新，确保图片不会闪烁
         const updatedResume = createResumeWithPreservedImage(
-          resume,
+          modifiedStartResume,
           iter.value
         );
         setResume(updatedResume);
       }
     }, INTERVAL_MS);
+  }, [modifiedStartResume, language, createResumeWithPreservedImage]);
+
+  // 当语言变化时重启打字效果
+  useEffect(() => {
+    if (md && imagesPreloaded) {
+      restartTypingEffect();
+    } else if (!md) {
+      // 在移动端直接显示完整简历
+      const currentEndResume = getResumeByLang(language);
+      setResume(currentEndResume);
+      setIsComplete(true);
+    }
 
     return () => {
       if (intervalRef.current) {
@@ -140,25 +180,35 @@ export const AutoTypingResume = () => {
         intervalRef.current = null;
       }
     };
-  }, [md, imagesPreloaded]);
+  }, [md, imagesPreloaded, language, restartTypingEffect]);
+  // 根据屏幕尺寸获取适合的缩放比例
+  const getScaleForScreen = () => {
+    if (!md) {
+      // 移动设备使用更小的缩放比例
+      return 0.35; // 移动端缩放比例
+    }
+    return 0.6; // 桌面端缩放比例
+  };
 
   return (
-    <div className="relative mt-10">
-      <div className="absolute -top-12 left-0 right-0 flex justify-center">
+    <div className="relative mt-4 sm:mt-6 md:mt-10">
+      <div className="absolute -top-10 left-0 right-0 flex justify-center sm:-top-12">
         <TemplateSelector
           templates={templates}
           currentTemplate={settings.template}
           onTemplateChange={handleTemplateChange}
         />
       </div>
-      <ResumeIframeCSR
-        documentSize="A4"
-        scale={0.6}
-        enablePDFViewer={false}
-        showToolbar={false}
-      >
-        <ResumePDF resume={resume} settings={settings} isPDF={false} />
-      </ResumeIframeCSR>
+      <div className="mx-auto max-w-full">
+        <ResumeIframeCSR
+          documentSize="A4"
+          scale={getScaleForScreen()}
+          enablePDFViewer={false}
+          showToolbar={false}
+        >
+          <ResumePDF resume={resume} settings={settings} isPDF={false} />
+        </ResumeIframeCSR>
+      </div>
     </div>
   );
 };

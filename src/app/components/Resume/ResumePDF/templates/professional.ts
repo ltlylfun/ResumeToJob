@@ -14,7 +14,9 @@ export const professionalTemplate: Template = {
       section: {
         marginTop: spacing[6],
         paddingLeft: spacing[2],
-        borderLeft: `2pt solid ${themeColor}`,
+        borderLeftWidth: "2pt",
+        borderLeftStyle: "solid",
+        borderLeftColor: themeColor,
       },
       sectionTitle: {
         color: themeColor,
@@ -38,7 +40,10 @@ export const professionalTemplate: Template = {
         color: themeColor,
         backgroundColor: `${themeColor}10`,
         padding: `${spacing[0.5]} ${spacing[1.5]}`,
-        borderRadius: "3pt",
+        borderTopLeftRadius: "3pt",
+        borderTopRightRadius: "3pt",
+        borderBottomRightRadius: "3pt",
+        borderBottomLeftRadius: "3pt",
       },
       company: {
         fontWeight: "bold",

@@ -12,6 +12,7 @@ import addPdfSrc from "public/assets/add-pdf.svg";
 import Image from "next/image";
 import { cx } from "lib/cx";
 import { deepClone } from "lib/deep-clone";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const defaultFileState = {
   name: "",
@@ -28,10 +29,55 @@ export const ResumeDropzone = ({
   className?: string;
   playgroundView?: boolean;
 }) => {
+  const { language } = useLanguage();
   const [file, setFile] = useState(defaultFileState);
   const [isHoveredOnDropzone, setIsHoveredOnDropzone] = useState(false);
   const [hasNonPdfFile, setHasNonPdfFile] = useState(false);
   const router = useRouter();
+
+  // 翻译函数
+  const translate = (key: string) => {
+    const translations: Record<string, Record<string, string>> = {
+      dragDrop: {
+        en: "Drag & drop your resume PDF here",
+        zh: "拖放您的简历PDF到这里",
+      },
+      or: {
+        en: "or",
+        zh: "或",
+      },
+      browse: {
+        en: "Browse files",
+        zh: "浏览文件",
+      },
+      privacy: {
+        en: "Your data is secure and never leaves your device",
+        zh: "您的数据安全，绝不会离开您的设备",
+      },
+      fileSize: {
+        en: "File Size",
+        zh: "文件大小",
+      },
+      remove: {
+        en: "Remove",
+        zh: "移除",
+      },
+      import: {
+        en: "Import and Continue",
+        zh: "导入并继续",
+      },
+      warning: {
+        en: "Please upload a PDF file",
+        zh: "请上传PDF文件",
+      },
+      note: {
+        en: "Note: Parser works best on single-column resumes",
+        zh: "注意：解析器对单列简历效果最佳",
+      },
+    };
+
+    return translations[key]?.[language] || key;
+  };
 
   const hasFile = Boolean(file.name);
 
@@ -99,99 +145,98 @@ export const ResumeDropzone = ({
       className={cx(
         "flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 ",
         isHoveredOnDropzone && "border-sky-400",
-        playgroundView ? "pb-6 pt-4" : "py-12",
-        className
+        hasFile ? "pb-6 pt-6" : "pb-10 pt-10",
+        className ?? ""
       )}
-      onDragOver={(event) => {
-        event.preventDefault();
+      onDragOver={(e) => {
+        e.preventDefault();
         setIsHoveredOnDropzone(true);
       }}
-      onDragLeave={() => setIsHoveredOnDropzone(false)}
+      onDragLeave={(e) => {
+        e.preventDefault();
+        setIsHoveredOnDropzone(false);
+      }}
       onDrop={onDrop}
     >
-      <div
-        className={cx(
-          "text-center",
-          playgroundView ? "space-y-2" : "space-y-3"
-        )}
-      >
-        {!playgroundView && (
-          <Image
-            src={addPdfSrc}
-            className="mx-auto h-14 w-14"
-            alt="Add pdf"
-            aria-hidden="true"
-            priority
-          />
-        )}
-        {!hasFile ? (
+      <div className="text-center">
+        {hasFile ? (
           <>
-            <p
-              className={cx(
-                "pt-3 text-gray-700",
-                !playgroundView && "text-lg font-semibold"
-              )}
-            >
-              浏览或拖放PDF文件至此
-            </p>
-            <p className="flex text-sm text-gray-500">
-              <LockClosedIcon className="mr-1 mt-1 h-3 w-3 text-gray-400" />
-              文件数据仅在本地使用，不会离开您的浏览器
+            <div className="flex flex-wrap items-center justify-between gap-1">
+              <span className="text-sm font-semibold text-gray-500">
+                {file.name}
+              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-500">
+                  {translate("fileSize")}: {getFileSizeString(file.size)}
+                </span>
+                <button
+                  onClick={onRemove}
+                  className="ml-1 rounded-full p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                >
+                  <span className="sr-only">{translate("remove")}</span>
+                  <XMarkIcon className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+            {!playgroundView && (
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={onImportClick}
+              >
+                {translate("import")} <span aria-hidden="true">→</span>
+              </button>
+            )}
+            <p className={cx(" text-gray-500", !playgroundView && "mt-6")}>
+              {translate("note")}
             </p>
           </>
         ) : (
-          <div className="flex items-center justify-center gap-3 pt-3">
-            <div className="pl-7 font-semibold text-gray-900">
-              {file.name} - {getFileSizeString(file.size)}
-            </div>
-            <button
-              type="button"
-              className="outline-theme-blue rounded-md p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
-              title="移除文件"
-              onClick={onRemove}
-            >
-              <XMarkIcon className="h-6 w-6" />
-            </button>
-          </div>
-        )}
-        <div className="pt-4">
-          {!hasFile ? (
-            <>
+          <>
+            <Image
+              src={addPdfSrc}
+              className="mx-auto h-11 w-11"
+              alt="Add PDF"
+            />
+            <div className="mt-3 flex text-sm text-gray-600">
               <label
-                className={cx(
-                  "within-outline-theme-purple cursor-pointer rounded-full px-6 pb-2.5 pt-2 font-semibold shadow-sm",
-                  playgroundView ? "border" : "bg-primary"
-                )}
+                htmlFor="file-upload"
+                className="relative cursor-pointer rounded-md font-medium text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 hover:text-blue-500"
               >
-                浏览文件
+                <span>
+                  {hasNonPdfFile ? translate("warning") : translate("dragDrop")}
+                </span>
                 <input
+                  id="file-upload"
+                  name="file-upload"
                   type="file"
                   className="sr-only"
-                  accept=".pdf"
+                  accept="application/pdf"
                   onChange={onInputChange}
                 />
               </label>
-              {hasNonPdfFile && (
-                <p className="mt-6 text-red-400">仅支持PDF文件格式</p>
-              )}
-            </>
-          ) : (
-            <>
-              {!playgroundView && (
-                <button
-                  type="button"
-                  className="btn-primary"
-                  onClick={onImportClick}
-                >
-                  导入并继续 <span aria-hidden="true">→</span>
-                </button>
-              )}
-              <p className={cx(" text-gray-500", !playgroundView && "mt-6")}>
-                注意：{!playgroundView ? "导入" : "解析器"}对单列简历效果最佳
-              </p>
-            </>
-          )}
-        </div>
+              <p className="pl-1">{translate("or")}</p>
+              <label
+                htmlFor="file-upload-browse"
+                className="relative ml-1 cursor-pointer rounded-md font-medium text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 hover:text-blue-500"
+              >
+                <span>{translate("browse")}</span>
+                <input
+                  id="file-upload-browse"
+                  name="file-upload-browse"
+                  type="file"
+                  className="sr-only"
+                  accept="application/pdf"
+                  onChange={onInputChange}
+                />
+              </label>
+            </div>
+            <div className="mt-3 flex items-center justify-center gap-2">
+              <LockClosedIcon className="ml-3 h-3 w-3 text-gray-400" />
+              <p className="text-xs text-gray-500">{translate("privacy")}</p>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

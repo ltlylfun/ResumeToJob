@@ -4,17 +4,58 @@ import {
   BulletListTextarea,
 } from "components/ResumeForm/Form/InputGroup";
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectProjects, changeProjects } from "lib/redux/resumeSlice";
 import type { ResumeProject } from "lib/redux/types";
+import { useLanguage } from "../../i18n/LanguageContext";
+import { changeFormHeading } from "lib/redux/settingsSlice";
 
 export const ProjectsForm = () => {
   const projects = useAppSelector(selectProjects);
   const dispatch = useAppDispatch();
+  const { language } = useLanguage();
   const showDelete = projects.length > 1;
+  const translate = (key: string) => {
+    const translations: Record<string, Record<string, string>> = {
+      projects: {
+        en: "Projects",
+        zh: "项目经历",
+      },
+      addProject: {
+        en: "Add Project",
+        zh: "添加项目",
+      },
+      deleteProject: {
+        en: "Delete Project",
+        zh: "删除项目",
+      },
+      projectName: {
+        en: "Project Name",
+        zh: "项目名称",
+      },
+      date: {
+        en: "Date",
+        zh: "日期",
+      },
+      projectDescription: {
+        en: "Project Description",
+        zh: "项目描述",
+      },
+    };
+
+    return translations[key]?.[language] || key;
+  };
+
+  // 更新表单标题
+  useEffect(() => {
+    dispatch(
+      changeFormHeading({ field: "projects", value: translate("projects") })
+    );
+  }, [dispatch, language]);
 
   return (
-    <Form form="projects" addButtonText="添加项目">
+    <Form form="projects" addButtonText={translate("addProject")}>
       {projects.map(({ project, date, descriptions }, idx) => {
         const handleProjectChange = (
           ...[
@@ -35,27 +76,27 @@ export const ProjectsForm = () => {
             showMoveUp={showMoveUp}
             showMoveDown={showMoveDown}
             showDelete={showDelete}
-            deleteButtonTooltipText={"删除项目"}
+            deleteButtonTooltipText={translate("deleteProject")}
           >
             <Input
               name="project"
-              label="项目名称"
+              label={translate("projectName")}
               placeholder=""
               value={project}
               onChange={handleProjectChange}
               labelClassName="col-span-4"
-            />
+            />{" "}
             <Input
               name="date"
-              label="日期"
+              label={translate("date")}
               placeholder=""
               value={date}
               onChange={handleProjectChange}
               labelClassName="col-span-2"
-            />
+            />{" "}
             <BulletListTextarea
               name="descriptions"
-              label="项目描述"
+              label={translate("projectDescription")}
               placeholder=""
               value={descriptions}
               onChange={handleProjectChange}

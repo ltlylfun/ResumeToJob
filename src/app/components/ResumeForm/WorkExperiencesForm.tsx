@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Form, FormSection } from "components/ResumeForm/Form";
 import {
   Input,
@@ -10,15 +11,61 @@ import {
   selectWorkExperiences,
 } from "lib/redux/resumeSlice";
 import type { ResumeWorkExperience } from "lib/redux/types";
+import { useLanguage } from "../../i18n/LanguageContext";
+import { changeFormHeading } from "lib/redux/settingsSlice";
 
 export const WorkExperiencesForm = () => {
   const workExperiences = useAppSelector(selectWorkExperiences);
   const dispatch = useAppDispatch();
+  const { language } = useLanguage();
+  const translate = (key: string) => {
+    const translations: Record<string, Record<string, string>> = {
+      workExperiences: {
+        en: "Work Experience",
+        zh: "工作经历",
+      },
+      addWork: {
+        en: "Add Work Experience",
+        zh: "添加工作经历",
+      },
+      deleteWork: {
+        en: "Delete Work Experience",
+        zh: "删除工作经历",
+      },
+      company: {
+        en: "Company",
+        zh: "公司",
+      },
+      position: {
+        en: "Position",
+        zh: "职位",
+      },
+      date: {
+        en: "Date",
+        zh: "日期",
+      },
+      responsibilities: {
+        en: "Responsibilities",
+        zh: "职责描述",
+      },
+    };
 
+    return translations[key]?.[language] || key;
+  };
   const showDelete = workExperiences.length > 1;
 
+  // 更新表单标题
+  useEffect(() => {
+    dispatch(
+      changeFormHeading({
+        field: "workExperiences",
+        value: translate("workExperiences"),
+      })
+    );
+  }, [dispatch, language]);
+
   return (
-    <Form form="workExperiences" addButtonText="添加工作经历">
+    <Form form="workExperiences" addButtonText={translate("addWork")}>
       {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
         const handleWorkExperienceChange = (
           ...[
@@ -42,37 +89,44 @@ export const WorkExperiencesForm = () => {
             showMoveUp={showMoveUp}
             showMoveDown={showMoveDown}
             showDelete={showDelete}
-            deleteButtonTooltipText="删除工作经历"
+            deleteButtonTooltipText={translate("deleteWork")}
           >
+            {" "}
             <Input
-              label="公司"
+              label={translate("company")}
               labelClassName="col-span-full"
               name="company"
               placeholder=""
               value={company}
               onChange={handleWorkExperienceChange}
-            />
+            />{" "}
             <Input
-              label="职位"
+              label={translate("position")}
               labelClassName="col-span-4"
               name="jobTitle"
               placeholder=""
               value={jobTitle}
               onChange={handleWorkExperienceChange}
-            />
+            />{" "}
             <Input
-              label="日期"
+              label={translate("date")}
               labelClassName="col-span-2"
               name="date"
-              placeholder=""
+              placeholder={
+                language === "en"
+                  ? "e.g.: 2023.10 - 2023.12"
+                  : "例如: 2023.10 - 2023.12"
+              }
               value={date}
               onChange={handleWorkExperienceChange}
-            />
+            />{" "}
             <BulletListTextarea
-              label="职责描述"
+              label={translate("responsibilities")}
               labelClassName="col-span-full"
               name="descriptions"
-              placeholder=""
+              placeholder={
+                language === "en" ? "Add responsibilities" : "添加职责描述"
+              }
               value={descriptions}
               onChange={handleWorkExperienceChange}
             />

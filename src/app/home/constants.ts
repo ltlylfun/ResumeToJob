@@ -7,8 +7,9 @@ import {
 import type { Resume } from "lib/redux/types";
 import { deepClone } from "lib/deep-clone";
 import kenan from "public/assets/kenan.jpg";
+import { SupportedLanguage } from "../i18n/translations";
 
-export const END_HOME_RESUME: Resume = {
+export const END_HOME_RESUME_ZH: Resume = {
   profile: {
     name: "江户川 柯南",
     summary: ["帝丹高中-休学中", "帝丹小学-在读"], // 修改为数组
@@ -69,18 +70,36 @@ export const END_HOME_RESUME: Resume = {
   },
 };
 
+// // 英文示例简历
+// export const END_HOME_RESUME_EN: Resume = {};
+
+// 根据语言选择不同的示例简历
+export const getResumeByLang = (lang: SupportedLanguage): Resume => {
+  // 无论语言设置如何，总是返回中文版简历
+  return END_HOME_RESUME_ZH;
+};
+
+// 导出默认示例简历（用于向后兼容）
+export const END_HOME_RESUME = END_HOME_RESUME_ZH;
+
+// 创建简历起始状态
 export const START_HOME_RESUME: Resume = {
-  profile: deepClone(initialProfile),
-  workExperiences: END_HOME_RESUME.workExperiences.map(() =>
+  profile: {
+    ...deepClone(initialProfile),
+    photoUrl: END_HOME_RESUME_ZH.profile.photoUrl, // 确保照片在开始就显示
+  },
+  workExperiences: END_HOME_RESUME_ZH.workExperiences.map(() =>
     deepClone(initialWorkExperience)
   ),
   educations: [],
   projects: [deepClone(initialProject)],
   skills: {
-    featuredSkills: END_HOME_RESUME.skills.featuredSkills.map((item) => ({
-      skill: "",
-      rating: item.rating,
-    })),
+    featuredSkills: END_HOME_RESUME_ZH.skills.featuredSkills.map(
+      (item: any) => ({
+        skill: "",
+        rating: item.rating,
+      })
+    ),
     descriptions: [],
   },
   custom: {

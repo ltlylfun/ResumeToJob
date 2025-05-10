@@ -14,11 +14,12 @@ export const useRegisterReactPDFFont = () => {
         family: fontFamily,
         fonts: [
           {
-            src: `fonts/${fontFamily}-Regular.ttf`,
+            src: `/fonts/${fontFamily}-Regular.ttf`,
+            fontWeight: 400, // 使用数字400替代"normal"更加明确
           },
           {
-            src: `fonts/${fontFamily}-Bold.ttf`,
-            fontWeight: "bold",
+            src: `/fonts/${fontFamily}-Bold.ttf`,
+            fontWeight: 700, // 使用数字700替代"bold"更加明确
           },
         ],
       });

@@ -10,7 +10,9 @@ export const elegantTemplate: Template = {
       headerText: {},
       content: {
         padding: `${spacing[4]} ${spacing[10]}`,
-        border: `1pt solid ${themeColor}30`,
+        borderWidth: "1pt",
+        borderStyle: "solid",
+        borderColor: themeColor,
         margin: spacing[4],
       },
       section: {
@@ -24,8 +26,12 @@ export const elegantTemplate: Template = {
         color: themeColor,
         marginBottom: spacing[4],
         textAlign: "center",
-        borderTop: `0.5pt solid ${themeColor}`,
-        borderBottom: `0.5pt solid ${themeColor}`,
+        borderTopWidth: "0.5pt",
+        borderTopStyle: "solid",
+        borderTopColor: themeColor,
+        borderBottomWidth: "0.5pt",
+        borderBottomStyle: "solid",
+        borderBottomColor: themeColor,
         paddingTop: spacing[1],
         paddingBottom: spacing[1],
       },
@@ -43,7 +49,6 @@ export const elegantTemplate: Template = {
       },
       date: {
         fontSize: "9pt",
-        fontStyle: "italic",
       },
       company: {
         fontWeight: "normal",
@@ -52,7 +57,6 @@ export const elegantTemplate: Template = {
         textTransform: "uppercase",
       },
       jobTitle: {
-        fontStyle: "italic",
         color: themeColor,
       },
       school: {
@@ -61,12 +65,10 @@ export const elegantTemplate: Template = {
         fontSize: "12pt",
         textTransform: "uppercase",
       },
-      degree: {
-        fontStyle: "italic",
-      },
+      degree: {},
       projectTitle: {
         fontWeight: "normal",
-        fontStyle: "italic",
+
         fontSize: "11pt",
         color: themeColor,
       },

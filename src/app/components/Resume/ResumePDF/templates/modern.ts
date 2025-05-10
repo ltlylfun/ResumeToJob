@@ -16,7 +16,9 @@ export const modernTemplate: Template = {
       },
       section: {
         marginTop: spacing[6],
-        borderBottom: `1pt solid ${themeColor}20`,
+        borderBottomWidth: "1pt",
+        borderBottomStyle: "solid",
+        borderBottomColor: `${themeColor}20`,
         paddingBottom: spacing[3],
       },
       sectionTitle: {
@@ -34,15 +36,12 @@ export const modernTemplate: Template = {
       },
       date: {
         color: themeColor,
-        fontStyle: "italic",
       },
       company: {
         fontWeight: "bold",
         fontSize: "12pt",
       },
-      jobTitle: {
-        fontStyle: "italic",
-      },
+      jobTitle: {},
       school: {
         fontWeight: "bold",
         fontSize: "12pt",

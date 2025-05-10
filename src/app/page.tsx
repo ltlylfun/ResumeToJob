@@ -4,12 +4,9 @@ import { FAQ } from "home/FAQ";
 import { CTA } from "home/CTA";
 import { Metadata } from "next";
 import { LogoFallingAnimation } from "components/animations/LogoFallingAnimation";
+import { getMetadata } from "./metadata";
 
-export const metadata: Metadata = {
-  title: "ResumeToJob - 专业简历生成器",
-  description:
-    "使用我们的免费简历生成器，轻松创建专业简历。多种精美模板可供选择，支持AI简历解析。",
-};
+export const metadata: Metadata = getMetadata("zh");
 
 export default function Home() {
   return (
