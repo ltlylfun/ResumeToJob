@@ -57,7 +57,7 @@ const getFAQItems = (language: string) => [
 
 export const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(-1);
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? -1 : index);
