@@ -15,14 +15,67 @@ import {
   selectShowBulletPoints,
   changeShowBulletPoints,
 } from "lib/redux/settingsSlice";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 export const ProfileForm = () => {
   const profile = useAppSelector(selectProfile);
   const dispatch = useAppDispatch();
+  const { language } = useLanguage();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { name, email, phone, url, summary, location, photoUrl } = profile;
   const form = "profile";
   const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
+
+  const translate = (key: string) => {
+    const translations: Record<string, Record<string, string>> = {
+      name: {
+        en: "Name",
+        zh: "姓名",
+      },
+      profile: {
+        en: "Profile",
+        zh: "个人简介",
+      },
+      email: {
+        en: "Email",
+        zh: "邮箱",
+      },
+      phone: {
+        en: "Phone",
+        zh: "电话",
+      },
+      website: {
+        en: "Website",
+        zh: "个人网站",
+      },
+      location: {
+        en: "Location",
+        zh: "所在地",
+      },
+      photo: {
+        en: "Photo",
+        zh: "照片",
+      },
+      uploadProfessionalPhoto: {
+        en: "Upload a professional photo",
+        zh: "上传专业证件照",
+      },
+      checkCarefully: {
+        en: "Check carefully",
+        zh: "仔细检查，别填错",
+      },
+      websiteExample: {
+        en: "e.g.: GitHub, blog, etc.",
+        zh: "如：github，博客之类的",
+      },
+      personalPhoto: {
+        en: "Personal Photo",
+        zh: "个人照片",
+      },
+    };
+
+    return translations[key]?.[language] || key;
+  };
 
   const handleProfileChange = (
     field: keyof ResumeProfile,
@@ -58,7 +111,7 @@ export const ProfileForm = () => {
     <BaseForm>
       <div className="grid grid-cols-6 gap-3">
         <Input
-          label="姓名"
+          label={translate("name")}
           labelClassName="col-span-full"
           name="name"
           placeholder=""
@@ -67,10 +120,9 @@ export const ProfileForm = () => {
         />
         <div className="relative col-span-full">
           <BulletListTextarea
-            label="个人简介"
-            labelClassName="col-span-full"
+            label={translate("summary")}
             name="summary"
-            placeholder=""
+            placeholder={translate("summaryPlaceholder")}
             value={summary}
             onChange={handleProfileChange}
             showBulletPoints={showBulletPoints}
@@ -83,40 +135,41 @@ export const ProfileForm = () => {
           </div>
         </div>
         <Input
-          label="邮箱"
+          label={translate("email")}
           labelClassName="col-span-4"
           name="email"
-          placeholder="仔细检查，别填错"
+          placeholder={translate("checkCarefully")}
           value={email}
           onChange={handleProfileChange}
         />
         <Input
-          label="电话"
+          label={translate("phone")}
           labelClassName="col-span-2"
           name="phone"
-          placeholder="仔细检查，别填错"
+          placeholder={translate("checkCarefully")}
           value={phone}
           onChange={handleProfileChange}
         />
         <Input
-          label="个人网站"
+          label={translate("website")}
           labelClassName="col-span-4"
           name="url"
-          placeholder="如：github，博客之类的"
+          placeholder={translate("websiteExample")}
           value={url}
           onChange={handleProfileChange}
         />
         <Input
-          label="所在地"
+          label={translate("location")}
           labelClassName="col-span-2"
           name="location"
           placeholder=""
           value={location}
           onChange={handleProfileChange}
         />
-
         <div className="col-span-full">
-          <label className="mb-1 block text-sm font-medium">照片</label>
+          <label className="mb-1 block text-sm font-medium">
+            {translate("photo")}
+          </label>
           <div className="flex items-center gap-4">
             <div className="relative">
               <input
@@ -135,7 +188,7 @@ export const ProfileForm = () => {
                   <Image
                     src={photoUrl}
                     className="rounded-md object-cover"
-                    alt="个人照片"
+                    alt={translate("personalPhoto")}
                     width={96}
                     height={96}
                     style={{ width: "100%", height: "100%" }}
@@ -156,7 +209,7 @@ export const ProfileForm = () => {
               )}
             </div>
             <div className="text-sm text-gray-500">
-              <p>上传专业证件照</p>
+              <p>{translate("uploadProfessionalPhoto")}</p>
             </div>
           </div>
         </div>
