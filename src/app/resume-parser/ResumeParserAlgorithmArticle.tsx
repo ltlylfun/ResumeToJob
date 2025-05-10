@@ -216,7 +216,7 @@ export const ResumeParserAlgorithmArticle = ({
         en: "And that is everything about the OpenResume parser algorithm :)",
         zh: "这就是OpenResume解析器算法的全部内容 :)",
       },
-      writtenBy: {
+      authorCredit: {
         en: "Written by",
         zh: "作者",
       },
@@ -556,7 +556,7 @@ export const ResumeParserAlgorithmArticle = ({
       </Paragraph>
       <Paragraph>{translate("conclusion")}</Paragraph>
       <Paragraph>
-        {translate("writtenBy")}{" "}
+        {translate("authorCredit")}{" "}
         <Link href="https://github.com/xitanggg">Xitang</Link>{" "}
         {translate("date")}
       </Paragraph>

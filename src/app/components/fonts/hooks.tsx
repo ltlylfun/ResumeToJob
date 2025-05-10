@@ -15,6 +15,7 @@ export const useRegisterReactPDFFont = () => {
         fonts: [
           {
             src: `/fonts/${fontFamily}-Regular.ttf`,
+            fontWeight: "normal", // 明确指定常规字体的字重
           },
           {
             src: `/fonts/${fontFamily}-Bold.ttf`,
