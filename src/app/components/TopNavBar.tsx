@@ -73,10 +73,10 @@ export const TopNavBar = () => {
               {text}
             </Link>
           ))}
-          <LanguageSwitcher />
+          <LanguageSwitcher />{" "}
           <div className="ml-1 mt-1 hidden sm:block">
             <iframe
-              src="https://ghbtns.com/github-btn.html?user=&repo=&type=star&count=true"
+              src="https://ghbtns.com/github-btn.html?user=ltlylfun&repo=ResumeToJob&type=star&count=true"
               width="100"
               height="20"
               className="overflow-hidden border-none"
