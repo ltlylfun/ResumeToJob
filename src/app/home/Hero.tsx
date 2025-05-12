@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
-import { AutoTypingResume } from "home/AutoTypingResume";
+import { ResumeCarousel } from "home/ResumeCarousel";
 import { FadeIn } from "components/animations/FadeIn";
 import { useLanguage } from "../i18n/LanguageContext";
 
@@ -97,9 +97,9 @@ export const Hero = () => {
         </FadeIn>
       </div>{" "}
       <FlexboxSpacer maxWidth={50} minWidth={0} className="hidden lg:block" />
-      {/* AutoTypingResume 组件只在大屏幕(lg及以上)显示 */}
-      <div className="hidden lg:mx-0 lg:mt-0 lg:block lg:w-4/12 lg:max-w-xl lg:px-0 lg:pt-24">
-        <AutoTypingResume />
+      {/* ResumeCarousel 组件只在大屏幕(lg及以上)显示 */}
+      <div className="hidden lg:mx-0 lg:mt-0 lg:block lg:w-4/12 lg:max-w-xl lg:px-0 lg:pt-10">
+        <ResumeCarousel />
       </div>
     </section>
   );
