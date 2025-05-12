@@ -1,7 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 import logoSrc from "public/logo-500.png";
 import { cx } from "lib/cx";
@@ -50,7 +49,7 @@ export const TopNavBar = () => {
       <div className="flex h-10 w-full items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <span className="sr-only">ResumeToJob</span>
-          <Image src={logoSrc} alt="Logo" className="h-8 w-auto" priority />
+          <img src={logoSrc.src} alt="Logo" className="h-8 w-auto" />
           <span className="text-lg font-semibold text-gray-800">
             ResumeToJob
           </span>

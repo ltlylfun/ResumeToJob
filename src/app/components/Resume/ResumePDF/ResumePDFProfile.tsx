@@ -1,5 +1,4 @@
 import { View, Image as PDFImage } from "@react-pdf/renderer";
-import Image from "next/image";
 import {
   ResumePDFIcon,
   type IconType,
@@ -79,13 +78,13 @@ export const ResumePDFProfile = ({
             alignItems: "center",
           }}
         >
-          <Image
+          <img
             src={photoUrl}
             alt="Profile"
-            fill
-            sizes="80pt"
             style={{
               objectFit: "contain", // 修改为contain而不是cover，以保持原始比例
+              width: "100%",
+              height: "100%",
             }}
           />
         </div>

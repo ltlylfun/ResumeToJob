@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import logoSrc from "public/logo-500.png";
 
 interface LogoProps {
@@ -139,12 +138,14 @@ export const LogoFallingAnimation = ({
             transition: "transform 0.1s linear",
           }}
         >
-          <Image
-            src={logoSrc}
+          <img
+            src={logoSrc.src}
             alt=""
-            fill
-            sizes={`${logo.size}px`}
-            style={{ objectFit: "contain" }}
+            style={{
+              objectFit: "contain",
+              width: "100%",
+              height: "100%",
+            }}
           />
         </div>
       ))}

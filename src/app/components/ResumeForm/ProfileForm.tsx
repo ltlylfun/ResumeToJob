@@ -10,7 +10,6 @@ import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeProfile, selectProfile } from "lib/redux/resumeSlice";
 import { ResumeProfile } from "lib/redux/types";
 import { CameraIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
 import {
   selectShowBulletPoints,
   changeShowBulletPoints,
@@ -188,14 +187,11 @@ export const ProfileForm = () => {
                 className="flex h-24 w-24 cursor-pointer items-center justify-center rounded-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50"
               >
                 {photoUrl ? (
-                  <Image
+                  <img
                     src={photoUrl}
                     className="rounded-md object-cover"
                     alt={translate("personalPhoto")}
-                    width={96}
-                    height={96}
                     style={{ width: "100%", height: "100%" }}
-                    priority
                   />
                 ) : (
                   <CameraIcon className="h-8 w-8" />
