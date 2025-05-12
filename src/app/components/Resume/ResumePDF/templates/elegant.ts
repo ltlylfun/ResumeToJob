@@ -42,7 +42,7 @@ export const elegantTemplate: Template = {
       name: {
         fontSize: "24pt",
         fontWeight: "normal",
-        textAlign: "center",
+        textAlign: "left",
         marginBottom: spacing[1],
         letterSpacing: "1pt",
         color: themeColor,

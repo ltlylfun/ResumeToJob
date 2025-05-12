@@ -9,7 +9,6 @@ import {
 import { type ShowForm, initialSettings } from "lib/redux/settingsSlice";
 import { useRouter } from "next/navigation";
 import addPdfSrc from "public/assets/add-pdf.svg";
-import Image from "next/image";
 import { cx } from "lib/cx";
 import { deepClone } from "lib/deep-clone";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -193,8 +192,8 @@ export const ResumeDropzone = ({
           </>
         ) : (
           <>
-            <Image
-              src={addPdfSrc}
+            <img
+              src={addPdfSrc.src}
               className="mx-auto h-11 w-11"
               alt="Add PDF"
             />
