@@ -30,6 +30,8 @@
   </a>
 </p>
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ltlylfun/ResumeToJob)
+
 </div>
 
 ---
