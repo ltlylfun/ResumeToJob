@@ -1,7 +1,7 @@
 import "globals.css";
 import { TopNavBar } from "components/TopNavBar";
 import { Analytics } from "@vercel/analytics/react";
-import { LanguageProvider } from "./i18n/LanguageContext";
+import { Providers } from "./providers";
 import ClientLayout from "./ClientLayout";
 import { getMetadata } from "./metadata";
 
@@ -16,13 +16,13 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body>
-        <LanguageProvider>
+        <Providers>
           <ClientLayout>
             <TopNavBar />
             {children}
             <Analytics />
           </ClientLayout>
-        </LanguageProvider>
+        </Providers>
       </body>
     </html>
   );

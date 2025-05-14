@@ -1,19 +1,24 @@
 "use client";
 import { useEffect } from "react";
-import { useLanguage } from "./i18n/LanguageContext";
+import { useLanguageRedux } from "./lib/hooks/useLanguageRedux";
 import { DynamicMetadata } from "./components/DynamicMetadata";
+import { initializeLanguage } from "./lib/redux/languageSlice";
+import { useAppDispatch } from "./lib/redux/hooks";
 
 export default function ClientLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
+  const dispatch = useAppDispatch();
 
-  // 动态更新 HTML lang 属性
+  // 初始化语言设置
   useEffect(() => {
-    document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
-  }, [language]);
+    dispatch(initializeLanguage());
+  }, [dispatch]);
+
+  // 注：无需手动更新 HTML lang 属性，languageSlice 中会自动处理
 
   return (
     <>

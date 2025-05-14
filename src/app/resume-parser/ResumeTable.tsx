@@ -3,7 +3,7 @@ import type { Resume } from "lib/redux/types";
 import { initialEducation, initialWorkExperience } from "lib/redux/resumeSlice";
 import { deepClone } from "lib/deep-clone";
 import { cx } from "lib/cx";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 const TableRowHeader = ({ children }: { children: React.ReactNode }) => (
   <tr className="divide-x bg-gray-50">
@@ -40,7 +40,7 @@ const TableRow = ({
 );
 
 export const ResumeTable = ({ resume }: { resume: Resume }) => {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const translateLabels = (key: string) => {
     const translations = {
       profile: { en: "Personal Info", zh: "个人资料" },

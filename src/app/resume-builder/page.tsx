@@ -3,10 +3,10 @@ import { Provider } from "react-redux";
 import { store } from "lib/redux/store";
 import { ResumeForm } from "components/ResumeForm";
 import { Resume } from "components/Resume";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 export default function Create() {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
 
   // 翻译函数
   const translate = (key: string) => {

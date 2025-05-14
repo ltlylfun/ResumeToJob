@@ -3,10 +3,10 @@ import Link from "next/link";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { ResumeCarousel } from "home/ResumeCarousel";
 import { FadeIn } from "components/animations/FadeIn";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 export const Hero = () => {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
 
   // 翻译函数，处理所有文本内容
   const translate = (key: string): string => {

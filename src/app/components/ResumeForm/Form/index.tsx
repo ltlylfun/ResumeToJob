@@ -15,7 +15,7 @@ import {
   selectShowByForm,
   ShowForm,
 } from "lib/redux/settingsSlice";
-import { useLanguage } from "../../../i18n/LanguageContext";
+import { useLanguageRedux } from "../../../lib/hooks/useLanguageRedux";
 import {
   BuildingOfficeIcon,
   AcademicCapIcon,
@@ -66,7 +66,7 @@ export const Form = ({
 }) => {
   const showForm = useAppSelector(selectShowByForm(form));
   const heading = useAppSelector(selectHeadingByForm(form));
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
 
   // 翻译函数
   const translate = (key: string) => {

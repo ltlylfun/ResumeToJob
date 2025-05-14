@@ -15,7 +15,7 @@ import type {
   TextScores,
 } from "lib/parse-resume-from-pdf/types";
 import { extractProfile } from "lib/parse-resume-from-pdf/extract-resume-from-sections/extract-profile";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 export const ResumeParserAlgorithmArticle = ({
   textItems,
@@ -27,7 +27,7 @@ export const ResumeParserAlgorithmArticle = ({
   sections: ResumeSectionToLines;
 }) => {
   // 获取当前语言
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
 
   // 文章内容翻译函数
   const translate = (key: string) => {
@@ -569,8 +569,8 @@ const Step3SectionsTable = ({
 }: {
   sections: ResumeSectionToLines;
 }) => {
-  // 使用 useLanguage 钩子获取当前语言
-  const { language } = useLanguage();
+  // 使用 useLanguageRedux 钩子获取当前语言
+  const { language } = useLanguageRedux();
 
   // 翻译函数
   const translate = (key: string) => {

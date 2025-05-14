@@ -3,12 +3,12 @@ import { getHasUsedAppBefore } from "lib/redux/local-storage";
 import { ResumeDropzone } from "components/ResumeDropzone";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 export default function ImportResume() {
   const [hasUsedAppBefore, setHasUsedAppBefore] = useState(false);
   const [hasAddedResume, setHasAddedResume] = useState(false);
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
 
   const onFileUrlChange = (fileUrl: string) => {
     setHasAddedResume(Boolean(fileUrl));
@@ -102,7 +102,7 @@ export default function ImportResume() {
 }
 
 const OrDivider = () => {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const orText = language === "en" ? "or" : "或";
 
   return (

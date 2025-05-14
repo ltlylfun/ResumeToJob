@@ -20,7 +20,7 @@ import { ThemeForm } from "components/ResumeForm/ThemeForm";
 import { CustomForm } from "components/ResumeForm/CustomForm";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { cx } from "lib/cx";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
   workExperiences: WorkExperiencesForm,
@@ -36,7 +36,7 @@ export const ResumeForm = () => {
 
   const formsOrder = useAppSelector(selectFormsOrder);
   const [isHover, setIsHover] = useState(false);
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const dispatch = useAppDispatch();
 
   // 初始化所有表单标题

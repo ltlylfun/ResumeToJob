@@ -11,13 +11,13 @@ import {
   selectWorkExperiences,
 } from "lib/redux/resumeSlice";
 import type { ResumeWorkExperience } from "lib/redux/types";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 import { changeFormHeading } from "lib/redux/settingsSlice";
 
 export const WorkExperiencesForm = () => {
   const workExperiences = useAppSelector(selectWorkExperiences);
   const dispatch = useAppDispatch();
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const translate = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
       workExperiences: {

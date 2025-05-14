@@ -1,10 +1,10 @@
 "use client";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 export const DynamicMetadata = () => {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const pathname = usePathname();
 
   // 本地翻译函数，替代全局翻译

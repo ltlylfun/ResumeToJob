@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useState } from "react";
 import logoSrc from "public/logo-500.png";
 import { cx } from "lib/cx";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export const TopNavBar = () => {
   const pathName = usePathname();
   const isHomePage = pathName === "/";
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const [menuOpen, setMenuOpen] = useState(false);
 
   // 本地翻译函数，替代全局翻译

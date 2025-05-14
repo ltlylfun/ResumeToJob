@@ -6,11 +6,11 @@ import { ResumeIframeCSR } from "components/Resume/ResumeIFrame";
 import { getResumeByLang } from "home/constants";
 import { useTailwindBreakpoints } from "lib/hooks/useTailwindBreakpoints";
 import { getAllTemplates } from "components/Resume/ResumePDF/templates";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export const ResumeCarousel = () => {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const resume = getResumeByLang(language);
 
   // 模板相关状态

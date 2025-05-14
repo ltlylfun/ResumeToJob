@@ -11,7 +11,7 @@ import { Heading, Link, Paragraph } from "components/documentation";
 import { ResumeTable } from "resume-parser/ResumeTable";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { ResumeParserAlgorithmArticle } from "resume-parser/ResumeParserAlgorithmArticle";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 const RESUME_EXAMPLES = [
   {
@@ -51,7 +51,7 @@ const RESUME_EXAMPLES = [
 
 const defaultFileUrl = RESUME_EXAMPLES[0]["fileUrl"];
 export default function ResumeParser() {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const [fileUrl, setFileUrl] = useState(defaultFileUrl);
   const [textItems, setTextItems] = useState<TextItems>([]);
   const lines = groupTextItemsIntoLines(textItems || []);
