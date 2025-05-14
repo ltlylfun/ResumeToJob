@@ -53,6 +53,10 @@ ResumeToJob 是一个免费开源的在线简历制作工具，帮助求职者�
 - 🌏 支持中英文界面
 - 🖥️ 实时预览编辑效果
 
+### 🤝 参与贡献
+
+我们欢迎社区贡献者参与项目开发，特别是添加新的简历模板。请查看 [模板贡献指南](TEMPLATE_CONTRIBUTION.md) 了解如何创建和提交您的模板。
+
 ### 🔗 在线使用
 
 访问 [ResumeToJob](https://resume-to-job.vercel.app/) 立即体验
@@ -110,6 +114,10 @@ ResumeToJob is a free open-source online resume builder that helps job seekers q
 - 📤 One-click PDF export
 - 🌏 Multi-language interface (English & Chinese)
 - 🖥️ Real-time preview of edits
+
+### 🤝 Contribute
+
+We welcome community contributors to participate in project development, especially adding new resume templates. Check out the [Template Contribution Guide](TEMPLATE_CONTRIBUTION.md) to learn how to create and submit your templates.
 
 ### 🔗 Online Usage
 
