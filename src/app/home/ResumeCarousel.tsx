@@ -4,13 +4,12 @@ import { ResumePDF } from "components/Resume/ResumePDF";
 import { initialSettings } from "lib/redux/settingsSlice";
 import { ResumeIframeCSR } from "components/Resume/ResumeIFrame";
 import { getResumeByLang } from "home/constants";
-import { useTailwindBreakpoints } from "lib/hooks/useTailwindBreakpoints";
 import { getAllTemplates } from "components/Resume/ResumePDF/templates";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export const ResumeCarousel = () => {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const resume = getResumeByLang(language);
 
   // 模板相关状态
@@ -22,7 +21,6 @@ export const ResumeCarousel = () => {
     themeColor: "#0ea5e9",
   });
 
-  const { md } = useTailwindBreakpoints();
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   // 切换到下一个模板 - 使用 useCallback 包装
@@ -112,16 +110,13 @@ export const ResumeCarousel = () => {
     [templates, templateIndex, isTransitioning]
   );
 
-  // 根据屏幕尺寸获取适合的缩放比例
+  // 设置缩放比例 - 因为组件只在桌面端显示，所以直接返回桌面比例
   const getScaleForScreen = () => {
-    if (!md) {
-      return 0.35; // 移动端缩放比例
-    }
     return 0.6; // 桌面端缩放比例
   };
 
   return (
-    <div className="relative -mt-4 sm:-mt-3 md:-mt-2">
+    <div className="relative -mt-2">
       <div className="relative mx-auto max-w-full">
         {/* 简历展示 */}
         <div
@@ -141,7 +136,7 @@ export const ResumeCarousel = () => {
           </ResumeIframeCSR>
         </div>
 
-        {/* 轮播指示器和控制按钮 - 使用相对定位和统一边距 */}
+        {/* 轮播指示器和控制按钮 */}
         <div className="relative mt-4 flex w-full items-center justify-center">
           {/* 左箭头按钮 */}
           <button

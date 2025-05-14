@@ -2,7 +2,7 @@
 import { ReactNode } from "react";
 import { FadeIn } from "components/animations/FadeIn";
 import { StaggeredFadeIn } from "components/animations/StaggeredFadeIn";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 interface Feature {
   icon: ReactNode;
@@ -67,7 +67,7 @@ const getFeatures = (language: string): Feature[] => {
 };
 
 export const Features = () => {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
 
   // 翻译函数
   const translate = (key: string) => {

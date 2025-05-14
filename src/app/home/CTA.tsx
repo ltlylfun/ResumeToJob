@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
 import { FadeIn } from "components/animations/FadeIn";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 export const CTA = () => {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
 
   // 翻译函数，处理所有文本内容
   const translate = (key: string): string => {
@@ -20,10 +20,6 @@ export const CTA = () => {
       button: {
         en: "Get Started",
         zh: "立即开始",
-      },
-      testAts: {
-        en: "Test ATS Parsing",
-        zh: "测试ATS解析",
       },
     };
 
@@ -45,18 +41,12 @@ export const CTA = () => {
           <p className="mx-auto mt-4 max-w-lg text-base opacity-90 sm:mt-6 sm:text-lg">
             {translate("subtitle")}
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:mt-10 sm:flex-row">
+          <div className="mt-8 flex justify-center sm:mt-10">
             <Link
               href="/resume-import"
-              className="inline-block w-full rounded-full bg-white px-6 py-2.5 text-base font-medium text-sky-700 transition-all duration-300 hover:scale-105 hover:bg-blue-50 hover:shadow-lg sm:w-auto sm:px-8 sm:py-3 sm:text-lg"
+              className="inline-block rounded-full bg-white px-6 py-2.5 text-base font-medium text-sky-700 transition-all duration-300 hover:scale-105 hover:bg-blue-50 hover:shadow-lg sm:px-8 sm:py-3 sm:text-lg"
             >
               {translate("button")}
-            </Link>
-            <Link
-              href="/resume-parser"
-              className="inline-block w-full rounded-full border-2 border-white px-6 py-2.5 text-base font-medium text-white transition-all duration-300 hover:bg-white/10 hover:shadow-lg sm:w-auto sm:px-8 sm:py-3 sm:text-lg"
-            >
-              {translate("testAts")}
             </Link>
           </div>
         </div>

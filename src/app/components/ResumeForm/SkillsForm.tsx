@@ -14,12 +14,12 @@ import {
   selectThemeColor,
   changeFormHeading,
 } from "lib/redux/settingsSlice";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const SkillsForm = () => {
   const skills = useAppSelector(selectSkills);
   const dispatch = useAppDispatch();
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const { featuredSkills, descriptions } = skills;
   const form = "skills";
   const showBulletPoints = useAppSelector(selectShowBulletPoints(form));

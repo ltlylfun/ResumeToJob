@@ -1,3 +1,6 @@
+// 语言相关类型
+export type SupportedLanguage = "zh" | "en";
+
 export interface ResumeProfile {
   name: string;
   email: string;

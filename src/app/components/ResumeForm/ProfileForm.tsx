@@ -15,12 +15,12 @@ import {
   changeShowBulletPoints,
   changeFormHeading,
 } from "lib/redux/settingsSlice";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const ProfileForm = () => {
   const profile = useAppSelector(selectProfile);
   const dispatch = useAppDispatch();
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { name, email, phone, url, summary, location, photoUrl } = profile;
   const form = "profile";

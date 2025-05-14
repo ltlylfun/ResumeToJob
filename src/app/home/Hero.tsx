@@ -3,10 +3,10 @@ import Link from "next/link";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { ResumeCarousel } from "home/ResumeCarousel";
 import { FadeIn } from "components/animations/FadeIn";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 export const Hero = () => {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
 
   // 翻译函数，处理所有文本内容
   const translate = (key: string): string => {
@@ -16,32 +16,16 @@ export const Hero = () => {
         zh: "几分钟内创建专业简历",
       },
       subtitle: {
-        en: "Free, open-source resume builder and parser",
-        zh: "免费、开源的简历生成器和解析器",
+        en: "Free, open-source resume builder",
+        zh: "免费、开源的简历生成器",
       },
       createButton: {
         en: "Create Resume",
         zh: "创建简历",
       },
-      parseButton: {
-        en: "Parse Resume",
-        zh: "解析简历",
-      },
       noRegistration: {
         en: "No registration required",
         zh: "无需注册",
-      },
-      alreadyHaveResume: {
-        en: "Already have a resume? Use the",
-        zh: "已有简历？使用",
-      },
-      resumeParser: {
-        en: "Resume Parser",
-        zh: "简历解析器",
-      },
-      testATSReadability: {
-        en: "to test its ATS readability",
-        zh: "测试其 ATS 可读性",
       },
     };
 
@@ -83,18 +67,7 @@ export const Hero = () => {
           </div>
         </FadeIn>
 
-        <FadeIn direction="up" delay={600} duration={800}>
-          <p className="mb-8 mt-6 text-sm text-gray-600 lg:mb-0 lg:mt-36">
-            {translate("alreadyHaveResume")}{" "}
-            <Link
-              href="/resume-parser"
-              className="text-sky-600 underline-offset-2 transition-colors hover:text-sky-700 hover:underline"
-            >
-              {translate("resumeParser")}
-            </Link>{" "}
-            {translate("testATSReadability")}
-          </p>
-        </FadeIn>
+        {/* 已删除resume-parser相关内容 */}
       </div>{" "}
       <FlexboxSpacer maxWidth={50} minWidth={0} className="hidden lg:block" />
       {/* ResumeCarousel 组件只在大屏幕(lg及以上)显示 */}

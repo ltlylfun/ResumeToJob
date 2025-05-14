@@ -9,12 +9,12 @@ import {
   changeShowBulletPoints,
   changeFormHeading,
 } from "lib/redux/settingsSlice";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const CustomForm = () => {
   const custom = useAppSelector(selectCustom);
   const dispatch = useAppDispatch();
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const { descriptions } = custom;
   const form = "custom";
   const showBulletPoints = useAppSelector(selectShowBulletPoints(form));

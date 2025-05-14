@@ -1,9 +1,9 @@
 "use client";
-import { useLanguage } from "../i18n/LanguageContext";
-import { SupportedLanguage } from "../i18n/translations";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
+import { SupportedLanguage } from "../lib/redux/types";
 
 export const LanguageSwitcher = () => {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage } = useLanguageRedux();
 
   // 本地翻译函数，替代全局翻译
   const translate = () => {

@@ -5,13 +5,14 @@ import { parseResumeFromPdf } from "lib/parse-resume-from-pdf";
 import {
   getHasUsedAppBefore,
   saveStateToLocalStorage,
+  loadStateFromLocalStorage,
 } from "lib/redux/local-storage";
 import { type ShowForm, initialSettings } from "lib/redux/settingsSlice";
 import { useRouter } from "next/navigation";
 import addPdfSrc from "public/assets/add-pdf.svg";
 import { cx } from "lib/cx";
 import { deepClone } from "lib/deep-clone";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 const defaultFileState = {
   name: "",
@@ -28,7 +29,7 @@ export const ResumeDropzone = ({
   className?: string;
   playgroundView?: boolean;
 }) => {
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const [file, setFile] = useState(defaultFileState);
   const [isHoveredOnDropzone, setIsHoveredOnDropzone] = useState(false);
   const [hasNonPdfFile, setHasNonPdfFile] = useState(false);
@@ -135,7 +136,13 @@ export const ResumeDropzone = ({
       }
     }
 
-    saveStateToLocalStorage({ resume, settings });
+    // 获取当前语言状态
+    const state = loadStateFromLocalStorage() || {};
+    saveStateToLocalStorage({
+      resume,
+      settings,
+      language: state.language || { current: "zh" }, // 保持现有语言状态
+    });
     router.push("/resume-builder");
   };
 

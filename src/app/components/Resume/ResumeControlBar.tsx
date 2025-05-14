@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { usePDF } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 const ResumeControlBar = ({
   scale,
@@ -28,7 +28,7 @@ const ResumeControlBar = ({
     setScale,
     documentSize,
   });
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
 
   // 翻译函数
   const translate = (key: string) => {

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { FadeIn } from "components/animations/FadeIn";
 import { StaggeredFadeIn } from "components/animations/StaggeredFadeIn";
-import { useLanguage } from "../i18n/LanguageContext";
+import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
 // 获取基于当前语言的FAQ项目
 const getFAQItems = (language: string) => [
@@ -57,7 +57,7 @@ const getFAQItems = (language: string) => [
 
 export const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(-1);
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? -1 : index);

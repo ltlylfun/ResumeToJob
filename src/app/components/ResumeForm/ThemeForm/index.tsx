@@ -17,14 +17,14 @@ import {
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import type { FontFamily } from "components/fonts/constants";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
-import { useLanguage } from "../../../i18n/LanguageContext";
+import { useLanguageRedux } from "../../../lib/hooks/useLanguageRedux";
 
 export const ThemeForm = () => {
   const settings = useAppSelector(selectSettings);
   const { fontSize, fontFamily, documentSize, template } = settings;
   const themeColor = settings.themeColor || DEFAULT_THEME_COLOR;
   const dispatch = useAppDispatch();
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
 
   const handleSettingsChange = (field: GeneralSetting, value: string) => {
     dispatch(changeSettings({ field, value }));

@@ -7,7 +7,7 @@ import {
 import type { Resume } from "lib/redux/types";
 import { deepClone } from "lib/deep-clone";
 import kenan from "public/assets/kenan.jpg";
-import { SupportedLanguage } from "../i18n/translations";
+import { SupportedLanguage } from "../lib/redux/types";
 
 export const END_HOME_RESUME_ZH: Resume = {
   profile: {

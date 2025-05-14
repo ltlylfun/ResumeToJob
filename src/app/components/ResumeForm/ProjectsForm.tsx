@@ -8,13 +8,13 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectProjects, changeProjects } from "lib/redux/resumeSlice";
 import type { ResumeProject } from "lib/redux/types";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 import { changeFormHeading } from "lib/redux/settingsSlice";
 
 export const ProjectsForm = () => {
   const projects = useAppSelector(selectProjects);
   const dispatch = useAppDispatch();
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const showDelete = projects.length > 1;
   const translate = (key: string) => {
     const translations: Record<string, Record<string, string>> = {

@@ -14,12 +14,12 @@ import {
   selectShowBulletPoints,
   changeFormHeading,
 } from "lib/redux/settingsSlice";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const EducationsForm = () => {
   const educations = useAppSelector(selectEducations);
   const dispatch = useAppDispatch();
-  const { language } = useLanguage();
+  const { language } = useLanguageRedux();
   const showDelete = educations.length > 1;
   const form = "educations";
   const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
