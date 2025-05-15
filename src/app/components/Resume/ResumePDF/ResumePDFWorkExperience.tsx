@@ -54,7 +54,6 @@ export const ResumePDFWorkExperience = ({
             <View style={{ ...styles.flexCol, marginTop: spacing["1.5"] }}>
               <ResumePDFBulletList
                 items={descriptions}
-                showBulletPoints={false}
                 bulletStyle={templateStyles.bullet}
               />
             </View>

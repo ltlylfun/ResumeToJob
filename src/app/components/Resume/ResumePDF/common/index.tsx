@@ -80,11 +80,9 @@ export const ResumePDFText = ({
 
 export const ResumePDFBulletList = ({
   items,
-  showBulletPoints = true,
   bulletStyle = {},
 }: {
   items: string[];
-  showBulletPoints?: boolean;
   bulletStyle?: Style;
 }) => {
   return (
@@ -111,8 +109,8 @@ export const ResumePDFBulletList = ({
         }
         return (
           <View style={{ ...styles.flexRow }} key={idx}>
-            {/* 仅当项目确实是列表项时显示项目符号，或者当全局启用了项目符号且当前项不是列表时 */}
-            {(isList || (!isList && showBulletPoints)) && (
+            {/* 只有检测到列表项时才显示项目符号 */}
+            {isList && (
               <ResumePDFText
                 style={{
                   paddingLeft: spacing["2"],

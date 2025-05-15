@@ -12,13 +12,11 @@ export const ResumePDFSkills = ({
   heading,
   skills,
   themeColor,
-  showBulletPoints,
   templateStyles,
 }: {
   heading: string;
   skills: ResumeSkills;
   themeColor: string;
-  showBulletPoints: boolean;
   templateStyles: TemplateStyles;
 }) => {
   const { descriptions, featuredSkills } = skills;
@@ -66,7 +64,6 @@ export const ResumePDFSkills = ({
       <View style={{ ...styles.flexCol }}>
         <ResumePDFBulletList
           items={descriptions}
-          showBulletPoints={showBulletPoints}
           bulletStyle={templateStyles.bullet}
         />
       </View>
