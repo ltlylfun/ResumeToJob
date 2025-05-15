@@ -11,6 +11,7 @@ import {
   selectFormsOrder,
   changeFormHeading,
 } from "lib/redux/settingsSlice";
+import { EditorInstructions } from "./EditorInstructions";
 import { ProfileForm } from "components/ResumeForm/ProfileForm";
 import { WorkExperiencesForm } from "components/ResumeForm/WorkExperiencesForm";
 import { EducationsForm } from "components/ResumeForm/EducationsForm";
@@ -79,7 +80,6 @@ export const ResumeForm = () => {
 
     updateFormHeadings();
   }, [dispatch, language]);
-
   return (
     <div
       className={cx(
@@ -90,6 +90,7 @@ export const ResumeForm = () => {
       onMouseLeave={() => setIsHover(false)}
     >
       <section className="flex max-w-2xl flex-col gap-8 p-[var(--resume-padding)]">
+        <EditorInstructions />
         <ProfileForm />
         {formsOrder.map((form) => {
           const Component = formTypeToComponent[form];

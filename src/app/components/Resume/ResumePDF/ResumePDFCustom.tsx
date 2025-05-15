@@ -11,13 +11,11 @@ export const ResumePDFCustom = ({
   heading,
   custom,
   themeColor,
-  showBulletPoints,
   templateStyles,
 }: {
   heading: string;
   custom: ResumeCustom;
   themeColor: string;
-  showBulletPoints: boolean;
   templateStyles: TemplateStyles;
 }) => {
   const { descriptions } = custom;
@@ -32,7 +30,6 @@ export const ResumePDFCustom = ({
       <View style={{ ...styles.flexCol }}>
         <ResumePDFBulletList
           items={descriptions}
-          showBulletPoints={showBulletPoints}
           bulletStyle={templateStyles.bullet}
         />
       </View>

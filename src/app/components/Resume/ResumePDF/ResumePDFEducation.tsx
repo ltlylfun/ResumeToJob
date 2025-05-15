@@ -12,13 +12,11 @@ export const ResumePDFEducation = ({
   heading,
   educations,
   themeColor,
-  showBulletPoints,
   templateStyles,
 }: {
   heading: string;
   educations: ResumeEducation[];
   themeColor: string;
-  showBulletPoints: boolean;
   templateStyles: TemplateStyles;
 }) => {
   return (
@@ -63,7 +61,6 @@ export const ResumePDFEducation = ({
                 <View style={{ ...styles.flexCol, marginTop: spacing["1.5"] }}>
                   <ResumePDFBulletList
                     items={descriptions}
-                    showBulletPoints={showBulletPoints}
                     bulletStyle={templateStyles.bullet}
                   />
                 </View>

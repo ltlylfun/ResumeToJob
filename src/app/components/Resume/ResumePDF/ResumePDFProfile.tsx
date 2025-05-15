@@ -18,13 +18,11 @@ export const ResumePDFProfile = ({
   themeColor,
   isPDF,
   templateStyles,
-  showBulletPoints,
 }: {
   profile: ResumeProfile;
   themeColor: string;
   isPDF: boolean;
   templateStyles: TemplateStyles;
-  showBulletPoints: boolean;
 }) => {
   const { name, email, phone, url, summary, location, photoUrl } = profile;
   const iconProps = { email, phone, location, url };
@@ -119,7 +117,6 @@ export const ResumePDFProfile = ({
             <View style={{ marginTop: spacing["1"] }}>
               <ResumePDFBulletList
                 items={summary}
-                showBulletPoints={showBulletPoints}
                 bulletStyle={templateStyles.bullet}
               />
             </View>

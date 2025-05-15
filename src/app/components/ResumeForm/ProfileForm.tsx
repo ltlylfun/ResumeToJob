@@ -5,16 +5,11 @@ import {
   Textarea,
   BulletListTextarea,
 } from "components/ResumeForm/Form/InputGroup";
-import { BulletListIconButton } from "components/ResumeForm/Form/IconButton";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeProfile, selectProfile } from "lib/redux/resumeSlice";
 import { ResumeProfile } from "lib/redux/types";
 import { CameraIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import {
-  selectShowBulletPoints,
-  changeShowBulletPoints,
-  changeFormHeading,
-} from "lib/redux/settingsSlice";
+import { changeFormHeading } from "lib/redux/settingsSlice";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const ProfileForm = () => {
@@ -24,7 +19,6 @@ export const ProfileForm = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { name, email, phone, url, summary, location, photoUrl } = profile;
   const form = "profile";
-  const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
 
   const translate = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
@@ -76,16 +70,11 @@ export const ProfileForm = () => {
 
     return translations[key]?.[language] || key;
   };
-
   const handleProfileChange = (
     field: keyof ResumeProfile,
     value: string | string[]
   ) => {
     dispatch(changeProfile({ field, value: value as any }));
-  };
-
-  const handleShowBulletPoints = (value: boolean) => {
-    dispatch(changeShowBulletPoints({ field: form, value }));
   };
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,22 +108,15 @@ export const ProfileForm = () => {
           placeholder=""
           value={name}
           onChange={handleProfileChange}
-        />
-        <div className="relative col-span-full">
+        />{" "}
+        <div className="col-span-full">
           <BulletListTextarea
             label={translate("summary")}
             name="summary"
             placeholder={translate("summaryPlaceholder")}
             value={summary}
             onChange={handleProfileChange}
-            showBulletPoints={showBulletPoints}
           />
-          <div className="absolute left-[7.7rem] top-[0.07rem]">
-            <BulletListIconButton
-              showBulletPoints={showBulletPoints}
-              onClick={handleShowBulletPoints}
-            />
-          </div>
         </div>
         <Input
           label={translate("email")}

@@ -5,7 +5,6 @@ import {
   ArrowSmallUpIcon,
   ArrowSmallDownIcon,
   TrashIcon,
-  ListBulletIcon,
 } from "@heroicons/react/24/outline";
 
 export const ShowIconButton = ({
@@ -70,31 +69,4 @@ export const DeleteIconButton = ({
   );
 };
 
-export const BulletListIconButton = ({
-  onClick,
-  showBulletPoints,
-}: {
-  onClick: (newShowBulletPoints: boolean) => void;
-  showBulletPoints: boolean;
-}) => {
-  const tooltipText = showBulletPoints
-    ? "Hide bullet points"
-    : "Show bullet points";
-
-  return (
-    <IconButton
-      onClick={() => onClick(!showBulletPoints)}
-      tooltipText={tooltipText}
-      size="small"
-      className={showBulletPoints ? "!bg-sky-100" : ""}
-    >
-      <ListBulletIcon
-        className={`h-4 w-4 ${
-          showBulletPoints ? "text-gray-700" : "text-gray-400"
-        }`}
-        aria-hidden="true"
-      />
-      <span className="sr-only">{tooltipText}</span>
-    </IconButton>
-  );
-};
+// BulletListIconButton 已不再需要，改为使用 Lexical 编辑器的 Markdown 快捷方式

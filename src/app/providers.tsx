@@ -1,23 +1,14 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import { store } from "./lib/redux/store";
+import { useSaveStateToLocalStorageOnChange } from "./lib/redux/hooks";
 
 // 创建一个内部组件来使用 hooks
 const StoreInitializer = ({ children }: { children: React.ReactNode }) => {
-  // 保存状态到本地存储
-  useEffect(() => {
-    const unsubscribe = store.subscribe(() => {
-      try {
-        localStorage.setItem("reduxState", JSON.stringify(store.getState()));
-      } catch (error) {
-        console.error("Could not save state to localStorage", error);
-      }
-    });
-    return unsubscribe;
-  }, []);
-
+  // 使用自定义hook处理状态保存到localStorage
+  useSaveStateToLocalStorageOnChange();
   return <>{children}</>;
 };
 

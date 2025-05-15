@@ -4,16 +4,10 @@ import {
   InputGroupWrapper,
 } from "components/ResumeForm/Form/InputGroup";
 import { FeaturedSkillInput } from "components/ResumeForm/Form/FeaturedSkillInput";
-import { BulletListIconButton } from "components/ResumeForm/Form/IconButton";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectSkills, changeSkills } from "lib/redux/resumeSlice";
-import {
-  selectShowBulletPoints,
-  changeShowBulletPoints,
-  selectThemeColor,
-  changeFormHeading,
-} from "lib/redux/settingsSlice";
+import { selectThemeColor, changeFormHeading } from "lib/redux/settingsSlice";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const SkillsForm = () => {
@@ -22,7 +16,6 @@ export const SkillsForm = () => {
   const { language } = useLanguageRedux();
   const { featuredSkills, descriptions } = skills;
   const form = "skills";
-  const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
   const themeColor = useAppSelector(selectThemeColor) || "#38bdf8";
 
   const translate = (key: string) => {
@@ -55,7 +48,6 @@ export const SkillsForm = () => {
 
     return translations[key]?.[language] || key;
   };
-
   const handleSkillsChange = (field: "descriptions", value: string[]) => {
     dispatch(changeSkills({ field, value }));
   };
@@ -66,19 +58,17 @@ export const SkillsForm = () => {
   ) => {
     dispatch(changeSkills({ field: "featuredSkills", idx, skill, rating }));
   };
-  const handleShowBulletPoints = (value: boolean) => {
-    dispatch(changeShowBulletPoints({ field: form, value }));
-  };
 
   // 更新表单标题
   useEffect(() => {
     dispatch(changeFormHeading({ field: form, value: translate("skills") }));
-  }, [dispatch, language, form]);
+  }, [dispatch, language, form, translate]);
 
   return (
     <Form form={form}>
+      {" "}
       <div className="col-span-full grid grid-cols-6 gap-3">
-        <div className="relative col-span-full">
+        <div className="col-span-full">
           <BulletListTextarea
             label={translate("skillsList")}
             labelClassName="col-span-full"
@@ -86,14 +76,7 @@ export const SkillsForm = () => {
             placeholder={translate("skillsItem")}
             value={descriptions}
             onChange={handleSkillsChange}
-            showBulletPoints={showBulletPoints}
           />
-          <div className="absolute left-[4.5rem] top-[0.07rem]">
-            <BulletListIconButton
-              showBulletPoints={showBulletPoints}
-              onClick={handleShowBulletPoints}
-            />
-          </div>
         </div>
         <div className="col-span-full mb-4 mt-6 border-t-2 border-dotted border-gray-200" />
         <InputGroupWrapper
