@@ -49,8 +49,9 @@ export const Hero = () => {
 
         <FadeIn direction="up" delay={400} duration={800}>
           <div className="flex flex-col justify-center sm:flex-row sm:items-center lg:justify-start">
+            {" "}
             <Link
-              href="/resume-import"
+              href="/resume-builder"
               className="btn-primary mt-6 inline-block transform transition-all duration-300 hover:scale-105 hover:shadow-lg lg:mt-14"
             >
               {translate("createButton")}{" "}

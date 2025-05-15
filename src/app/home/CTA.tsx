@@ -42,8 +42,9 @@ export const CTA = () => {
             {translate("subtitle")}
           </p>
           <div className="mt-8 flex justify-center sm:mt-10">
+            {" "}
             <Link
-              href="/resume-import"
+              href="/resume-builder"
               className="inline-block rounded-full bg-white px-6 py-2.5 text-base font-medium text-sky-700 transition-all duration-300 hover:scale-105 hover:bg-blue-50 hover:shadow-lg sm:px-8 sm:py-3 sm:text-lg"
             >
               {translate("button")}

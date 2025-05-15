@@ -115,7 +115,6 @@ export const ResumePDFProfile = ({
           </ResumePDFText>
           {hasSummary && (
             <View style={{ marginTop: spacing["1"] }}>
-              {" "}
               <ResumePDFBulletList
                 items={summary}
                 bulletStyle={templateStyles.bullet}

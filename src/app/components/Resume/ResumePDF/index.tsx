@@ -139,7 +139,6 @@ export const ResumePDF = ({
       />
     ),
   };
-
   return (
     <>
       <Document title={`${name} Resume`} author={name} producer={"OpenResume"}>
@@ -161,7 +160,6 @@ export const ResumePDF = ({
               ...templateStyles.content,
             }}
           >
-            {" "}
             <ResumePDFProfile
               profile={profile}
               themeColor={themeColor}
