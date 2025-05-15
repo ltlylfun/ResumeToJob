@@ -19,7 +19,7 @@ export const saveStateToLocalStorage = (state: RootState) => {
     const stringifiedState = JSON.stringify(state);
     localStorage.setItem(LOCAL_STORAGE_KEY, stringifiedState);
   } catch (e) {
-    // Ignore
+    console.error("保存数据到 localStorage 失败:", e);
   }
 };
 
