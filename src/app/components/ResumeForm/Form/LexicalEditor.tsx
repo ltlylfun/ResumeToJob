@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -9,6 +9,7 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   $createParagraphNode,
+  $createTextNode,
   $getRoot,
   EditorState,
   LexicalEditor,
@@ -27,6 +28,11 @@ function Placeholder({ placeholder }: { placeholder: string }) {
   );
 }
 
+// 错误边界组件
+function LexicalErrorBoundary({ children }: { children: React.ReactNode }) {
+  return <React.Fragment>{children}</React.Fragment>;
+}
+
 // 将字符串数组转换为 Lexical 编辑器内容
 const setEditorContent = (editor: LexicalEditor, value: string[]) => {
   editor.update(() => {
@@ -38,12 +44,10 @@ const setEditorContent = (editor: LexicalEditor, value: string[]) => {
     if (value.length === 0) {
       root.append($createParagraphNode());
       return;
-    }
-
-    // 添加内容 (这里只是简单实现，完整实现需要考虑列表节点的创建)
+    } // 添加内容 (这里只是简单实现，完整实现需要考虑列表节点的创建)
     value.forEach((line) => {
       const paragraph = $createParagraphNode();
-      paragraph.setTextContent(line);
+      paragraph.append($createTextNode(line));
       root.append(paragraph);
     });
   });
@@ -112,11 +116,13 @@ export const LexicalListEditor = <K extends string>({
       {label}
       <LexicalComposer initialConfig={initialConfig}>
         <div className={`${INPUT_CLASS_NAME} relative min-h-[100px]`}>
+          {" "}
           <RichTextPlugin
             contentEditable={
               <ContentEditable className="min-h-[75px] outline-none" />
             }
             placeholder={<Placeholder placeholder={placeholder} />}
+            ErrorBoundary={LexicalErrorBoundary}
           />
           <ListPlugin />
           <OnChangePlugin onChange={onEditorChange} />
