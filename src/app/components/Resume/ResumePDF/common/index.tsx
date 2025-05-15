@@ -89,30 +89,52 @@ export const ResumePDFBulletList = ({
 }) => {
   return (
     <>
-      {items.map((item, idx) => (
-        <View style={{ ...styles.flexRow }} key={idx}>
-          {showBulletPoints && (
+      {items.map((item, idx) => {
+        // 检查项目是否已经包含列表标记
+        let bulletMark = "•"; // 默认无序列表标记
+        let content = item;
+        let isNumbered = false;
+        let isList = false;
+
+        // 检测项目是否已经有列表标记
+        if (item.startsWith("• ")) {
+          // 已经有无序列表标记
+          content = item.substring(2); // 移除列表标记
+          isNumbered = false;
+          isList = true;
+        } else if (item.match(/^\d+\.\s/)) {
+          // 已经有有序列表标记 (例如 "1. ")
+          content = item.replace(/^\d+\.\s/, ""); // 移除数字和点
+          bulletMark = `${idx + 1}.`; // 使用序号作为有序列表标记
+          isNumbered = true;
+          isList = true;
+        }
+        return (
+          <View style={{ ...styles.flexRow }} key={idx}>
+            {/* 仅当项目确实是列表项时显示项目符号，或者当全局启用了项目符号且当前项不是列表时 */}
+            {(isList || (!isList && showBulletPoints)) && (
+              <ResumePDFText
+                style={{
+                  paddingLeft: spacing["2"],
+                  paddingRight: spacing["2"],
+                  lineHeight: "1.3",
+                  ...bulletStyle,
+                }}
+                bold={true}
+              >
+                {isNumbered ? bulletMark : "•"}
+              </ResumePDFText>
+            )}
+            {/* A breaking change was introduced causing text layout to be wider than node's width
+                https://github.com/diegomura/react-pdf/issues/2182. flexGrow & flexBasis fixes it */}
             <ResumePDFText
-              style={{
-                paddingLeft: spacing["2"],
-                paddingRight: spacing["2"],
-                lineHeight: "1.3",
-                ...bulletStyle,
-              }}
-              bold={true}
+              style={{ lineHeight: "1.3", flexGrow: 1, flexBasis: 0 }}
             >
-              {"•"}
+              {content}
             </ResumePDFText>
-          )}
-          {/* A breaking change was introduced causing text layout to be wider than node's width
-              https://github.com/diegomura/react-pdf/issues/2182. flexGrow & flexBasis fixes it */}
-          <ResumePDFText
-            style={{ lineHeight: "1.3", flexGrow: 1, flexBasis: 0 }}
-          >
-            {item}
-          </ResumePDFText>
-        </View>
-      ))}
+          </View>
+        );
+      })}
     </>
   );
 };

@@ -1,14 +1,9 @@
 import { Form } from "components/ResumeForm/Form";
-import { BulletListIconButton } from "components/ResumeForm/Form/IconButton";
 import { BulletListTextarea } from "components/ResumeForm/Form/InputGroup";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeCustom, selectCustom } from "lib/redux/resumeSlice";
-import {
-  selectShowBulletPoints,
-  changeShowBulletPoints,
-  changeFormHeading,
-} from "lib/redux/settingsSlice";
+import { changeFormHeading } from "lib/redux/settingsSlice";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const CustomForm = () => {
@@ -17,7 +12,6 @@ export const CustomForm = () => {
   const { language } = useLanguageRedux();
   const { descriptions } = custom;
   const form = "custom";
-  const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
 
   const translate = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
@@ -37,24 +31,19 @@ export const CustomForm = () => {
 
     return translations[key]?.[language] || key;
   };
-
   const handleCustomChange = (field: "descriptions", value: string[]) => {
     dispatch(changeCustom({ field, value }));
   };
-
-  const handleShowBulletPoints = (value: boolean) => {
-    dispatch(changeShowBulletPoints({ field: form, value }));
-  };
-
   // 更新表单标题
   useEffect(() => {
     dispatch(changeFormHeading({ field: form, value: translate("custom") }));
-  }, [dispatch, language, form]);
+  }, [dispatch, language, form, translate]);
 
   return (
     <Form form={form}>
       <div className="col-span-full grid grid-cols-6 gap-3">
-        <div className="relative col-span-full">
+        {" "}
+        <div className="col-span-full">
           <BulletListTextarea
             label={translate("customContent")}
             labelClassName="col-span-full"
@@ -62,14 +51,7 @@ export const CustomForm = () => {
             placeholder={translate("addCustomContent")}
             value={descriptions}
             onChange={handleCustomChange}
-            showBulletPoints={showBulletPoints}
           />
-          <div className="absolute left-[7.7rem] top-[0.07rem]">
-            <BulletListIconButton
-              showBulletPoints={showBulletPoints}
-              onClick={handleShowBulletPoints}
-            />
-          </div>
         </div>
       </div>
     </Form>

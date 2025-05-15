@@ -22,20 +22,12 @@ export interface Settings {
     custom: string;
   };
   formsOrder: ShowForm[];
-  showBulletPoints: {
-    educations: boolean;
-    projects: boolean;
-    skills: boolean;
-    custom: boolean;
-    profile: boolean; // 添加profile类型
-  };
 }
 
 export type ShowForm = keyof Settings["formToShow"];
-export type FormWithBulletPoints = keyof Settings["showBulletPoints"];
 export type GeneralSetting = Exclude<
   keyof Settings,
-  "formToShow" | "formToHeading" | "formsOrder" | "showBulletPoints"
+  "formToShow" | "formToHeading" | "formsOrder"
 >;
 
 export const DEFAULT_THEME_COLOR = "#38bdf8"; // sky-400
@@ -91,13 +83,6 @@ export const initialSettings: Settings = {
     ...formHeadings.zh,
   },
   formsOrder: ["workExperiences", "educations", "projects", "skills", "custom"],
-  showBulletPoints: {
-    educations: true,
-    projects: true,
-    skills: true,
-    custom: true,
-    profile: true, // 确保这个字段存在
-  },
 };
 
 export const settingsSlice = createSlice({
@@ -142,16 +127,6 @@ export const settingsSlice = createSlice({
         swapFormOrder(pos, newPos);
       }
     },
-    changeShowBulletPoints: (
-      draft,
-      action: PayloadAction<{
-        field: FormWithBulletPoints;
-        value: boolean;
-      }>
-    ) => {
-      const { field, value } = action.payload;
-      draft["showBulletPoints"][field] = value;
-    },
     setSettings: (draft, action: PayloadAction<Settings>) => {
       return action.payload;
     },
@@ -163,7 +138,6 @@ export const {
   changeShowForm,
   changeFormHeading,
   changeFormOrder,
-  changeShowBulletPoints,
   setSettings,
 } = settingsSlice.actions;
 
@@ -185,8 +159,6 @@ export const selectIsFirstForm = (form: ShowForm) => (state: RootState) =>
 export const selectIsLastForm = (form: ShowForm) => (state: RootState) =>
   state.settings.formsOrder[state.settings.formsOrder.length - 1] === form;
 
-export const selectShowBulletPoints =
-  (form: FormWithBulletPoints) => (state: RootState) =>
-    state.settings.showBulletPoints[form];
+// Lexical 编辑器支持通过 Markdown 快捷方式自动转换为列表，不再需要 showBulletPoints
 
 export default settingsSlice.reducer;

@@ -46,7 +46,6 @@ export const ResumePDF = ({
     formToHeading,
     formToShow,
     formsOrder,
-    showBulletPoints,
     template,
   } = settings;
   const themeColor = settings.themeColor || DEFAULT_FONT_COLOR;
@@ -112,7 +111,7 @@ export const ResumePDF = ({
         heading={formToHeading["educations"]}
         educations={educations}
         themeColor={themeColor}
-        showBulletPoints={showBulletPoints["educations"]}
+        showBulletPoints={false}
         templateStyles={templateStyles}
       />
     ),
@@ -129,7 +128,7 @@ export const ResumePDF = ({
         heading={formToHeading["skills"]}
         skills={skills}
         themeColor={themeColor}
-        showBulletPoints={showBulletPoints["skills"]}
+        showBulletPoints={false}
         templateStyles={templateStyles}
       />
     ),
@@ -138,7 +137,7 @@ export const ResumePDF = ({
         heading={formToHeading["custom"]}
         custom={custom}
         themeColor={themeColor}
-        showBulletPoints={showBulletPoints["custom"]}
+        showBulletPoints={false}
         templateStyles={templateStyles}
       />
     ),
@@ -165,11 +164,12 @@ export const ResumePDF = ({
               ...templateStyles.content,
             }}
           >
+            {" "}
             <ResumePDFProfile
               profile={profile}
               themeColor={themeColor}
               isPDF={isPDF}
-              showBulletPoints={!!showBulletPoints.profile}
+              showBulletPoints={false}
               templateStyles={templateStyles}
             />
             {showFormsOrder.map((form) => {

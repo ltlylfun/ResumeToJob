@@ -3,17 +3,12 @@ import {
   BulletListTextarea,
   Input,
 } from "components/ResumeForm/Form/InputGroup";
-import { BulletListIconButton } from "components/ResumeForm/Form/IconButton";
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeEducations, selectEducations } from "lib/redux/resumeSlice";
 import type { ResumeEducation } from "lib/redux/types";
-import {
-  changeShowBulletPoints,
-  selectShowBulletPoints,
-  changeFormHeading,
-} from "lib/redux/settingsSlice";
+import { changeFormHeading } from "lib/redux/settingsSlice";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const EducationsForm = () => {
@@ -22,7 +17,6 @@ export const EducationsForm = () => {
   const { language } = useLanguageRedux();
   const showDelete = educations.length > 1;
   const form = "educations";
-  const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
   const translate = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
       educations: {
@@ -65,13 +59,12 @@ export const EducationsForm = () => {
 
     return translations[key]?.[language] || key;
   };
-
   // 更新表单标题
   useEffect(() => {
     dispatch(
       changeFormHeading({ field: form, value: translate("educations") })
     );
-  }, [dispatch, language, form]);
+  }, [dispatch, language, form, translate]);
 
   return (
     <Form form={form} addButtonText={translate("addEducation")}>
@@ -83,10 +76,6 @@ export const EducationsForm = () => {
           ]: CreateHandleChangeArgsWithDescriptions<ResumeEducation>
         ) => {
           dispatch(changeEducations({ idx, field, value } as any));
-        };
-
-        const handleShowBulletPoints = (value: boolean) => {
-          dispatch(changeShowBulletPoints({ field: form, value }));
         };
 
         const showMoveUp = idx !== 0;
@@ -133,8 +122,8 @@ export const EducationsForm = () => {
               placeholder=""
               value={gpa}
               onChange={handleEducationChange}
-            />
-            <div className="relative col-span-full">
+            />{" "}
+            <div className="col-span-full">
               <BulletListTextarea
                 label={
                   language === "en"
@@ -150,14 +139,7 @@ export const EducationsForm = () => {
                 }
                 value={descriptions}
                 onChange={handleEducationChange}
-                showBulletPoints={showBulletPoints}
               />
-              <div className="absolute left-[15.6rem] top-[0.07rem]">
-                <BulletListIconButton
-                  showBulletPoints={showBulletPoints}
-                  onClick={handleShowBulletPoints}
-                />
-              </div>
             </div>
           </FormSection>
         );
