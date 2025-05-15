@@ -27,16 +27,6 @@ const getFAQItems = (language: string) => [
         : "您的简历数据仅保存在浏览器的本地存储中，不会上传到任何服务器。这意味着您的数据是私密安全的，但也意味着清除浏览器数据会导致信息丢失。",
   },
   {
-    question:
-      language === "en"
-        ? "Can I import my existing resume?"
-        : "能否导入我现有的简历？",
-    answer:
-      language === "en"
-        ? "Yes. You can upload your resume in PDF format, and the system will automatically parse the content and populate it into the editor. Single-column layout resumes work best for parsing."
-        : "可以。您可以上传PDF格式的简历，系统会自动解析内容并填充到编辑器中。解析效果最好的是单列布局的简历。",
-  },
-  {
     question: language === "en" ? "Origin of this project" : "该项目的由来",
     answer:
       language === "en"
