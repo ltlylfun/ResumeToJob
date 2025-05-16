@@ -1,5 +1,3 @@
-import { useAutosizeTextareaHeight } from "lib/hooks/useAutosizeTextareaHeight";
-
 interface InputProps<K extends string, V extends string | string[]> {
   label: string;
   labelClassName?: string;
@@ -33,6 +31,11 @@ export const InputGroupWrapper = ({
 export const INPUT_CLASS_NAME =
   "mt-1 px-3 py-2 block w-full rounded-md border border-gray-300 text-gray-900 shadow-sm outline-none font-normal text-base";
 
+// 导入 Lexical 编辑器
+import { LexicalListEditor } from "./LexicalListEditor";
+import { LexicalPlainEditor } from "./LexicalPlainEditor";
+
+// 使用 Lexical 编辑器替换原有的 Input 组件
 export const Input = <K extends string>({
   name,
   value = "",
@@ -42,19 +45,19 @@ export const Input = <K extends string>({
   labelClassName,
 }: InputProps<K, string>) => {
   return (
-    <InputGroupWrapper label={label} className={labelClassName}>
-      <input
-        type="text"
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        onChange={(e) => onChange(name, e.target.value)}
-        className={INPUT_CLASS_NAME}
-      />
-    </InputGroupWrapper>
+    <LexicalPlainEditor
+      label={label}
+      labelClassName={labelClassName}
+      name={name}
+      value={value}
+      placeholder={placeholder}
+      onChange={onChange}
+      minHeight="40px"
+    />
   );
 };
 
+// 使用 Lexical 编辑器替换原有的 Textarea 组件
 export const Textarea = <T extends string>({
   label,
   labelClassName: wrapperClassName,
@@ -63,24 +66,19 @@ export const Textarea = <T extends string>({
   placeholder,
   onChange,
 }: InputProps<T, string>) => {
-  const textareaRef = useAutosizeTextareaHeight({ value });
-
   return (
-    <InputGroupWrapper label={label} className={wrapperClassName}>
-      <textarea
-        ref={textareaRef}
-        name={name}
-        className={`${INPUT_CLASS_NAME} resize-none overflow-hidden`}
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange(name, e.target.value)}
-      />
-    </InputGroupWrapper>
+    <LexicalPlainEditor
+      label={label}
+      labelClassName={wrapperClassName}
+      name={name}
+      value={value}
+      placeholder={placeholder}
+      onChange={onChange}
+      minHeight="100px"
+      autoResizable={true}
+    />
   );
 };
-
-// 导入 Lexical 列表编辑器
-import { LexicalListEditor } from "./LexicalListEditor";
 
 export const BulletListTextarea = <T extends string>(
   props: InputProps<T, string[]>
@@ -99,5 +97,3 @@ export const BulletListTextarea = <T extends string>(
     />
   );
 };
-
-// 旧的实现已被 Lexical 编辑器替换

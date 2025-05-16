@@ -30,6 +30,14 @@ export const ProfileForm = () => {
         en: "Profile",
         zh: "个人简介",
       },
+      summary: {
+        en: "Summary",
+        zh: "个人摘要",
+      },
+      summaryPlaceholder: {
+        en: "Briefly describe your professional background and strengths",
+        zh: "简要描述您的专业背景和优势",
+      },
       email: {
         en: "Email",
         zh: "邮箱",

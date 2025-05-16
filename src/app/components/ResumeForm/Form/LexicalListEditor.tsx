@@ -13,36 +13,25 @@ import {
   $createListNode,
 } from "@lexical/list";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
-import {
-  MarkdownShortcutPlugin,
-  DEFAULT_TRANSFORMERS,
-} from "@lexical/react/LexicalMarkdownShortcutPlugin";
-import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
-import { HeadingNode, QuoteNode } from "@lexical/rich-text";
-import { CodeNode, CodeHighlightNode } from "@lexical/code";
-import { LinkNode, AutoLinkNode } from "@lexical/link";
+import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
+import { ORDERED_LIST, UNORDERED_LIST } from "@lexical/markdown";
 import {
   $createParagraphNode,
   $createTextNode,
   $getRoot,
   EditorState,
+  $getSelection,
+  $isRangeSelection,
 } from "lexical";
 import { InputGroupWrapper, INPUT_CLASS_NAME } from "./InputGroup";
 import { saveStateToLocalStorage } from "lib/redux/local-storage";
 import { store } from "lib/redux/store";
 
-// Lexical 节点配置 - 添加所有必要的节点类型
-const LexicalNodes = [
-  ListNode,
-  ListItemNode,
-  HorizontalRuleNode,
-  HeadingNode,
-  QuoteNode,
-  CodeNode,
-  CodeHighlightNode,
-  LinkNode,
-  AutoLinkNode,
-];
+// Lexical 节点配置 - 仅保留列表功能所需节点
+const LexicalNodes = [ListNode, ListItemNode];
+
+// 自定义的Markdown转换器 - 只包含列表相关的转换器
+const LIST_TRANSFORMERS = [ORDERED_LIST, UNORDERED_LIST];
 
 // 简单的错误边界函数
 function ErrorBoundary({ children }: { children: React.ReactNode }) {
@@ -117,8 +106,6 @@ const extractContentFromEditor = (editorState: EditorState): string[] => {
 const forceSaveToLocalStorage = () => {
   saveStateToLocalStorage(store.getState());
 };
-
-import { $getSelection, $isRangeSelection } from "lexical";
 
 // 初始化编辑器内容的组件
 function EditorInitializer<T extends string>({
@@ -276,8 +263,6 @@ export const LexicalListEditor = <T extends string>({
         },
         text: {
           base: "text-base font-normal",
-          bold: "font-bold",
-          italic: "italic",
         },
       },
       nodes: LexicalNodes,
@@ -285,7 +270,6 @@ export const LexicalListEditor = <T extends string>({
       editorState: null,
       // 保留选区状态
       editable: true,
-      // 保存选区位置
       onError: (error: Error) => {
         console.error(error);
       },
@@ -338,7 +322,8 @@ export const LexicalListEditor = <T extends string>({
           />
           <ListPlugin />
           {/* 添加 Markdown 快捷方式支持，如: "- " 和 "1. " 自动转换为列表 */}
-          <MarkdownShortcutPlugin transformers={DEFAULT_TRANSFORMERS} />
+          {/* 仅保留列表相关的转换器 */}
+          <MarkdownShortcutPlugin transformers={LIST_TRANSFORMERS} />
           <HistoryPlugin />
           <OnChangePlugin onChange={handleEditorChange} />
           <EditorInitializer value={value} />
