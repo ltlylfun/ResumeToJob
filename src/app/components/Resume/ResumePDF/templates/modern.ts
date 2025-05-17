@@ -15,7 +15,7 @@ export const modernTemplate: Template = {
         padding: `${spacing[0]} ${spacing[10]}`, // 修改从20减小到10
       },
       section: {
-        marginTop: spacing[6],
+        marginTop: spacing[3],
         borderBottomWidth: "1pt",
         borderBottomStyle: "solid",
         borderBottomColor: `${themeColor}20`,
@@ -23,7 +23,7 @@ export const modernTemplate: Template = {
       },
       sectionTitle: {
         color: themeColor,
-        marginBottom: spacing[3],
+        marginBottom: spacing[2],
       },
       bullet: {
         color: themeColor,

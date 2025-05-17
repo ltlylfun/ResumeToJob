@@ -12,13 +12,13 @@ export const minimalTemplate: Template = {
         padding: `${spacing[5]} ${spacing[10]}`, // 修改从20减小到10
       },
       section: {
-        marginTop: spacing[6],
+        marginTop: spacing[3],
       },
       sectionTitle: {
         textTransform: "uppercase",
         letterSpacing: "1pt",
         fontSize: "11pt",
-        marginBottom: spacing[3],
+        marginBottom: spacing[2],
         borderBottomWidth: "0.5pt",
         borderBottomStyle: "solid",
         borderBottomColor: themeColor,

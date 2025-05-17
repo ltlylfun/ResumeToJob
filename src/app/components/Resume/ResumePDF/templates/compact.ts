@@ -15,7 +15,7 @@ export const compactTemplate: Template = {
         padding: `${spacing[2]} ${spacing[8]}`,
       },
       section: {
-        marginTop: spacing[3.5],
+        marginTop: spacing[3],
       },
       sectionTitle: {
         fontSize: "11pt",
