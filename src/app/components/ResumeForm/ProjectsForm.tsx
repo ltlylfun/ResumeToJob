@@ -46,13 +46,12 @@ export const ProjectsForm = () => {
 
     return translations[key]?.[language] || key;
   };
-
   // 更新表单标题
   useEffect(() => {
     dispatch(
       changeFormHeading({ field: "projects", value: translate("projects") })
     );
-  }, [dispatch, language]);
+  }, [dispatch, language, translate]);
 
   return (
     <Form form="projects" addButtonText={translate("addProject")}>
@@ -97,7 +96,11 @@ export const ProjectsForm = () => {
             <BulletListTextarea
               name="descriptions"
               label={translate("projectDescription")}
-              placeholder=""
+              placeholder={
+                language === "en"
+                  ? "Input '- ' or '* ' to create an unordered list (with space after)\nInput '1. ' to create an ordered list (with space after)\nPress Enter to cancel if not needed"
+                  : "输入 '- ' 或 '* ' 创建无序列表（注意空格）\n输入 '1. ' 创建有序列表（注意空格）\n如果不需要可以回车取消"
+              }
               value={descriptions}
               onChange={handleProjectChange}
               labelClassName="col-span-full"

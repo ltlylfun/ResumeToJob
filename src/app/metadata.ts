@@ -1,8 +1,4 @@
-// filepath: c:\Users\z'j\Desktop\ResumeToJob\src\app\metadata.ts
-// 元数据已直接在此文件中定义，不再依赖 translations.ts
-
 export function getMetadata(lang: "zh" | "en" = "zh") {
-  // 直接定义中英文元数据
   const metadataTranslations = {
     zh: {
       title: "ResumeToJob - 免费开源简历生成器和解析器",
@@ -19,6 +15,5 @@ export function getMetadata(lang: "zh" | "en" = "zh") {
   return {
     title: metadataTranslations[lang].title,
     description: metadataTranslations[lang].description,
-    // 可以在这里添加更多的元数据
   };
 }

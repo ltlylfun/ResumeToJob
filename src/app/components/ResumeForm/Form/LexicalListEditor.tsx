@@ -1,4 +1,3 @@
-// filepath: c:\Users\z'j\Desktop\ResumeToJob\src\app\components\ResumeForm\Form\LexicalListEditor.tsx
 import React, { useEffect, useRef, useState } from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";

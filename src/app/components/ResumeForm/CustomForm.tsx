@@ -24,8 +24,8 @@ export const CustomForm = () => {
         zh: "自定义内容",
       },
       addCustomContent: {
-        en: "Add custom content",
-        zh: "添加自定义内容",
+        en: "Input '- ' or '* ' to create an unordered list (with space after)\nInput '1. ' to create an ordered list (with space after)\nPress Enter to cancel if not needed",
+        zh: "输入 '- ' 或 '* ' 创建无序列表（注意空格）\n输入 '1. ' 创建有序列表（注意空格）\n如果不需要可以回车取消",
       },
     };
 

@@ -53,7 +53,6 @@ export const WorkExperiencesForm = () => {
     return translations[key]?.[language] || key;
   };
   const showDelete = workExperiences.length > 1;
-
   // 更新表单标题
   useEffect(() => {
     dispatch(
@@ -62,7 +61,7 @@ export const WorkExperiencesForm = () => {
         value: translate("workExperiences"),
       })
     );
-  }, [dispatch, language]);
+  }, [dispatch, language, translate]);
 
   return (
     <Form form="workExperiences" addButtonText={translate("addWork")}>
@@ -112,11 +111,7 @@ export const WorkExperiencesForm = () => {
               label={translate("date")}
               labelClassName="col-span-2"
               name="date"
-              placeholder={
-                language === "en"
-                  ? "e.g.: 2023.10 - 2023.12"
-                  : "例如: 2023.10 - 2023.12"
-              }
+              placeholder=""
               value={date}
               onChange={handleWorkExperienceChange}
             />{" "}
@@ -125,7 +120,9 @@ export const WorkExperiencesForm = () => {
               labelClassName="col-span-full"
               name="descriptions"
               placeholder={
-                language === "en" ? "Add responsibilities" : "添加职责描述"
+                language === "en"
+                  ? "Input '- ' or '* ' to create an unordered list (with space after)\nInput '1. ' to create an ordered list (with space after)\nPress Enter to cancel if not needed"
+                  : "输入 '- ' 或 '* ' 创建无序列表（注意空格）\n输入 '1. ' 创建有序列表（注意空格）\n如果不需要可以回车取消"
               }
               value={descriptions}
               onChange={handleWorkExperienceChange}
