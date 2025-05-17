@@ -113,8 +113,7 @@ export const ResumePDFBulletList = ({
             {isList && (
               <ResumePDFText
                 style={{
-                  paddingLeft: spacing["2"],
-                  paddingRight: spacing["2"],
+                  paddingLeft: spacing["1"],
                   lineHeight: "1.3",
                   ...bulletStyle,
                 }}

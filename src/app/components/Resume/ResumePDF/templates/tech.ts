@@ -12,7 +12,7 @@ export const techTemplate: Template = {
         padding: `${spacing[3]} ${spacing[10]}`,
       },
       section: {
-        marginTop: spacing[4],
+        marginTop: spacing[3],
         paddingTop: spacing[2],
         borderTopWidth: "2pt",
         borderTopStyle: "dashed",
@@ -21,7 +21,7 @@ export const techTemplate: Template = {
       sectionTitle: {
         fontSize: "12pt",
         fontWeight: "bold",
-        marginBottom: spacing[2.5],
+        marginBottom: spacing[2],
         color: themeColor,
       },
       bullet: {

@@ -16,7 +16,7 @@ export const classicTemplate: Template = {
         padding: `${spacing[0]} ${spacing[10]}`, // 修改从20减小到10
       },
       section: {
-        marginTop: spacing[5],
+        marginTop: spacing[3],
       },
       sectionTitle: {
         marginBottom: spacing[2],

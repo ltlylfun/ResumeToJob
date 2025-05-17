@@ -12,7 +12,7 @@ export const professionalTemplate: Template = {
         padding: `${spacing[3]} ${spacing[10]}`,
       },
       section: {
-        marginTop: spacing[6],
+        marginTop: spacing[3],
         paddingLeft: spacing[2],
         borderLeftWidth: "2pt",
         borderLeftStyle: "solid",
@@ -23,7 +23,7 @@ export const professionalTemplate: Template = {
         fontWeight: "bold",
         fontSize: "13pt",
         letterSpacing: "0.5pt",
-        marginBottom: spacing[3],
+        marginBottom: spacing[2],
       },
       bullet: {
         paddingLeft: spacing[1.5],

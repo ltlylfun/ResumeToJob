@@ -33,7 +33,7 @@ const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
 
 export const ResumeForm = () => {
   useSetInitialStore();
-  useSaveStateToLocalStorageOnChange();
+  // 移除重复的 useSaveStateToLocalStorageOnChange，因为已经在 providers.tsx 中调用了
 
   const formsOrder = useAppSelector(selectFormsOrder);
   const [isHover, setIsHover] = useState(false);

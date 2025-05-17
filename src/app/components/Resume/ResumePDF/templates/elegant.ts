@@ -16,7 +16,7 @@ export const elegantTemplate: Template = {
         margin: spacing[4],
       },
       section: {
-        marginTop: spacing[6],
+        marginTop: spacing[3],
         position: "relative",
       },
       sectionTitle: {
@@ -24,7 +24,7 @@ export const elegantTemplate: Template = {
         textTransform: "uppercase",
         letterSpacing: "3pt",
         color: themeColor,
-        marginBottom: spacing[4],
+        marginBottom: spacing[2],
         textAlign: "center",
         borderTopWidth: "0.5pt",
         borderTopStyle: "solid",

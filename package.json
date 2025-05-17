@@ -1,6 +1,6 @@
 {
-  "name": "open-resume",
-  "version": "0.1.0",
+  "name": "resume-to-job",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

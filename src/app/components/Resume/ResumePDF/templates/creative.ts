@@ -15,7 +15,7 @@ export const creativeTemplate: Template = {
         padding: `${spacing[5]} ${spacing[8]}`,
       },
       section: {
-        marginTop: spacing[6],
+        marginTop: spacing[3],
         position: "relative",
         paddingLeft: spacing[2.5],
         borderLeftWidth: "4pt",
@@ -25,7 +25,7 @@ export const creativeTemplate: Template = {
       sectionTitle: {
         fontSize: "14pt",
         fontWeight: "bold",
-        marginBottom: spacing[3],
+        marginBottom: spacing[2],
         color: "white",
         backgroundColor: themeColor,
         paddingTop: spacing[1],
