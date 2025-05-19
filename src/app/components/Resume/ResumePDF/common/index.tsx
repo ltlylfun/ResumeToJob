@@ -108,12 +108,13 @@ export const ResumePDFBulletList = ({
           isList = true;
         }
         return (
-          <View style={{ ...styles.flexRow }} key={idx}>
+          <View style={{ ...styles.flexRow, alignItems: "baseline" }} key={idx}>
             {/* 只有检测到列表项时才显示项目符号 */}
             {isList && (
               <ResumePDFText
                 style={{
                   paddingLeft: spacing["1"],
+                  paddingRight: spacing["1"],
                   lineHeight: "1.3",
                   ...bulletStyle,
                 }}
