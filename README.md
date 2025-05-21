@@ -96,6 +96,10 @@ npm run dev
 
 特别感谢项目 [open-resume](https://github.com/xitanggg/open-resume) 的创建者和所有贡献者。这个二次开发项目基于他们的杰出工作。
 
+### ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ltlylfun/ResumeToJob&type=Date)](https://star-history.com/#ltlylfun/ResumeToJob&Date)
+
 ---
 
 <a id="english-version"></a>
@@ -157,3 +161,7 @@ This project is licensed under the [AGPL-3.0 license](LICENSE).
 ### 🙏 Acknowledgements
 
 Special thanks to the creators and contributors of [open-resume](https://github.com/xitanggg/open-resume). This derivative project is based on their outstanding work.
+
+### ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ltlylfun/ResumeToJob&type=Date)](https://star-history.com/#ltlylfun/ResumeToJob&Date)
