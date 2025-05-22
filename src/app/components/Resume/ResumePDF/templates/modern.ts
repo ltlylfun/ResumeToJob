@@ -18,7 +18,7 @@ export const modernTemplate: Template = {
         marginTop: spacing[3],
         borderBottomWidth: "1pt",
         borderBottomStyle: "solid",
-        borderBottomColor: `${themeColor}20`,
+        borderBottomColor: themeColor,
         paddingBottom: spacing[3],
       },
       sectionTitle: {
