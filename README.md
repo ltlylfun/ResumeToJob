@@ -19,9 +19,6 @@
   <a href="https://github.com/ltlylfun/ResumeToJob/network/members">
     <img alt="GitHub forks" src="https://img.shields.io/github/forks/ltlylfun/ResumeToJob?style=for-the-badge&logo=github&color=22BB88">
   </a>
-  <a href="https://github.com/ltlylfun/ResumeToJob">
-    <img alt="GitHub Repo Views" src="https://komarev.com/ghpvc/?username=ltlylfun&repo=ResumeToJob&style=for-the-badge&color=6C5CE7&label=Views" />
-  </a>
   <a href="https://github.com/ltlylfun/ResumeToJob/issues">
     <img alt="GitHub issues" src="https://img.shields.io/github/issues/ltlylfun/ResumeToJob?style=for-the-badge&logo=github&color=FF6B6B">
   </a>
@@ -31,6 +28,10 @@
 </p>
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ltlylfun/ResumeToJob)
+
+<div align="center">
+  <img src="https://moe-counter.glitch.me/get/@ltlylfun-ResumeToJob?theme=rule34" alt="Moe Counter" />
+</div>
 
 </div>
 
