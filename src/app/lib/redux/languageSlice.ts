@@ -16,14 +16,9 @@ function getInitialLanguage(): SupportedLanguage {
       return savedLanguage as SupportedLanguage;
     }
 
-    // 如果没有localStorage设置，尝试从浏览器语言偏好设置获取
+    // 如果没有localStorage设置，根据浏览器语言偏好智能选择
     const browserLanguage = navigator.language.toLowerCase();
-    if (browserLanguage.startsWith("zh")) {
-      return "zh";
-    }
-
-    // 默认返回英文
-    return "en";
+    return browserLanguage.startsWith("zh") ? "zh" : "en";
   } catch (error) {
     console.error("Failed to get browser language", error);
     return "zh"; // 默认中文

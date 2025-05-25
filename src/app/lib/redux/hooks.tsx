@@ -13,6 +13,7 @@ import { initialResumeState, setResume } from "lib/redux/resumeSlice";
 import {
   initialSettings,
   setSettings,
+  formHeadings,
   type Settings,
 } from "lib/redux/settingsSlice";
 import { deepMerge } from "lib/deep-merge";
@@ -117,11 +118,9 @@ export const useSetInitialStore = () => {
       }
       return "zh"; // 默认使用中文
     };
-
     const currentLanguage = getCurrentLanguage();
 
     // 根据当前语言选择正确的标题
-    const { formHeadings } = require("./settingsSlice");
     const languageHeadings = formHeadings[currentLanguage] || formHeadings.zh;
 
     if (!state) {

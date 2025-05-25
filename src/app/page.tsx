@@ -6,7 +6,7 @@ import { Metadata } from "next";
 import { LogoFallingAnimation } from "components/animations/LogoFallingAnimation";
 import { getMetadata } from "./metadata";
 
-export const metadata: Metadata = getMetadata("zh");
+export const metadata: Metadata = getMetadata();
 
 export default function Home() {
   return (
