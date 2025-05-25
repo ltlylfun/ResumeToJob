@@ -54,17 +54,6 @@ export const formHeadings = {
   },
 };
 
-// 从localStorage获取当前语言设置或者使用默认值
-function getCurrentLanguage(): "zh" | "en" {
-  if (typeof window !== "undefined") {
-    const savedLanguage = localStorage.getItem("language");
-    if (savedLanguage && (savedLanguage === "zh" || savedLanguage === "en")) {
-      return savedLanguage;
-    }
-  }
-  return "zh"; // 默认使用中文
-}
-
 export const initialSettings: Settings = {
   themeColor: DEFAULT_THEME_COLOR,
   fontFamily: DEFAULT_FONT_FAMILY,
@@ -158,7 +147,5 @@ export const selectIsFirstForm = (form: ShowForm) => (state: RootState) =>
   state.settings.formsOrder[0] === form;
 export const selectIsLastForm = (form: ShowForm) => (state: RootState) =>
   state.settings.formsOrder[state.settings.formsOrder.length - 1] === form;
-
-// Lexical 编辑器支持通过 Markdown 快捷方式自动转换为列表，不再需要 showBulletPoints
 
 export default settingsSlice.reducer;

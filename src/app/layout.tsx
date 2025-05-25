@@ -5,8 +5,8 @@ import { Providers } from "./providers";
 import ClientLayout from "./ClientLayout";
 import { getMetadata } from "./metadata";
 
-// 默认使用中文元数据，客户端渲染后会根据用户设置或浏览器语言动态更新
-export const metadata = getMetadata("zh");
+// 使用中英文双语元数据
+export const metadata = getMetadata();
 
 export default function RootLayout({
   children,
