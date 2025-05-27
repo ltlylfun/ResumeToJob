@@ -10,6 +10,7 @@ import {
   ShowForm,
   selectFormsOrder,
   changeFormHeading,
+  updateFormHeadingIfNotCustomized,
 } from "lib/redux/settingsSlice";
 import { EditorInstructions } from "./EditorInstructions";
 import { ProfileForm } from "components/ResumeForm/ProfileForm";
@@ -67,10 +68,10 @@ export const ResumeForm = () => {
         },
       };
 
-      // 为每个表单设置正确的标题
+      // 为每个表单设置正确的标题（仅在用户未自定义时）
       Object.entries(translations).forEach(([form, texts]) => {
         dispatch(
-          changeFormHeading({
+          updateFormHeadingIfNotCustomized({
             field: form as ShowForm,
             value: texts[language] || texts["zh"],
           })

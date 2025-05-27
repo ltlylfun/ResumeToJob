@@ -7,7 +7,11 @@ import { FeaturedSkillInput } from "components/ResumeForm/Form/FeaturedSkillInpu
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectSkills, changeSkills } from "lib/redux/resumeSlice";
-import { selectThemeColor, changeFormHeading } from "lib/redux/settingsSlice";
+import {
+  selectThemeColor,
+  changeFormHeading,
+  updateFormHeadingIfNotCustomized,
+} from "lib/redux/settingsSlice";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const SkillsForm = () => {
@@ -59,9 +63,14 @@ export const SkillsForm = () => {
     dispatch(changeSkills({ field: "featuredSkills", idx, skill, rating }));
   };
 
-  // 更新表单标题
+  // 更新表单标题（仅在用户未自定义时）
   useEffect(() => {
-    dispatch(changeFormHeading({ field: form, value: translate("skills") }));
+    dispatch(
+      updateFormHeadingIfNotCustomized({
+        field: form,
+        value: translate("skills"),
+      })
+    );
   }, [dispatch, language, form, translate]);
 
   return (

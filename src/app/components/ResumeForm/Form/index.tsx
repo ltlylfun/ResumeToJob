@@ -105,7 +105,9 @@ export const Form = ({
     dispatch(changeShowForm({ field: form, value: showForm }));
   };
   const setHeading = (heading: string) => {
-    dispatch(changeFormHeading({ field: form, value: heading }));
+    dispatch(
+      changeFormHeading({ field: form, value: heading, isUserCustomized: true })
+    );
   };
 
   const isFirstForm = useAppSelector(selectIsFirstForm(form));
