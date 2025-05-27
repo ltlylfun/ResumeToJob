@@ -21,13 +21,21 @@ export interface Settings {
     skills: string;
     custom: string;
   };
+  // 跟踪用户是否手动更改了表单标题
+  customizedHeadings: {
+    workExperiences: boolean;
+    educations: boolean;
+    projects: boolean;
+    skills: boolean;
+    custom: boolean;
+  };
   formsOrder: ShowForm[];
 }
 
 export type ShowForm = keyof Settings["formToShow"];
 export type GeneralSetting = Exclude<
   keyof Settings,
-  "formToShow" | "formToHeading" | "formsOrder"
+  "formToShow" | "formToHeading" | "customizedHeadings" | "formsOrder"
 >;
 
 export const DEFAULT_THEME_COLOR = "#38bdf8"; // sky-400
@@ -71,6 +79,14 @@ export const initialSettings: Settings = {
     // 根据语言设置初始表单标题，默认使用中文
     ...formHeadings.zh,
   },
+  // 初始状态下，所有标题都未被用户自定义
+  customizedHeadings: {
+    workExperiences: false,
+    educations: false,
+    projects: false,
+    skills: false,
+    custom: false,
+  },
   formsOrder: ["workExperiences", "educations", "projects", "skills", "custom"],
 };
 
@@ -94,10 +110,29 @@ export const settingsSlice = createSlice({
     },
     changeFormHeading: (
       draft,
+      action: PayloadAction<{
+        field: ShowForm;
+        value: string;
+        isUserCustomized?: boolean;
+      }>
+    ) => {
+      const { field, value, isUserCustomized = true } = action.payload;
+      draft.formToHeading[field] = value;
+      // 如果是用户自定义的更改，标记为已自定义
+      if (isUserCustomized) {
+        draft.customizedHeadings[field] = true;
+      }
+    },
+    // 新增：仅在用户未自定义时更新标题（用于语言切换）
+    updateFormHeadingIfNotCustomized: (
+      draft,
       action: PayloadAction<{ field: ShowForm; value: string }>
     ) => {
       const { field, value } = action.payload;
-      draft.formToHeading[field] = value;
+      // 只有在用户未自定义该标题时才更新
+      if (!draft.customizedHeadings[field]) {
+        draft.formToHeading[field] = value;
+      }
     },
     changeFormOrder: (
       draft,
@@ -126,6 +161,7 @@ export const {
   changeSettings,
   changeShowForm,
   changeFormHeading,
+  updateFormHeadingIfNotCustomized,
   changeFormOrder,
   setSettings,
 } = settingsSlice.actions;

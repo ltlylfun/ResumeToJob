@@ -9,7 +9,10 @@ import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectProjects, changeProjects } from "lib/redux/resumeSlice";
 import type { ResumeProject } from "lib/redux/types";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
-import { changeFormHeading } from "lib/redux/settingsSlice";
+import {
+  changeFormHeading,
+  updateFormHeadingIfNotCustomized,
+} from "lib/redux/settingsSlice";
 
 export const ProjectsForm = () => {
   const projects = useAppSelector(selectProjects);
@@ -46,10 +49,13 @@ export const ProjectsForm = () => {
 
     return translations[key]?.[language] || key;
   };
-  // 更新表单标题
+  // 更新表单标题（仅在用户未自定义时）
   useEffect(() => {
     dispatch(
-      changeFormHeading({ field: "projects", value: translate("projects") })
+      updateFormHeadingIfNotCustomized({
+        field: "projects",
+        value: translate("projects"),
+      })
     );
   }, [dispatch, language, translate]);
 

@@ -12,7 +12,10 @@ import {
 } from "lib/redux/resumeSlice";
 import type { ResumeWorkExperience } from "lib/redux/types";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
-import { changeFormHeading } from "lib/redux/settingsSlice";
+import {
+  changeFormHeading,
+  updateFormHeadingIfNotCustomized,
+} from "lib/redux/settingsSlice";
 
 export const WorkExperiencesForm = () => {
   const workExperiences = useAppSelector(selectWorkExperiences);
@@ -53,10 +56,10 @@ export const WorkExperiencesForm = () => {
     return translations[key]?.[language] || key;
   };
   const showDelete = workExperiences.length > 1;
-  // 更新表单标题
+  // 更新表单标题（仅在用户未自定义时）
   useEffect(() => {
     dispatch(
-      changeFormHeading({
+      updateFormHeadingIfNotCustomized({
         field: "workExperiences",
         value: translate("workExperiences"),
       })

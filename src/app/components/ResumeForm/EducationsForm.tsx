@@ -8,7 +8,10 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeEducations, selectEducations } from "lib/redux/resumeSlice";
 import type { ResumeEducation } from "lib/redux/types";
-import { changeFormHeading } from "lib/redux/settingsSlice";
+import {
+  changeFormHeading,
+  updateFormHeadingIfNotCustomized,
+} from "lib/redux/settingsSlice";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const EducationsForm = () => {
@@ -59,10 +62,13 @@ export const EducationsForm = () => {
 
     return translations[key]?.[language] || key;
   };
-  // 更新表单标题
+  // 更新表单标题（仅在用户未自定义时）
   useEffect(() => {
     dispatch(
-      changeFormHeading({ field: form, value: translate("educations") })
+      updateFormHeadingIfNotCustomized({
+        field: form,
+        value: translate("educations"),
+      })
     );
   }, [dispatch, language, form, translate]);
 
