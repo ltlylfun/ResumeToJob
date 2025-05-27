@@ -60,7 +60,9 @@ ResumeToJob 是一个免费开源的在线简历制作工具，帮助求职者�
 
 ### 🔗 在线使用
 
-访问 [ResumeToJob](https://resume-to-job.vercel.app/) 立即体验
+访问 [https://resumetojob.ltlyl.fun/](https://resumetojob.ltlyl.fun/) 立即体验
+
+备用链接：[https://resume-to-job.vercel.app/](https://resume-to-job.vercel.app/)
 
 ### 💻 本地开发
 
@@ -126,7 +128,9 @@ We welcome community contributors to participate in project development, especia
 
 ### 🔗 Online Usage
 
-Visit [ResumeToJob](https://resume-to-job.vercel.app/) to get started
+Visit [https://resumetojob.ltlyl.fun/](https://resumetojob.ltlyl.fun/) to get started
+
+Alternative link: [https://resume-to-job.vercel.app/](https://resume-to-job.vercel.app/)
 
 ### 💻 Local Development
 
