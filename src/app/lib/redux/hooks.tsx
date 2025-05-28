@@ -15,6 +15,7 @@ import {
   setSettings,
   formHeadings,
   type Settings,
+  type ShowForm,
 } from "lib/redux/settingsSlice";
 import { deepMerge } from "lib/deep-merge";
 import type { Resume } from "lib/redux/types";
@@ -146,10 +147,27 @@ export const useSetInitialStore = () => {
     }
 
     if (state.settings) {
-      // 确保表单标题使用当前语言
+      // 只为用户未自定义的标题设置语言标题，保留用户自定义的标题
+      const updatedFormToHeading = { ...languageHeadings };
+
+      // 如果存储的设置中有 customizedHeadings 和 formToHeading，则保留用户自定义的标题
+      if (state.settings.customizedHeadings && state.settings.formToHeading) {
+        (Object.keys(state.settings.customizedHeadings) as ShowForm[]).forEach(
+          (formKey) => {
+            if (
+              state.settings.customizedHeadings[formKey] &&
+              state.settings.formToHeading[formKey]
+            ) {
+              updatedFormToHeading[formKey] =
+                state.settings.formToHeading[formKey];
+            }
+          }
+        );
+      }
+
       const settingsWithLanguage = {
         ...state.settings,
-        formToHeading: languageHeadings,
+        formToHeading: updatedFormToHeading,
       };
 
       const mergedSettingsState = deepMerge(

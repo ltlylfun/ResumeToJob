@@ -17,8 +17,8 @@ export const TopNavBar = () => {
   const translate = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
       build: {
-        en: "Build",
-        zh: "构建",
+        en: "Create Resume",
+        zh: "创建简历",
       },
       menu: {
         en: "Menu",
