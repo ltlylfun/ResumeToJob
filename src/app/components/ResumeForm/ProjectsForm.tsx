@@ -4,7 +4,7 @@ import {
   BulletListTextarea,
 } from "components/ResumeForm/Form/InputGroup";
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectProjects, changeProjects } from "lib/redux/resumeSlice";
 import type { ResumeProject } from "lib/redux/types";
@@ -19,36 +19,40 @@ export const ProjectsForm = () => {
   const dispatch = useAppDispatch();
   const { language } = useLanguageRedux();
   const showDelete = projects.length > 1;
-  const translate = (key: string) => {
-    const translations: Record<string, Record<string, string>> = {
-      projects: {
-        en: "Projects",
-        zh: "项目经历",
-      },
-      addProject: {
-        en: "Add Project",
-        zh: "添加项目",
-      },
-      deleteProject: {
-        en: "Delete Project",
-        zh: "删除项目",
-      },
-      projectName: {
-        en: "Project Name",
-        zh: "项目名称",
-      },
-      date: {
-        en: "Date",
-        zh: "日期",
-      },
-      projectDescription: {
-        en: "Project Description",
-        zh: "项目描述",
-      },
-    };
 
-    return translations[key]?.[language] || key;
-  };
+  const translate = useCallback(
+    (key: string) => {
+      const translations: Record<string, Record<string, string>> = {
+        projects: {
+          en: "Projects",
+          zh: "项目经历",
+        },
+        addProject: {
+          en: "Add Project",
+          zh: "添加项目",
+        },
+        deleteProject: {
+          en: "Delete Project",
+          zh: "删除项目",
+        },
+        projectName: {
+          en: "Project Name",
+          zh: "项目名称",
+        },
+        date: {
+          en: "Date",
+          zh: "日期",
+        },
+        projectDescription: {
+          en: "Project Description",
+          zh: "项目描述",
+        },
+      };
+
+      return translations[key]?.[language] || key;
+    },
+    [language]
+  );
   // 更新表单标题（仅在用户未自定义时）
   useEffect(() => {
     dispatch(

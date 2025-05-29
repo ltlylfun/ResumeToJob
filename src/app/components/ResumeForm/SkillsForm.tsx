@@ -4,7 +4,7 @@ import {
   InputGroupWrapper,
 } from "components/ResumeForm/Form/InputGroup";
 import { FeaturedSkillInput } from "components/ResumeForm/Form/FeaturedSkillInput";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectSkills, changeSkills } from "lib/redux/resumeSlice";
 import {
@@ -22,36 +22,39 @@ export const SkillsForm = () => {
   const form = "skills";
   const themeColor = useAppSelector(selectThemeColor) || "#38bdf8";
 
-  const translate = (key: string) => {
-    const translations: Record<string, Record<string, string>> = {
-      skills: {
-        en: "Skills",
-        zh: "技能",
-      },
-      skillsList: {
-        en: "Skills List",
-        zh: "技能列表",
-      },
-      skillsItem: {
-        en: "Input '- ' or '* ' to create an unordered list (with space after)\nInput '1. ' to create an ordered list (with space after)\nPress Enter to cancel if not needed",
-        zh: "输入 '- ' 或 '* ' 创建无序列表（注意空格）\n输入 '1. ' 创建有序列表（注意空格）\n如果不需要可以回车取消",
-      },
-      featuredSkills: {
-        en: "Featured Skills (Optional)",
-        zh: "特色技能（可选）",
-      },
-      featuredSkillsDescription: {
-        en: "Featured skills are optional and highlight your top skills. More circles indicate higher proficiency.",
-        zh: "特色技能是可选项，用于突出您的顶级技能，圆圈越多表示熟练度越高。",
-      },
-      featuredSkillPlaceholder: {
-        en: "Featured Skill",
-        zh: "特色技能",
-      },
-    };
+  const translate = useCallback(
+    (key: string) => {
+      const translations: Record<string, Record<string, string>> = {
+        skills: {
+          en: "Skills",
+          zh: "技能",
+        },
+        skillsList: {
+          en: "Skills List",
+          zh: "技能列表",
+        },
+        skillsItem: {
+          en: "Input '- ' or '* ' to create an unordered list (with space after)\nInput '1. ' to create an ordered list (with space after)\nPress Enter to cancel if not needed",
+          zh: "输入 '- ' 或 '* ' 创建无序列表（注意空格）\n输入 '1. ' 创建有序列表（注意空格）\n如果不需要可以回车取消",
+        },
+        featuredSkills: {
+          en: "Featured Skills (Optional)",
+          zh: "特色技能（可选）",
+        },
+        featuredSkillsDescription: {
+          en: "Featured skills are optional and highlight your top skills. More circles indicate higher proficiency.",
+          zh: "特色技能是可选项，用于突出您的顶级技能，圆圈越多表示熟练度越高。",
+        },
+        featuredSkillPlaceholder: {
+          en: "Featured Skill",
+          zh: "特色技能",
+        },
+      };
 
-    return translations[key]?.[language] || key;
-  };
+      return translations[key]?.[language] || key;
+    },
+    [language]
+  );
   const handleSkillsChange = (field: "descriptions", value: string[]) => {
     dispatch(changeSkills({ field, value }));
   };

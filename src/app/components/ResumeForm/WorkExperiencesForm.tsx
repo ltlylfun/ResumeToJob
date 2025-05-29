@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { Form, FormSection } from "components/ResumeForm/Form";
 import {
   Input,
@@ -21,40 +21,44 @@ export const WorkExperiencesForm = () => {
   const workExperiences = useAppSelector(selectWorkExperiences);
   const dispatch = useAppDispatch();
   const { language } = useLanguageRedux();
-  const translate = (key: string) => {
-    const translations: Record<string, Record<string, string>> = {
-      workExperiences: {
-        en: "Work Experience",
-        zh: "工作经历",
-      },
-      addWork: {
-        en: "Add Work Experience",
-        zh: "添加工作经历",
-      },
-      deleteWork: {
-        en: "Delete Work Experience",
-        zh: "删除工作经历",
-      },
-      company: {
-        en: "Company",
-        zh: "公司",
-      },
-      position: {
-        en: "Position",
-        zh: "职位",
-      },
-      date: {
-        en: "Date",
-        zh: "日期",
-      },
-      responsibilities: {
-        en: "Responsibilities",
-        zh: "职责描述",
-      },
-    };
 
-    return translations[key]?.[language] || key;
-  };
+  const translate = useCallback(
+    (key: string) => {
+      const translations: Record<string, Record<string, string>> = {
+        workExperiences: {
+          en: "Work Experience",
+          zh: "工作经历",
+        },
+        addWork: {
+          en: "Add Work Experience",
+          zh: "添加工作经历",
+        },
+        deleteWork: {
+          en: "Delete Work Experience",
+          zh: "删除工作经历",
+        },
+        company: {
+          en: "Company",
+          zh: "公司",
+        },
+        position: {
+          en: "Position",
+          zh: "职位",
+        },
+        date: {
+          en: "Date",
+          zh: "日期",
+        },
+        responsibilities: {
+          en: "Responsibilities",
+          zh: "职责描述",
+        },
+      };
+
+      return translations[key]?.[language] || key;
+    },
+    [language]
+  );
   const showDelete = workExperiences.length > 1;
   // 更新表单标题（仅在用户未自定义时）
   useEffect(() => {

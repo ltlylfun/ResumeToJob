@@ -4,7 +4,7 @@ import {
   Input,
 } from "components/ResumeForm/Form/InputGroup";
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeEducations, selectEducations } from "lib/redux/resumeSlice";
 import type { ResumeEducation } from "lib/redux/types";
@@ -20,48 +20,52 @@ export const EducationsForm = () => {
   const { language } = useLanguageRedux();
   const showDelete = educations.length > 1;
   const form = "educations";
-  const translate = (key: string) => {
-    const translations: Record<string, Record<string, string>> = {
-      educations: {
-        en: "Education",
-        zh: "教育经历",
-      },
-      addEducation: {
-        en: "Add Education",
-        zh: "添加教育经历",
-      },
-      deleteEducation: {
-        en: "Delete Education",
-        zh: "删除教育经历",
-      },
-      school: {
-        en: "School",
-        zh: "学校",
-      },
-      degree: {
-        en: "Degree",
-        zh: "学位",
-      },
-      gpa: {
-        en: "GPA",
-        zh: "GPA",
-      },
-      date: {
-        en: "Date",
-        zh: "日期",
-      },
-      descriptions: {
-        en: "Descriptions",
-        zh: "描述",
-      },
-      showBulletPoints: {
-        en: "Show bullet points",
-        zh: "显示项目符号",
-      },
-    };
 
-    return translations[key]?.[language] || key;
-  };
+  const translate = useCallback(
+    (key: string) => {
+      const translations: Record<string, Record<string, string>> = {
+        educations: {
+          en: "Education",
+          zh: "教育经历",
+        },
+        addEducation: {
+          en: "Add Education",
+          zh: "添加教育经历",
+        },
+        deleteEducation: {
+          en: "Delete Education",
+          zh: "删除教育经历",
+        },
+        school: {
+          en: "School",
+          zh: "学校",
+        },
+        degree: {
+          en: "Degree",
+          zh: "学位",
+        },
+        gpa: {
+          en: "GPA",
+          zh: "GPA",
+        },
+        date: {
+          en: "Date",
+          zh: "日期",
+        },
+        descriptions: {
+          en: "Descriptions",
+          zh: "描述",
+        },
+        showBulletPoints: {
+          en: "Show bullet points",
+          zh: "显示项目符号",
+        },
+      };
+
+      return translations[key]?.[language] || key;
+    },
+    [language]
+  );
   // 更新表单标题（仅在用户未自定义时）
   useEffect(() => {
     dispatch(
