@@ -1,6 +1,6 @@
 import { Form } from "components/ResumeForm/Form";
 import { BulletListTextarea } from "components/ResumeForm/Form/InputGroup";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeCustom, selectCustom } from "lib/redux/resumeSlice";
 import {
@@ -16,24 +16,27 @@ export const CustomForm = () => {
   const { descriptions } = custom;
   const form = "custom";
 
-  const translate = (key: string) => {
-    const translations: Record<string, Record<string, string>> = {
-      custom: {
-        en: "Custom Section",
-        zh: "自定义部分",
-      },
-      customContent: {
-        en: "Custom Content",
-        zh: "自定义内容",
-      },
-      addCustomContent: {
-        en: "Input '- ' or '* ' to create an unordered list (with space after)\nInput '1. ' to create an ordered list (with space after)\nPress Enter to cancel if not needed",
-        zh: "输入 '- ' 或 '* ' 创建无序列表（注意空格）\n输入 '1. ' 创建有序列表（注意空格）\n如果不需要可以回车取消",
-      },
-    };
+  const translate = useCallback(
+    (key: string) => {
+      const translations: Record<string, Record<string, string>> = {
+        custom: {
+          en: "Custom Section",
+          zh: "自定义部分",
+        },
+        customContent: {
+          en: "Custom Content",
+          zh: "自定义内容",
+        },
+        addCustomContent: {
+          en: "Input '- ' or '* ' to create an unordered list (with space after)\nInput '1. ' to create an ordered list (with space after)\nPress Enter to cancel if not needed",
+          zh: "输入 '- ' 或 '* ' 创建无序列表（注意空格）\n输入 '1. ' 创建有序列表（注意空格）\n如果不需要可以回车取消",
+        },
+      };
 
-    return translations[key]?.[language] || key;
-  };
+      return translations[key]?.[language] || key;
+    },
+    [language]
+  );
   const handleCustomChange = (field: "descriptions", value: string[]) => {
     dispatch(changeCustom({ field, value }));
   };
