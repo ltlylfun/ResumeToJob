@@ -1,30 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
-import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   $createParagraphNode,
   $createTextNode,
   $getRoot,
   EditorState,
-  TextNode,
-  $getSelection,
-  $isRangeSelection,
+  LexicalEditor,
 } from "lexical";
-import { BOLD_STAR, BOLD_UNDERSCORE } from "@lexical/markdown";
 import { InputGroupWrapper, INPUT_CLASS_NAME } from "./InputGroup";
 import { saveStateToLocalStorage } from "lib/redux/local-storage";
 import { store } from "lib/redux/store";
-
-// Lexical 节点配置 - 支持文本格式化
-const LexicalNodes = [TextNode];
-
-// Markdown 转换器 - 仅支持粗体
-const MARKDOWN_TRANSFORMERS = [BOLD_STAR, BOLD_UNDERSCORE];
 
 // 简单的错误边界函数
 function ErrorBoundary({ children }: { children: React.ReactNode }) {
@@ -49,51 +38,6 @@ interface LexicalPlainEditorProps<K extends string> {
   minHeight?: string;
   onChange: (name: K, value: string) => void;
   autoResizable?: boolean;
-}
-
-// 解析Markdown文本并创建相应的Lexical节点
-function parseMarkdownText(text: string): any[] {
-  const nodes: any[] = [];
-
-  // 简单的Markdown解析器，支持 **bold** 和 __bold__ 语法
-  const regex = /(\*\*([^*]+)\*\*|__([^_]+)__)/g;
-  let lastIndex = 0;
-  let match;
-
-  while ((match = regex.exec(text)) !== null) {
-    // 添加粗体前的普通文本
-    if (match.index > lastIndex) {
-      const normalText = text.substring(lastIndex, match.index);
-      if (normalText) {
-        nodes.push($createTextNode(normalText));
-      }
-    }
-
-    // 添加粗体文本
-    const boldText = match[2] || match[3]; // match[2] 是 **text**, match[3] 是 __text__
-    if (boldText) {
-      const boldNode = $createTextNode(boldText);
-      boldNode.setFormat("bold");
-      nodes.push(boldNode);
-    }
-
-    lastIndex = regex.lastIndex;
-  }
-
-  // 添加剩余的普通文本
-  if (lastIndex < text.length) {
-    const remainingText = text.substring(lastIndex);
-    if (remainingText) {
-      nodes.push($createTextNode(remainingText));
-    }
-  }
-
-  // 如果没有匹配到任何Markdown，返回原始文本
-  if (nodes.length === 0) {
-    nodes.push($createTextNode(text));
-  }
-
-  return nodes;
 }
 
 // 手动保存状态到本地储存
@@ -152,10 +96,9 @@ function EditorInitializer<K extends string>({
         // 创建段落节点
         const paragraph = $createParagraphNode();
 
-        // 如果有值，解析Markdown并添加格式化文本
+        // 如果有值，添加文本
         if (value) {
-          const parsedNodes = parseMarkdownText(value);
-          parsedNodes.forEach((node) => paragraph.append(node));
+          paragraph.append($createTextNode(value));
         }
 
         root.append(paragraph);
@@ -209,10 +152,8 @@ export const LexicalPlainEditor = <K extends string>({
       theme: {
         text: {
           base: "text-base font-normal",
-          bold: "font-bold",
         },
       },
-      nodes: LexicalNodes,
       onError: (error: Error) => {
         console.error(error);
       },
@@ -230,30 +171,7 @@ export const LexicalPlainEditor = <K extends string>({
 
       editorState.read(() => {
         const root = $getRoot();
-
-        // 提取富文本内容，保留 Markdown 格式
-        const extractFormattedText = (node: any): string => {
-          if (node.getType() === "text") {
-            const textNode = node as TextNode;
-            let text = textNode.getTextContent();
-
-            // 如果文本是粗体，用 Markdown 语法包装
-            if (textNode.hasFormat("bold")) {
-              text = `**${text}**`;
-            }
-
-            return text;
-          } else if (node.getType() === "paragraph") {
-            const children = node.getChildren();
-            return children.map(extractFormattedText).join("");
-          }
-
-          return node.getTextContent();
-        };
-
-        const nodes = root.getChildren();
-        const formattedTexts = nodes.map(extractFormattedText);
-        newContent = formattedTexts.join("\n").trim();
+        newContent = root.getTextContent();
       });
 
       // 使用防抖延迟更新，以避免频繁的状态更新导致光标跳转
@@ -287,7 +205,7 @@ export const LexicalPlainEditor = <K extends string>({
           key={`editor-${editorKey}`}
           initialConfig={editorConfig}
         >
-          <RichTextPlugin
+          <PlainTextPlugin
             contentEditable={
               <ContentEditable className="min-h-[30px] py-[5px] outline-none" />
             }
@@ -296,8 +214,6 @@ export const LexicalPlainEditor = <K extends string>({
             }
             ErrorBoundary={ErrorBoundary}
           />
-          <MarkdownShortcutPlugin transformers={MARKDOWN_TRANSFORMERS} />
-          <HistoryPlugin />
           <OnChangePlugin onChange={handleEditorChange} />
           <EditorInitializer value={value} />
         </LexicalComposer>

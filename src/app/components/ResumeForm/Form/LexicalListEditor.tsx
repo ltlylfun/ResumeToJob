@@ -13,7 +13,12 @@ import {
 } from "@lexical/list";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
-import { ORDERED_LIST, UNORDERED_LIST } from "@lexical/markdown";
+import {
+  ORDERED_LIST,
+  UNORDERED_LIST,
+  BOLD_STAR,
+  BOLD_UNDERSCORE,
+} from "@lexical/markdown";
 import {
   $createParagraphNode,
   $createTextNode,
@@ -21,16 +26,23 @@ import {
   EditorState,
   $getSelection,
   $isRangeSelection,
+  TextNode,
+  ParagraphNode,
 } from "lexical";
 import { InputGroupWrapper, INPUT_CLASS_NAME } from "./InputGroup";
 import { saveStateToLocalStorage } from "lib/redux/local-storage";
 import { store } from "lib/redux/store";
 
-// Lexical 节点配置 - 仅保留列表功能所需节点
-const LexicalNodes = [ListNode, ListItemNode];
+// Lexical 节点配置 - 包含列表和文本格式化节点
+const LexicalNodes = [ListNode, ListItemNode, TextNode, ParagraphNode];
 
-// 自定义的Markdown转换器 - 只包含列表相关的转换器
-const LIST_TRANSFORMERS = [ORDERED_LIST, UNORDERED_LIST];
+// 自定义的Markdown转换器 - 包含列表和粗体转换器
+const LIST_TRANSFORMERS = [
+  ORDERED_LIST,
+  UNORDERED_LIST,
+  BOLD_STAR,
+  BOLD_UNDERSCORE,
+];
 
 // 简单的错误边界函数
 function ErrorBoundary({ children }: { children: React.ReactNode }) {
@@ -55,13 +67,34 @@ interface ListEditorProps<T extends string> {
   onChange: (name: T, value: string[]) => void;
 }
 
-// 从编辑器状态中提取内容，包括列表项
+// 从编辑器状态中提取内容，包括列表项和格式化文本
 const extractContentFromEditor = (editorState: EditorState): string[] => {
   const result: string[] = [];
 
   editorState.read(() => {
     const root = $getRoot();
     const nodes = root.getChildren();
+
+    // 提取格式化文本的辅助函数
+    const extractFormattedText = (node: any): string => {
+      if (node.getType() === "text") {
+        const textNode = node as TextNode;
+        let text = textNode.getTextContent();
+
+        // 如果文本是粗体，用 Markdown 语法包装
+        if (textNode.hasFormat("bold")) {
+          text = `**${text}**`;
+        }
+
+        return text;
+      } else if (node.getChildren) {
+        // 递归处理有子节点的节点
+        const children = node.getChildren();
+        return children.map(extractFormattedText).join("");
+      }
+
+      return node.getTextContent();
+    };
 
     nodes.forEach((node) => {
       // 特殊处理列表节点
@@ -75,7 +108,7 @@ const extractContentFromEditor = (editorState: EditorState): string[] => {
           if (listItemNode.getType() === "listitem") {
             // 对于列表项，添加适当的前缀（无序列表用"• "，有序列表用"1. "等）
             const isNumbered = listNode.getListType() === "number";
-            const listItemContent = listItemNode.getTextContent().trim();
+            const listItemContent = extractFormattedText(listItemNode).trim();
 
             if (listItemContent) {
               if (isNumbered) {
@@ -90,7 +123,7 @@ const extractContentFromEditor = (editorState: EditorState): string[] => {
         });
       } else {
         // 普通段落节点
-        const text = node.getTextContent().trim();
+        const text = extractFormattedText(node).trim();
         if (text) {
           result.push(text);
         }
@@ -100,6 +133,51 @@ const extractContentFromEditor = (editorState: EditorState): string[] => {
 
   return result;
 };
+
+// 解析Markdown文本并创建相应的Lexical节点
+function parseMarkdownText(text: string): any[] {
+  const nodes: any[] = [];
+
+  // 简单的Markdown解析器，支持 **bold** 和 __bold__ 语法
+  const regex = /(\*\*([^*]+)\*\*|__([^_]+)__)/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    // 添加粗体前的普通文本
+    if (match.index > lastIndex) {
+      const normalText = text.substring(lastIndex, match.index);
+      if (normalText) {
+        nodes.push($createTextNode(normalText));
+      }
+    }
+
+    // 添加粗体文本（不包含 Markdown 符号）
+    const boldText = match[2] || match[3]; // match[2] 是 **text**, match[3] 是 __text__
+    if (boldText) {
+      const boldNode = $createTextNode(boldText);
+      boldNode.setFormat("bold");
+      nodes.push(boldNode);
+    }
+
+    lastIndex = regex.lastIndex;
+  }
+
+  // 添加剩余的普通文本
+  if (lastIndex < text.length) {
+    const remainingText = text.substring(lastIndex);
+    if (remainingText) {
+      nodes.push($createTextNode(remainingText));
+    }
+  }
+
+  // 如果没有匹配到任何Markdown，返回原始文本
+  if (nodes.length === 0) {
+    nodes.push($createTextNode(text));
+  }
+
+  return nodes;
+}
 
 // 手动保存状态到本地储存
 const forceSaveToLocalStorage = () => {
@@ -183,7 +261,9 @@ function EditorInitializer<T extends string>({
             }
 
             const listItemNode = $createListItemNode();
-            listItemNode.append($createTextNode(text.substring(2)));
+            const itemText = text.substring(2); // 移除 "• " 前缀
+            const parsedNodes = parseMarkdownText(itemText);
+            parsedNodes.forEach((node) => listItemNode.append(node));
             currentList.append(listItemNode);
           } else if (text.match(/^\d+\.\s/)) {
             // 有序列表项 (例如 "1. ")
@@ -195,7 +275,9 @@ function EditorInitializer<T extends string>({
             }
 
             const listItemNode = $createListItemNode();
-            listItemNode.append($createTextNode(text.replace(/^\d+\.\s/, "")));
+            const itemText = text.replace(/^\d+\.\s/, ""); // 移除数字前缀
+            const parsedNodes = parseMarkdownText(itemText);
+            parsedNodes.forEach((node) => listItemNode.append(node));
             currentList.append(listItemNode);
           } else {
             // 普通段落，结束当前列表
@@ -204,7 +286,8 @@ function EditorInitializer<T extends string>({
 
             const paragraph = $createParagraphNode();
             if (text) {
-              paragraph.append($createTextNode(text));
+              const parsedNodes = parseMarkdownText(text);
+              parsedNodes.forEach((node) => paragraph.append(node));
             }
             root.append(paragraph);
           }
@@ -262,7 +345,9 @@ export const LexicalListEditor = <T extends string>({
         },
         text: {
           base: "text-base font-normal",
+          bold: "font-bold",
         },
+        paragraph: "my-0",
       },
       nodes: LexicalNodes,
       // 添加自动焦点恢复
@@ -310,7 +395,7 @@ export const LexicalListEditor = <T extends string>({
         >
           <RichTextPlugin
             contentEditable={
-              <ContentEditable className="min-h-[75px] py-2 outline-none" />
+              <ContentEditable className="min-h-[75px] py-2 outline-none [&_.font-bold]:font-bold [&_strong]:font-bold" />
             }
             placeholder={
               value.length === 0 ? (
@@ -320,8 +405,8 @@ export const LexicalListEditor = <T extends string>({
             ErrorBoundary={ErrorBoundary}
           />
           <ListPlugin />
-          {/* 添加 Markdown 快捷方式支持，如: "- " 和 "1. " 自动转换为列表 */}
-          {/* 仅保留列表相关的转换器 */}
+          {/* 添加 Markdown 快捷方式支持，如: "- " 和 "1. " 自动转换为列表，"**text**" 转换为粗体 */}
+          {/* 包含列表和粗体相关的转换器 */}
           <MarkdownShortcutPlugin transformers={LIST_TRANSFORMERS} />
           <HistoryPlugin />
           <OnChangePlugin onChange={handleEditorChange} />

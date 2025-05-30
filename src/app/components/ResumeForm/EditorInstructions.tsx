@@ -27,6 +27,10 @@ export const EditorInstructions = () => {
       en: "Type '1. ' to create an ordered list",
       zh: "输入 '1. ' 创建有序列表",
     },
+    boldText: {
+      en: "Type '**text**' or '__text__' to make text bold",
+      zh: "输入 '**文本**' 或 '__文本__' 创建粗体文本",
+    },
     hint: {
       en: "These shortcuts help you format your resume content more efficiently.",
       zh: "这些快捷方式可以帮助您更高效地格式化您的简历内容。",
@@ -55,6 +59,7 @@ export const EditorInstructions = () => {
           <ul className="list-disc space-y-2 pl-5 text-blue-700">
             <li>{translations.unorderedList[language]}</li>
             <li>{translations.orderedList[language]}</li>
+            <li>{translations.boldText[language]}</li>
           </ul>
           <p className="mt-3 text-sm text-gray-600">
             {translations.hint[language]}
