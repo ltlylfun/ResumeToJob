@@ -20,12 +20,12 @@ export const EditorInstructions = () => {
       zh: "Markdown 快捷方式",
     },
     unorderedList: {
-      en: "Type '- ' or '* ' to create an unordered list",
-      zh: "输入 '- ' 或 '* ' 创建无序列表",
+      en: "Type '- ' or '* ' to create an unordered list (note the space after)",
+      zh: "输入 '- ' 或 '* ' 创建无序列表（注意后面的空格）",
     },
     orderedList: {
-      en: "Type '1. ' to create an ordered list",
-      zh: "输入 '1. ' 创建有序列表",
+      en: "Type '1. ' to create an ordered list (note the space after)",
+      zh: "输入 '1. ' 创建有序列表（注意后面的空格）",
     },
     boldText: {
       en: "Type '**text**' or '__text__' to make text bold",
