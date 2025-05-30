@@ -1,8 +1,7 @@
 export function getMetadata() {
   return {
-    title:
-      "ResumeToJob - 免费开源简历生成器和解析器 | Free Open-Source Resume Builder and Parser",
+    title: "ResumeToJob - 免费开源简历生成器| Free Open-Source Resume Builder",
     description:
-      "ResumeToJob是一个免费、开源且功能强大的简历生成器，允许任何人通过3个简单步骤创建现代专业简历。ResumeToJob is a free, open-source and powerful resume builder that allows anyone to create a modern and professional resume in 3 simple steps.",
+      "ResumeToJob是一个免费开源的简历制作网站，帮助您快速创建专业简历，支持多种模板和自定义选项。| ResumeToJob is a free and open-source resume builder that helps you create professional resumes quickly with multiple templates and customization options.",
   };
 }
