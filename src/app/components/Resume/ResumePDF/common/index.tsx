@@ -4,6 +4,68 @@ import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import { DEBUG_RESUME_PDF_FLAG } from "lib/constants";
 import { DEFAULT_FONT_COLOR } from "lib/redux/settingsSlice";
 
+// 解析Markdown粗体语法并返回格式化的文本节点
+const parseMarkdownBold = (text: string) => {
+  const parts = [];
+  // 支持 **bold** 和 __bold__ 语法
+  const regex = /(\*\*([^*]+)\*\*|__([^_]+)__)/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    // 添加粗体前的普通文本
+    if (match.index > lastIndex) {
+      const normalText = text.substring(lastIndex, match.index);
+      if (normalText) {
+        parts.push(
+          <Text key={`normal-${lastIndex}`} debug={DEBUG_RESUME_PDF_FLAG}>
+            {normalText}
+          </Text>
+        );
+      }
+    }
+
+    // 添加粗体文本
+    const boldText = match[2] || match[3]; // match[2] 是 **text**, match[3] 是 __text__
+    if (boldText) {
+      parts.push(
+        <Text
+          key={`bold-${match.index}`}
+          style={{ fontWeight: "bold" }}
+          debug={DEBUG_RESUME_PDF_FLAG}
+        >
+          {boldText}
+        </Text>
+      );
+    }
+
+    lastIndex = regex.lastIndex;
+  }
+
+  // 添加剩余的普通文本
+  if (lastIndex < text.length) {
+    const remainingText = text.substring(lastIndex);
+    if (remainingText) {
+      parts.push(
+        <Text key={`remaining-${lastIndex}`} debug={DEBUG_RESUME_PDF_FLAG}>
+          {remainingText}
+        </Text>
+      );
+    }
+  }
+
+  // 如果没有匹配到任何Markdown，返回原始文本
+  if (parts.length === 0) {
+    parts.push(
+      <Text key="default" debug={DEBUG_RESUME_PDF_FLAG}>
+        {text}
+      </Text>
+    );
+  }
+
+  return parts;
+};
+
 export const ResumePDFSection = ({
   themeColor,
   heading,
@@ -125,11 +187,17 @@ export const ResumePDFBulletList = ({
             )}
             {/* A breaking change was introduced causing text layout to be wider than node's width
                 https://github.com/diegomura/react-pdf/issues/2182. flexGrow & flexBasis fixes it */}
-            <ResumePDFText
-              style={{ lineHeight: "1.3", flexGrow: 1, flexBasis: 0 }}
+            <Text
+              style={{
+                lineHeight: "1.3",
+                flexGrow: 1,
+                flexBasis: 0,
+                color: DEFAULT_FONT_COLOR,
+              }}
+              debug={DEBUG_RESUME_PDF_FLAG}
             >
-              {content}
-            </ResumePDFText>
+              {parseMarkdownBold(content)}
+            </Text>
           </View>
         );
       })}
