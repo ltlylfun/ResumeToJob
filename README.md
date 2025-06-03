@@ -5,7 +5,7 @@
 # ResumeToJob | 简历制作网站
 
 <div align="center">
-  <img src="public/assets/1.png" alt="ResumeToJob Screenshot" width="800" />
+  <img src="public/assets/screenshot1.png" alt="ResumeToJob Screenshot" width="800" />
 </div>
 
 <div align="center">
@@ -26,8 +26,6 @@
     <img alt="GitHub license" src="https://img.shields.io/github/license/ltlylfun/ResumeToJob?style=for-the-badge&logo=github&color=45AAF2">
   </a>
 </p>
-
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ltlylfun/ResumeToJob)
 
 <div align="center">
   <img src="https://moe-counter.glitch.me/get/@ltlylfun-ResumeToJob?theme=rule34" alt="Moe Counter" />
@@ -53,6 +51,19 @@ ResumeToJob 是一个免费开源的在线简历制作工具，帮助求职者�
 - 📤 一键导出 PDF 格式简历
 - 🌏 支持中英文界面
 - 🖥️ 实时预览编辑效果
+- ✏️ 支持 Markdown 格式，让内容编辑更简单
+
+### 📝 Markdown 格式支持
+
+<div align="center">
+  <img src="public/assets/screenshot2_zh.png" alt="Markdown支持演示" width="800" />
+</div>
+
+本项目支持 Markdown 格式，让您更轻松地编辑简历内容：
+
+- **无序列表**：输入 `- ` 或 `* ` 创建无序列表（注意后面的空格）
+- **有序列表**：输入 `1. ` 创建有序列表（注意后面的空格）
+- **粗体文本**：输入 `**文本**` 或 `__文本__` 创建粗体文本
 
 ### 🤝 参与贡献
 
@@ -121,6 +132,19 @@ ResumeToJob is a free open-source online resume builder that helps job seekers q
 - 📤 One-click PDF export
 - 🌏 Multi-language interface (English & Chinese)
 - 🖥️ Real-time preview of edits
+- ✏️ Markdown format support for easier content editing
+
+### 📝 Markdown Format Support
+
+<div align="center">
+  <img src="public/assets/screenshot2_en.png" alt="Markdown Support Demo" width="800" />
+</div>
+
+This project supports Markdown format to make resume content editing easier:
+
+- **Unordered lists**: Type `- ` or `* ` to create unordered lists (note the space after)
+- **Ordered lists**: Type `1. ` to create ordered lists (note the space after)
+- **Bold text**: Type `**text**` or `__text__` to create bold text
 
 ### 🤝 Contribute
 
