@@ -10,7 +10,7 @@
 
 <div align="center">
 
-[English](#english-version) | [简体中文](#chinese-version)
+## [English](#english-version) | [简体中文](#chinese-version)
 
 <p align="center">
   <a href="https://github.com/ltlylfun/ResumeToJob/stargazers">
