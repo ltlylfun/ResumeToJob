@@ -6,10 +6,10 @@ export const elegantTemplate: Template = {
   description: "简约大气的高级设计",
   getStyles: (themeColor: string, spacing: any): TemplateStyles => {
     return {
-      header: {}, // 无头部背景
+      header: {},
       headerText: {},
       content: {
-        padding: `${spacing[4]} ${spacing[10]}`,
+        padding: `${spacing[2]} ${spacing[8]}`,
         borderWidth: "1pt",
         borderStyle: "solid",
         borderColor: themeColor,
@@ -20,11 +20,9 @@ export const elegantTemplate: Template = {
         position: "relative",
       },
       sectionTitle: {
-        fontSize: "12pt",
         textTransform: "uppercase",
         letterSpacing: "3pt",
         color: themeColor,
-        marginBottom: spacing[2],
         textAlign: "center",
         borderTopWidth: "0.5pt",
         borderTopStyle: "solid",
@@ -37,23 +35,20 @@ export const elegantTemplate: Template = {
       },
       bullet: {
         color: themeColor,
-        fontSize: "10pt",
+        paddingLeft: spacing[1],
+        paddingRight: spacing[1],
       },
       name: {
-        fontSize: "24pt",
+        fontSize: "18pt",
         fontWeight: "normal",
         textAlign: "left",
         marginBottom: spacing[1],
         letterSpacing: "1pt",
         color: themeColor,
       },
-      date: {
-        fontSize: "9pt",
-      },
+      date: {},
       company: {
         fontWeight: "normal",
-        letterSpacing: "1pt",
-        fontSize: "12pt",
         textTransform: "uppercase",
       },
       jobTitle: {
@@ -61,15 +56,11 @@ export const elegantTemplate: Template = {
       },
       school: {
         fontWeight: "normal",
-        letterSpacing: "1pt",
-        fontSize: "12pt",
         textTransform: "uppercase",
       },
       degree: {},
       projectTitle: {
         fontWeight: "normal",
-
-        fontSize: "11pt",
         color: themeColor,
       },
       contact: {

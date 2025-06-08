@@ -9,7 +9,7 @@ export const professionalTemplate: Template = {
       header: { backgroundColor: themeColor, padding: spacing[1] },
       headerText: {}, // 保持默认样式
       content: {
-        padding: `${spacing[3]} ${spacing[10]}`,
+        padding: `${spacing[0]} ${spacing[8]}`,
       },
       section: {
         marginTop: spacing[3],
@@ -21,22 +21,20 @@ export const professionalTemplate: Template = {
       sectionTitle: {
         color: themeColor,
         fontWeight: "bold",
-        fontSize: "13pt",
         letterSpacing: "0.5pt",
-        marginBottom: spacing[2],
       },
       bullet: {
-        paddingLeft: spacing[1.5],
-        paddingRight: spacing[1.5],
+        color: themeColor,
+        paddingLeft: spacing[1],
+        paddingRight: spacing[1],
       },
       name: {
-        fontSize: "22pt",
+        fontSize: "18pt",
         fontWeight: "bold",
         letterSpacing: "0.5pt",
       },
       date: {
         fontWeight: "normal",
-        fontSize: "9pt",
         color: themeColor,
         backgroundColor: `${themeColor}10`,
         padding: `${spacing[0.5]} ${spacing[1.5]}`,
@@ -47,7 +45,6 @@ export const professionalTemplate: Template = {
       },
       company: {
         fontWeight: "bold",
-        fontSize: "11pt",
         textDecoration: "underline",
         textDecorationColor: themeColor,
       },
@@ -56,7 +53,6 @@ export const professionalTemplate: Template = {
       },
       school: {
         fontWeight: "bold",
-        fontSize: "11pt",
         textDecoration: "underline",
         textDecorationColor: themeColor,
       },

@@ -12,7 +12,7 @@ export const modernTemplate: Template = {
       },
       headerText: {},
       content: {
-        padding: `${spacing[0]} ${spacing[10]}`, // 修改从20减小到10
+        padding: `${spacing[0]} ${spacing[8]}`,
       },
       section: {
         marginTop: spacing[3],
@@ -23,15 +23,14 @@ export const modernTemplate: Template = {
       },
       sectionTitle: {
         color: themeColor,
-        marginBottom: spacing[2],
       },
       bullet: {
         color: themeColor,
-        paddingLeft: spacing[2],
-        paddingRight: spacing[2],
+        paddingLeft: spacing[1],
+        paddingRight: spacing[1],
       },
       name: {
-        fontSize: "24pt",
+        fontSize: "18pt",
         fontWeight: "bold",
       },
       date: {
@@ -39,12 +38,10 @@ export const modernTemplate: Template = {
       },
       company: {
         fontWeight: "bold",
-        fontSize: "12pt",
       },
       jobTitle: {},
       school: {
         fontWeight: "bold",
-        fontSize: "12pt",
       },
       projectTitle: {
         fontWeight: "bold",

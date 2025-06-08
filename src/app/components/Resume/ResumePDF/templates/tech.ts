@@ -9,7 +9,7 @@ export const techTemplate: Template = {
       header: {},
       headerText: {},
       content: {
-        padding: `${spacing[3]} ${spacing[10]}`,
+        padding: `${spacing[0]} ${spacing[8]}`,
       },
       section: {
         marginTop: spacing[3],
@@ -19,44 +19,36 @@ export const techTemplate: Template = {
         borderTopColor: themeColor,
       },
       sectionTitle: {
-        fontSize: "12pt",
         fontWeight: "bold",
-        marginBottom: spacing[2],
         color: themeColor,
       },
       bullet: {
         color: themeColor,
-        paddingLeft: spacing[1.5],
-        paddingRight: spacing[1.5],
+        paddingLeft: spacing[1],
+        paddingRight: spacing[1],
       },
       name: {
-        fontSize: "20pt",
+        fontSize: "18pt",
         fontWeight: "bold",
         color: themeColor,
       },
       date: {
-        fontSize: "9pt",
         color: themeColor,
       },
       company: {
         fontWeight: "bold",
-        fontSize: "11pt",
       },
       jobTitle: {
         color: themeColor,
-        fontSize: "10pt",
       },
       school: {
         fontWeight: "bold",
-        fontSize: "11pt",
       },
       degree: {
         color: themeColor,
-        fontSize: "10pt",
       },
       projectTitle: {
         fontWeight: "bold",
-        fontSize: "11pt",
         color: themeColor,
         padding: `${spacing[0.5]} 0`,
         borderBottomWidth: "1pt",

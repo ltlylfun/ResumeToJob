@@ -12,13 +12,12 @@ export const compactTemplate: Template = {
       },
       headerText: {},
       content: {
-        padding: `${spacing[2]} ${spacing[8]}`,
+        padding: `${spacing[0]} ${spacing[8]}`,
       },
       section: {
         marginTop: spacing[3],
       },
       sectionTitle: {
-        fontSize: "11pt",
         fontWeight: "bold",
         color: "white",
         backgroundColor: themeColor,
@@ -26,44 +25,34 @@ export const compactTemplate: Template = {
         paddingBottom: spacing[0.5],
         paddingLeft: spacing[1],
         paddingRight: spacing[1],
-        marginBottom: spacing[2],
         display: "flex", // 修改 "inline-block" 为 "flex"
       },
       bullet: {
+        color: themeColor,
         paddingLeft: spacing[1],
         paddingRight: spacing[1],
-        fontSize: "8pt",
       },
       name: {
-        fontSize: "16pt",
+        fontSize: "18pt",
         fontWeight: "bold",
       },
-      date: {
-        fontSize: "8pt",
-      },
+      date: {},
       company: {
         fontWeight: "bold",
-        fontSize: "10pt",
       },
       jobTitle: {
         fontWeight: "normal",
-        fontSize: "9pt",
         color: themeColor,
       },
       school: {
         fontWeight: "bold",
-        fontSize: "10pt",
       },
-      degree: {
-        fontSize: "9pt",
-      },
+      degree: {},
       projectTitle: {
         fontWeight: "bold",
-        fontSize: "10pt",
       },
       contact: {
         marginTop: spacing[1],
-        fontSize: "9pt",
         gap: spacing[1],
       },
     };

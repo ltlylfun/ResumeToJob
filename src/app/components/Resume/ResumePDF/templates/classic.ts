@@ -11,25 +11,25 @@ export const classicTemplate: Template = {
         height: spacing[3.5],
         backgroundColor: themeColor,
       },
-      headerText: {}, // 不需要特殊样式
+      headerText: {},
       content: {
-        padding: `${spacing[0]} ${spacing[10]}`, // 修改从20减小到10
+        padding: `${spacing[0]} ${spacing[8]}`,
       },
       section: {
         marginTop: spacing[3],
       },
       sectionTitle: {
-        marginBottom: spacing[2],
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
       },
       bullet: {
-        paddingLeft: spacing[2],
-        paddingRight: spacing[2],
+        color: themeColor,
+        paddingLeft: spacing[1],
+        paddingRight: spacing[1],
       },
       name: {
-        fontSize: "20pt",
+        fontSize: "18pt",
       },
       company: {
         fontWeight: "bold",

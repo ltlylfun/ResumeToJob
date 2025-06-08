@@ -12,7 +12,7 @@ export const creativeTemplate: Template = {
       },
       headerText: {},
       content: {
-        padding: `${spacing[5]} ${spacing[8]}`,
+        padding: `${spacing[0]} ${spacing[8]}`,
       },
       section: {
         marginTop: spacing[3],
@@ -23,9 +23,7 @@ export const creativeTemplate: Template = {
         borderLeftColor: themeColor,
       },
       sectionTitle: {
-        fontSize: "14pt",
         fontWeight: "bold",
-        marginBottom: spacing[2],
         color: "white",
         backgroundColor: themeColor,
         paddingTop: spacing[1],
@@ -39,10 +37,11 @@ export const creativeTemplate: Template = {
       },
       bullet: {
         color: themeColor,
-        fontWeight: "bold",
+        paddingLeft: spacing[1],
+        paddingRight: spacing[1],
       },
       name: {
-        fontSize: "26pt",
+        fontSize: "18pt",
         fontWeight: "bold",
         color: themeColor,
         borderBottomWidth: "2pt",
@@ -53,7 +52,6 @@ export const creativeTemplate: Template = {
         display: "flex",
       },
       date: {
-        fontSize: "9pt",
         backgroundColor: `${themeColor}15`,
         padding: `${spacing[0.5]} ${spacing[1]}`,
         borderTopLeftRadius: "10pt",
@@ -63,11 +61,9 @@ export const creativeTemplate: Template = {
       },
       company: {
         fontWeight: "bold",
-        fontSize: "12pt",
         color: themeColor,
       },
       jobTitle: {
-        fontSize: "11pt",
         backgroundColor: `${themeColor}15`,
         padding: `${spacing[0.5]} ${spacing[1]}`,
         borderTopLeftRadius: "5pt",
@@ -78,13 +74,11 @@ export const creativeTemplate: Template = {
       },
       school: {
         fontWeight: "bold",
-        fontSize: "12pt",
         color: themeColor,
       },
       degree: {},
       projectTitle: {
         fontWeight: "bold",
-        fontSize: "11pt",
         color: themeColor,
         borderBottomWidth: "1.5pt",
         borderBottomStyle: "dotted",

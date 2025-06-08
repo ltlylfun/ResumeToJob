@@ -9,7 +9,7 @@ export const minimalTemplate: Template = {
       header: {}, // 无头部背景
       headerText: {},
       content: {
-        padding: `${spacing[5]} ${spacing[10]}`, // 修改从20减小到10
+        padding: `${spacing[0]} ${spacing[8]}`,
       },
       section: {
         marginTop: spacing[3],
@@ -17,8 +17,6 @@ export const minimalTemplate: Template = {
       sectionTitle: {
         textTransform: "uppercase",
         letterSpacing: "1pt",
-        fontSize: "11pt",
-        marginBottom: spacing[2],
         borderBottomWidth: "0.5pt",
         borderBottomStyle: "solid",
         borderBottomColor: themeColor,
@@ -34,9 +32,7 @@ export const minimalTemplate: Template = {
         letterSpacing: "1pt",
         textTransform: "uppercase",
       },
-      date: {
-        fontSize: "9pt",
-      },
+      date: {},
       company: {
         fontWeight: "bold",
         letterSpacing: "0.5pt",
