@@ -104,7 +104,7 @@ const extractContentFromEditor = (editorState: EditorState): string[] => {
         const listItems = listNode.getChildren();
 
         // 遍历列表项
-        listItems.forEach((listItemNode) => {
+        listItems.forEach((listItemNode, listItemIndex) => {
           if (listItemNode.getType() === "listitem") {
             // 对于列表项，添加适当的前缀（无序列表用"• "，有序列表用"1. "等）
             const isNumbered = listNode.getListType() === "number";
@@ -112,8 +112,8 @@ const extractContentFromEditor = (editorState: EditorState): string[] => {
 
             if (listItemContent) {
               if (isNumbered) {
-                // 对于有序列表，使用数字前缀
-                result.push(`1. ${listItemContent}`);
+                // 对于有序列表，使用实际的列表项索引+1作为序号
+                result.push(`${listItemIndex + 1}. ${listItemContent}`);
               } else {
                 // 对于无序列表，使用圆点前缀
                 result.push(`• ${listItemContent}`);

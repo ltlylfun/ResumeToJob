@@ -147,6 +147,9 @@ export const ResumePDFBulletList = ({
   items: string[];
   bulletStyle?: Style;
 }) => {
+  // 跟踪有序列表的当前序号
+  let orderedListCounter = 1;
+
   return (
     <>
       {items.map((item, idx) => {
@@ -162,12 +165,24 @@ export const ResumePDFBulletList = ({
           content = item.substring(2); // 移除列表标记
           isNumbered = false;
           isList = true;
+          // 重置有序列表计数器，因为遇到了无序列表
+          orderedListCounter = 1;
         } else if (item.match(/^\d+\.\s/)) {
           // 已经有有序列表标记 (例如 "1. ")
           content = item.replace(/^\d+\.\s/, ""); // 移除数字和点
-          bulletMark = `${idx + 1}.`; // 使用序号作为有序列表标记
+          // 提取原始数字作为序号，保持原有的序号
+          const match = item.match(/^(\d+)\.\s/);
+          if (match) {
+            bulletMark = `${match[1]}.`;
+          } else {
+            bulletMark = `${orderedListCounter}.`;
+            orderedListCounter++;
+          }
           isNumbered = true;
           isList = true;
+        } else {
+          // 不是列表项，重置有序列表计数器
+          orderedListCounter = 1;
         }
         return (
           <View
