@@ -1,4 +1,4 @@
-# ResumeToJob 模板贡献指南
+# ResumeToJob 模板贡献
 
 <div align="center">
   <img src="public/logo-500.png" alt="ResumeToJob Logo" width="150" />
