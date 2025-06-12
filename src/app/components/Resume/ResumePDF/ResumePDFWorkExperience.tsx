@@ -26,40 +26,47 @@ export const ResumePDFWorkExperience = ({
       style={templateStyles.section}
       titleStyle={templateStyles.sectionTitle}
     >
-      {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
-        // Hide company name if it is the same as the previous company
-        const hideCompanyName =
-          idx > 0 && company === workExperiences[idx - 1].company;
+      {workExperiences.map(
+        ({ id, company, jobTitle, date, descriptions }, idx) => {
+          // Hide company name if it is the same as the previous company
+          const hideCompanyName =
+            idx > 0 && company === workExperiences[idx - 1].company;
 
-        return (
-          <View key={idx} style={idx !== 0 ? { marginTop: spacing["2"] } : {}}>
-            {!hideCompanyName && (
-              <ResumePDFText bold={true} style={templateStyles.company}>
-                {company}
-              </ResumePDFText>
-            )}
+          return (
             <View
-              style={{
-                ...styles.flexRowBetween,
-                marginTop: hideCompanyName
-                  ? "-" + spacing["1"]
-                  : spacing["1.5"],
-              }}
+              key={id || `work-pdf-${idx}`}
+              style={idx !== 0 ? { marginTop: spacing["2"] } : {}}
             >
-              <ResumePDFText style={templateStyles.jobTitle}>
-                {jobTitle}
-              </ResumePDFText>
-              <ResumePDFText style={templateStyles.date}>{date}</ResumePDFText>
+              {!hideCompanyName && (
+                <ResumePDFText bold={true} style={templateStyles.company}>
+                  {company}
+                </ResumePDFText>
+              )}
+              <View
+                style={{
+                  ...styles.flexRowBetween,
+                  marginTop: hideCompanyName
+                    ? "-" + spacing["1"]
+                    : spacing["1.5"],
+                }}
+              >
+                <ResumePDFText style={templateStyles.jobTitle}>
+                  {jobTitle}
+                </ResumePDFText>
+                <ResumePDFText style={templateStyles.date}>
+                  {date}
+                </ResumePDFText>
+              </View>
+              <View style={{ ...styles.flexCol, marginTop: spacing["1.5"] }}>
+                <ResumePDFBulletList
+                  items={descriptions}
+                  bulletStyle={templateStyles.bullet}
+                />
+              </View>
             </View>
-            <View style={{ ...styles.flexCol, marginTop: spacing["1.5"] }}>
-              <ResumePDFBulletList
-                items={descriptions}
-                bulletStyle={templateStyles.bullet}
-              />
-            </View>
-          </View>
-        );
-      })}
+          );
+        }
+      )}
     </ResumePDFSection>
   );
 };

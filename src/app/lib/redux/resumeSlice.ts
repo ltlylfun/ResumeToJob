@@ -22,6 +22,7 @@ export const initialProfile: ResumeProfile = {
 };
 
 export const initialWorkExperience: ResumeWorkExperience = {
+  id: "",
   company: "",
   jobTitle: "",
   date: "",
@@ -29,6 +30,7 @@ export const initialWorkExperience: ResumeWorkExperience = {
 };
 
 export const initialEducation: ResumeEducation = {
+  id: "",
   school: "",
   degree: "",
   gpa: "",
@@ -37,6 +39,7 @@ export const initialEducation: ResumeEducation = {
 };
 
 export const initialProject: ResumeProject = {
+  id: "",
   project: "",
   date: "",
   descriptions: [],
@@ -149,15 +152,24 @@ export const resumeSlice = createSlice({
       const { form } = action.payload;
       switch (form) {
         case "workExperiences": {
-          draft.workExperiences.push(structuredClone(initialWorkExperience));
+          const newWorkExperience = structuredClone(initialWorkExperience);
+          newWorkExperience.id =
+            Date.now().toString() + Math.random().toString(36).substr(2, 9);
+          draft.workExperiences.push(newWorkExperience);
           return draft;
         }
         case "educations": {
-          draft.educations.push(structuredClone(initialEducation));
+          const newEducation = structuredClone(initialEducation);
+          newEducation.id =
+            Date.now().toString() + Math.random().toString(36).substr(2, 9);
+          draft.educations.push(newEducation);
           return draft;
         }
         case "projects": {
-          draft.projects.push(structuredClone(initialProject));
+          const newProject = structuredClone(initialProject);
+          newProject.id =
+            Date.now().toString() + Math.random().toString(36).substr(2, 9);
+          draft.projects.push(newProject);
           return draft;
         }
       }

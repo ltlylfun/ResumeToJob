@@ -26,8 +26,8 @@ export const ResumePDFProject = ({
       style={templateStyles.section}
       titleStyle={templateStyles.sectionTitle}
     >
-      {projects.map(({ project, date, descriptions }, idx) => (
-        <View key={idx}>
+      {projects.map(({ id, project, date, descriptions }, idx) => (
+        <View key={id || `project-pdf-${idx}`}>
           <View
             style={{
               ...styles.flexRowBetween,

@@ -65,7 +65,7 @@ export const ProjectsForm = () => {
 
   return (
     <Form form="projects" addButtonText={translate("addProject")}>
-      {projects.map(({ project, date, descriptions }, idx) => {
+      {projects.map(({ id, project, date, descriptions }, idx) => {
         const handleProjectChange = (
           ...[
             field,
@@ -79,7 +79,7 @@ export const ProjectsForm = () => {
 
         return (
           <FormSection
-            key={idx}
+            key={id || `project-${idx}`}
             form="projects"
             idx={idx}
             showMoveUp={showMoveUp}

@@ -12,6 +12,7 @@ export interface ResumeProfile {
 }
 
 export interface ResumeWorkExperience {
+  id: string;
   company: string;
   jobTitle: string;
   date: string;
@@ -19,6 +20,7 @@ export interface ResumeWorkExperience {
 }
 
 export interface ResumeEducation {
+  id: string;
   school: string;
   degree: string;
   date: string;
@@ -27,6 +29,7 @@ export interface ResumeEducation {
 }
 
 export interface ResumeProject {
+  id: string;
   project: string;
   date: string;
   descriptions: string[];

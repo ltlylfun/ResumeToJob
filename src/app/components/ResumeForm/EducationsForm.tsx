@@ -78,82 +78,84 @@ export const EducationsForm = () => {
 
   return (
     <Form form={form} addButtonText={translate("addEducation")}>
-      {educations.map(({ school, degree, gpa, date, descriptions }, idx) => {
-        const handleEducationChange = (
-          ...[
-            field,
-            value,
-          ]: CreateHandleChangeArgsWithDescriptions<ResumeEducation>
-        ) => {
-          dispatch(changeEducations({ idx, field, value } as any));
-        };
+      {educations.map(
+        ({ id, school, degree, gpa, date, descriptions }, idx) => {
+          const handleEducationChange = (
+            ...[
+              field,
+              value,
+            ]: CreateHandleChangeArgsWithDescriptions<ResumeEducation>
+          ) => {
+            dispatch(changeEducations({ idx, field, value } as any));
+          };
 
-        const showMoveUp = idx !== 0;
-        const showMoveDown = idx !== educations.length - 1;
+          const showMoveUp = idx !== 0;
+          const showMoveDown = idx !== educations.length - 1;
 
-        return (
-          <FormSection
-            key={idx}
-            form="educations"
-            idx={idx}
-            showMoveUp={showMoveUp}
-            showMoveDown={showMoveDown}
-            showDelete={showDelete}
-            deleteButtonTooltipText={translate("deleteEducation")}
-          >
-            <Input
-              label={translate("school")}
-              labelClassName="col-span-4"
-              name="school"
-              placeholder=""
-              value={school}
-              onChange={handleEducationChange}
-            />
-            <Input
-              label={translate("date")}
-              labelClassName="col-span-2"
-              name="date"
-              placeholder=""
-              value={date}
-              onChange={handleEducationChange}
-            />
-            <Input
-              label={translate("degree")}
-              labelClassName="col-span-4"
-              name="degree"
-              placeholder=""
-              value={degree}
-              onChange={handleEducationChange}
-            />
-            <Input
-              label={translate("gpa")}
-              labelClassName="col-span-2"
-              name="gpa"
-              placeholder=""
-              value={gpa}
-              onChange={handleEducationChange}
-            />{" "}
-            <div className="col-span-full">
-              <BulletListTextarea
-                label={
-                  language === "en"
-                    ? "Additional Information (Optional)"
-                    : "附加信息（可选）"
-                }
-                labelClassName="col-span-full"
-                name="descriptions"
-                placeholder={
-                  language === "en"
-                    ? "Supports Markdown, see editor instructions for details"
-                    : "支持Markdown，详见编辑器使用说明"
-                }
-                value={descriptions}
+          return (
+            <FormSection
+              key={id || `education-${idx}`}
+              form="educations"
+              idx={idx}
+              showMoveUp={showMoveUp}
+              showMoveDown={showMoveDown}
+              showDelete={showDelete}
+              deleteButtonTooltipText={translate("deleteEducation")}
+            >
+              <Input
+                label={translate("school")}
+                labelClassName="col-span-4"
+                name="school"
+                placeholder=""
+                value={school}
                 onChange={handleEducationChange}
               />
-            </div>
-          </FormSection>
-        );
-      })}
+              <Input
+                label={translate("date")}
+                labelClassName="col-span-2"
+                name="date"
+                placeholder=""
+                value={date}
+                onChange={handleEducationChange}
+              />
+              <Input
+                label={translate("degree")}
+                labelClassName="col-span-4"
+                name="degree"
+                placeholder=""
+                value={degree}
+                onChange={handleEducationChange}
+              />
+              <Input
+                label={translate("gpa")}
+                labelClassName="col-span-2"
+                name="gpa"
+                placeholder=""
+                value={gpa}
+                onChange={handleEducationChange}
+              />{" "}
+              <div className="col-span-full">
+                <BulletListTextarea
+                  label={
+                    language === "en"
+                      ? "Additional Information (Optional)"
+                      : "附加信息（可选）"
+                  }
+                  labelClassName="col-span-full"
+                  name="descriptions"
+                  placeholder={
+                    language === "en"
+                      ? "Supports Markdown, see editor instructions for details"
+                      : "支持Markdown，详见编辑器使用说明"
+                  }
+                  value={descriptions}
+                  onChange={handleEducationChange}
+                />
+              </div>
+            </FormSection>
+          );
+        }
+      )}
     </Form>
   );
 };

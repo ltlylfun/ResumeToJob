@@ -72,71 +72,73 @@ export const WorkExperiencesForm = () => {
 
   return (
     <Form form="workExperiences" addButtonText={translate("addWork")}>
-      {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
-        const handleWorkExperienceChange = (
-          ...[
-            field,
-            value,
-          ]: CreateHandleChangeArgsWithDescriptions<ResumeWorkExperience>
-        ) => {
-          // TS doesn't support passing union type to single call signature
-          // https://github.com/microsoft/TypeScript/issues/54027
-          // any is used here as a workaround
-          dispatch(changeWorkExperiences({ idx, field, value } as any));
-        };
-        const showMoveUp = idx !== 0;
-        const showMoveDown = idx !== workExperiences.length - 1;
+      {workExperiences.map(
+        ({ id, company, jobTitle, date, descriptions }, idx) => {
+          const handleWorkExperienceChange = (
+            ...[
+              field,
+              value,
+            ]: CreateHandleChangeArgsWithDescriptions<ResumeWorkExperience>
+          ) => {
+            // TS doesn't support passing union type to single call signature
+            // https://github.com/microsoft/TypeScript/issues/54027
+            // any is used here as a workaround
+            dispatch(changeWorkExperiences({ idx, field, value } as any));
+          };
+          const showMoveUp = idx !== 0;
+          const showMoveDown = idx !== workExperiences.length - 1;
 
-        return (
-          <FormSection
-            key={idx}
-            form="workExperiences"
-            idx={idx}
-            showMoveUp={showMoveUp}
-            showMoveDown={showMoveDown}
-            showDelete={showDelete}
-            deleteButtonTooltipText={translate("deleteWork")}
-          >
-            {" "}
-            <Input
-              label={translate("company")}
-              labelClassName="col-span-full"
-              name="company"
-              placeholder=""
-              value={company}
-              onChange={handleWorkExperienceChange}
-            />{" "}
-            <Input
-              label={translate("position")}
-              labelClassName="col-span-4"
-              name="jobTitle"
-              placeholder=""
-              value={jobTitle}
-              onChange={handleWorkExperienceChange}
-            />{" "}
-            <Input
-              label={translate("date")}
-              labelClassName="col-span-2"
-              name="date"
-              placeholder=""
-              value={date}
-              onChange={handleWorkExperienceChange}
-            />{" "}
-            <BulletListTextarea
-              label={translate("responsibilities")}
-              labelClassName="col-span-full"
-              name="descriptions"
-              placeholder={
-                language === "en"
-                  ? "Supports Markdown, see editor instructions for details"
-                  : "支持Markdown，详见编辑器使用说明"
-              }
-              value={descriptions}
-              onChange={handleWorkExperienceChange}
-            />
-          </FormSection>
-        );
-      })}
+          return (
+            <FormSection
+              key={id || `work-${idx}`}
+              form="workExperiences"
+              idx={idx}
+              showMoveUp={showMoveUp}
+              showMoveDown={showMoveDown}
+              showDelete={showDelete}
+              deleteButtonTooltipText={translate("deleteWork")}
+            >
+              {" "}
+              <Input
+                label={translate("company")}
+                labelClassName="col-span-full"
+                name="company"
+                placeholder=""
+                value={company}
+                onChange={handleWorkExperienceChange}
+              />{" "}
+              <Input
+                label={translate("position")}
+                labelClassName="col-span-4"
+                name="jobTitle"
+                placeholder=""
+                value={jobTitle}
+                onChange={handleWorkExperienceChange}
+              />{" "}
+              <Input
+                label={translate("date")}
+                labelClassName="col-span-2"
+                name="date"
+                placeholder=""
+                value={date}
+                onChange={handleWorkExperienceChange}
+              />{" "}
+              <BulletListTextarea
+                label={translate("responsibilities")}
+                labelClassName="col-span-full"
+                name="descriptions"
+                placeholder={
+                  language === "en"
+                    ? "Supports Markdown, see editor instructions for details"
+                    : "支持Markdown，详见编辑器使用说明"
+                }
+                value={descriptions}
+                onChange={handleWorkExperienceChange}
+              />
+            </FormSection>
+          );
+        }
+      )}
     </Form>
   );
 };

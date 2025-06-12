@@ -27,14 +27,14 @@ export const ResumePDFEducation = ({
       titleStyle={templateStyles.sectionTitle}
     >
       {educations.map(
-        ({ school, degree, date, gpa, descriptions = [] }, idx) => {
+        ({ id, school, degree, date, gpa, descriptions = [] }, idx) => {
           // Hide school name if it is the same as the previous school
           const hideSchoolName =
             idx > 0 && school === educations[idx - 1].school;
           const showDescriptions = descriptions.join() !== "";
 
           return (
-            <View key={idx}>
+            <View key={id || `education-pdf-${idx}`}>
               {!hideSchoolName && (
                 <ResumePDFText bold={true} style={templateStyles.school}>
                   {school}
