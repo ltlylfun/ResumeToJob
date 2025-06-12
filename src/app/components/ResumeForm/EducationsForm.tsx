@@ -144,8 +144,8 @@ export const EducationsForm = () => {
                 name="descriptions"
                 placeholder={
                   language === "en"
-                    ? "Input '- ' or '* ' to create an unordered list (with space after)\nInput '1. ' to create an ordered list (with space after)\nPress Enter to cancel if not needed\nInput '**text**' or '__text__' to make text bold"
-                    : "输入 '- ' 或 '* ' 创建无序列表（注意空格）\n输入 '1. ' 创建有序列表（注意空格）\n如果不需要可以回车取消\n输入 '**文本**' 或 '__文本__' 创建粗体文本"
+                    ? "Supports Markdown, see editor instructions for details"
+                    : "支持Markdown，详见编辑器使用说明"
                 }
                 value={descriptions}
                 onChange={handleEducationChange}
