@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { ResumeIframeCSR } from "components/Resume/ResumeIFrame";
 import { ResumePDF } from "components/Resume/ResumePDF";
 import {
@@ -18,7 +18,25 @@ import {
 import { NonEnglishFontsCSSLazyLoader } from "components/fonts/NonEnglishFontsCSSLoader";
 
 export const Resume = () => {
-  const [scale, setScale] = useState(0.8);
+  // 根据设备类型设置初始缩放比例
+  const getInitialScale = () => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768 ? 0.5 : 0.8;
+    }
+    return 0.8;
+  };
+
+  const [scale, setScale] = useState(getInitialScale);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newScale = window.innerWidth < 768 ? 0.5 : 0.8;
+      setScale(newScale);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const resume = useAppSelector(selectResume);
   const settings = useAppSelector(selectSettings);
   const document = useMemo(

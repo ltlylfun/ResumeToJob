@@ -21,6 +21,10 @@ export const useSetDefaultScale = ({
 
   useEffect(() => {
     const getDefaultScale = () => {
+      if (window.innerWidth < 768) {
+        return 0.5;
+      }
+
       const screenHeightPx = window.innerHeight;
       const PX_PER_REM = getPxPerRem();
       const screenHeightRem = screenHeightPx / PX_PER_REM;
