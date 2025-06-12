@@ -12,6 +12,16 @@
 
 ## [English](#english-version) | [简体中文](#chinese-version)
 
+## 🔗
+
+### [网站无法访问？没 🪜，等了好久还是无法访问，想本地部署，看此小白教程](DEPLOYMENT_TUTORIAL.md)
+
+### [有 🪜，但还有问题？提交 Issue，帮助我们改进](https://github.com/ltlylfun/ResumeToJob/issues)
+
+### [不知道如何写好简历？查看这份简历 tips](RESUME_TIPS.md)
+
+### [还是不会写？需要建议？在讨论区提问【虽然没什么人:(，但我一定回复:)】或分享经验](https://github.com/ltlylfun/ResumeToJob/discussions/categories/resume-help)
+
 <p align="center">
   <a href="https://github.com/ltlylfun/ResumeToJob/stargazers">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/ltlylfun/ResumeToJob?style=for-the-badge&logo=github&color=FFB33A">
@@ -110,10 +120,6 @@ npm run dev
 
 特别感谢项目 [open-resume](https://github.com/xitanggg/open-resume) 的创建者和所有贡献者。这个二次开发项目基于他们的杰出工作。
 
-### ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=ltlylfun/ResumeToJob&type=Date)](https://star-history.com/#ltlylfun/ResumeToJob&Date)
-
 ---
 
 <a id="english-version"></a>
@@ -190,7 +196,3 @@ This project is licensed under the [AGPL-3.0 license](LICENSE).
 ### 🙏 Acknowledgements
 
 Special thanks to the creators and contributors of [open-resume](https://github.com/xitanggg/open-resume). This derivative project is based on their outstanding work.
-
-### ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=ltlylfun/ResumeToJob&type=Date)](https://star-history.com/#ltlylfun/ResumeToJob&Date)
