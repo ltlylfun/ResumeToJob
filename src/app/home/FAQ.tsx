@@ -43,6 +43,16 @@ const getFAQItems = (language: string) => [
         ? "Of course. Contributions of resume templates on GitHub are welcome."
         : "当然可以。欢迎github贡献简历模版。",
   },
+  {
+    question:
+      language === "en"
+        ? "Why is my exported resume showing garbled characters?"
+        : "为什么我的简历导出后是乱码？",
+    answer:
+      language === "en"
+        ? "This is usually because you haven't selected the correct font or the fonts haven't loaded properly due to slow network speeds. Please ensure the fonts have loaded completely before exporting your resume."
+        : "没有选择正确的字体或者因为网速慢字体未加载好。请确保字体完全加载后再导出简历。",
+  },
 ];
 
 export const FAQ = () => {

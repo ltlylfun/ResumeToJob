@@ -22,7 +22,7 @@ export const initialProfile: ResumeProfile = {
 };
 
 export const initialWorkExperience: ResumeWorkExperience = {
-  id: "",
+  id: "initial-work-1",
   company: "",
   jobTitle: "",
   date: "",
@@ -30,7 +30,7 @@ export const initialWorkExperience: ResumeWorkExperience = {
 };
 
 export const initialEducation: ResumeEducation = {
-  id: "",
+  id: "initial-education-1",
   school: "",
   degree: "",
   gpa: "",
@@ -39,7 +39,7 @@ export const initialEducation: ResumeEducation = {
 };
 
 export const initialProject: ResumeProject = {
-  id: "",
+  id: "initial-project-1",
   project: "",
   date: "",
   descriptions: [],
@@ -87,7 +87,7 @@ export const resumeSlice = createSlice({
       action: PayloadAction<{
         field: keyof ResumeProfile;
         value: string | string[];
-      }>
+      }>,
     ) => {
       const { field, value } = action.payload;
       draft.profile[field] = value as any;
@@ -96,7 +96,7 @@ export const resumeSlice = createSlice({
       draft,
       action: PayloadAction<
         CreateChangeActionWithDescriptions<ResumeWorkExperience>
-      >
+      >,
     ) => {
       const { idx, field, value } = action.payload;
       const workExperience = draft.workExperiences[idx];
@@ -104,7 +104,9 @@ export const resumeSlice = createSlice({
     },
     changeEducations: (
       draft,
-      action: PayloadAction<CreateChangeActionWithDescriptions<ResumeEducation>>
+      action: PayloadAction<
+        CreateChangeActionWithDescriptions<ResumeEducation>
+      >,
     ) => {
       const { idx, field, value } = action.payload;
       const education = draft.educations[idx];
@@ -112,7 +114,7 @@ export const resumeSlice = createSlice({
     },
     changeProjects: (
       draft,
-      action: PayloadAction<CreateChangeActionWithDescriptions<ResumeProject>>
+      action: PayloadAction<CreateChangeActionWithDescriptions<ResumeProject>>,
     ) => {
       const { idx, field, value } = action.payload;
       const project = draft.projects[idx];
@@ -128,7 +130,7 @@ export const resumeSlice = createSlice({
             skill: string;
             rating: number;
           }
-      >
+      >,
     ) => {
       const { field } = action.payload;
       if (field === "descriptions") {
@@ -143,7 +145,7 @@ export const resumeSlice = createSlice({
     },
     changeCustom: (
       draft,
-      action: PayloadAction<{ field: "descriptions"; value: string[] }>
+      action: PayloadAction<{ field: "descriptions"; value: string[] }>,
     ) => {
       const { value } = action.payload;
       draft.custom.descriptions = value;
@@ -180,7 +182,7 @@ export const resumeSlice = createSlice({
         form: ShowForm;
         idx: number;
         direction: "up" | "down";
-      }>
+      }>,
     ) => {
       const { form, idx, direction } = action.payload;
       if (form !== "skills" && form !== "custom") {
@@ -203,7 +205,7 @@ export const resumeSlice = createSlice({
     },
     deleteSectionInFormByIdx: (
       draft,
-      action: PayloadAction<{ form: ShowForm; idx: number }>
+      action: PayloadAction<{ form: ShowForm; idx: number }>,
     ) => {
       const { form, idx } = action.payload;
       if (form !== "skills" && form !== "custom") {

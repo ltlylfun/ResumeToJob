@@ -14,13 +14,13 @@
 
 ## 🔗
 
-### [网站无法访问？没 🪜，等了好久还是无法访问，想本地部署，看此小白教程](DEPLOYMENT_TUTORIAL.md)
+#### [网站无法访问？没 🪜，等了好久还是无法访问，想本地部署，看此小白教程](DEPLOYMENT_TUTORIAL.md)
 
-### [有 🪜，但还有问题？提交 Issue，帮助我们改进](https://github.com/ltlylfun/ResumeToJob/issues)
+#### [有 🪜，但还有问题？提交 Issue，帮助我们改进](https://github.com/ltlylfun/ResumeToJob/issues)
 
-### [不知道如何写好简历？查看这份简历 tips](RESUME_TIPS.md)
+#### [不知道如何写好简历？查看这份简历 tips](RESUME_TIPS.md)
 
-### [还是不会写？需要建议？在讨论区提问【虽然没什么人:(，但我一定回复:)】或分享经验](https://github.com/ltlylfun/ResumeToJob/discussions/categories/resume-help)
+#### [还是不会写？需要建议？在讨论区提问【虽然没什么人:(，但我一定回复:)】或分享经验](https://github.com/ltlylfun/ResumeToJob/discussions/categories/resume-help)
 
 <p align="center">
   <a href="https://github.com/ltlylfun/ResumeToJob/stargazers">
