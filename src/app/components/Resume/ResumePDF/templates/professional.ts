@@ -4,7 +4,15 @@ export const professionalTemplate: Template = {
   id: "professional",
   name: "专业模板",
   description: "强调专业性和清晰度的企业风格",
-  getStyles: (themeColor: string, spacing: any): TemplateStyles => {
+  getStyles: (
+    themeColor: string,
+    spacing: any,
+    fontSize?: string,
+  ): TemplateStyles => {
+    // 计算 sectionTitle 的字体大小（选择的字体大小 + 2）
+    const baseFontSize = fontSize ? parseFloat(fontSize) : 11;
+    const sectionTitleFontSize = `${baseFontSize + 2}pt`;
+
     return {
       header: { backgroundColor: themeColor, padding: spacing[1] },
       headerText: {}, // 保持默认样式
@@ -19,6 +27,7 @@ export const professionalTemplate: Template = {
         borderLeftColor: themeColor,
       },
       sectionTitle: {
+        fontSize: sectionTitleFontSize,
         color: themeColor,
         fontWeight: "bold",
         letterSpacing: "0.5pt",

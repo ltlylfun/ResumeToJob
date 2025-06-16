@@ -30,7 +30,11 @@ export interface Template {
   id: string;
   name: string;
   description: string;
-  getStyles: (themeColor: string, spacing: any) => TemplateStyles;
+  getStyles: (
+    themeColor: string,
+    spacing: any,
+    fontSize?: string,
+  ) => TemplateStyles;
 }
 
 export const templates: Record<string, Template> = {
@@ -47,11 +51,12 @@ export const templates: Record<string, Template> = {
 export const getTemplateStyles = (
   template: string,
   themeColor: string,
-  spacing: any
+  spacing: any,
+  fontSize?: string,
 ): TemplateStyles => {
   return (
-    templates[template]?.getStyles(themeColor, spacing) ||
-    classicTemplate.getStyles(themeColor, spacing)
+    templates[template]?.getStyles(themeColor, spacing, fontSize) ||
+    classicTemplate.getStyles(themeColor, spacing, fontSize)
   );
 };
 

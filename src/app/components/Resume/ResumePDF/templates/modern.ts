@@ -4,7 +4,15 @@ export const modernTemplate: Template = {
   id: "modern",
   name: "现代模板",
   description: "带有彩色标题区的现代设计",
-  getStyles: (themeColor: string, spacing: any): TemplateStyles => {
+  getStyles: (
+    themeColor: string,
+    spacing: any,
+    fontSize?: string,
+  ): TemplateStyles => {
+    // 计算 sectionTitle 的字体大小（选择的字体大小 + 2）
+    const baseFontSize = fontSize ? parseFloat(fontSize) : 11;
+    const sectionTitleFontSize = `${baseFontSize + 2}pt`;
+
     return {
       header: {
         backgroundColor: themeColor,
@@ -22,6 +30,7 @@ export const modernTemplate: Template = {
         paddingBottom: spacing[3],
       },
       sectionTitle: {
+        fontSize: sectionTitleFontSize,
         color: themeColor,
       },
       bullet: {

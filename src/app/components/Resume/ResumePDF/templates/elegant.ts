@@ -4,7 +4,15 @@ export const elegantTemplate: Template = {
   id: "elegant",
   name: "优雅模板",
   description: "简约大气的高级设计",
-  getStyles: (themeColor: string, spacing: any): TemplateStyles => {
+  getStyles: (
+    themeColor: string,
+    spacing: any,
+    fontSize?: string,
+  ): TemplateStyles => {
+    // 计算 sectionTitle 的字体大小（选择的字体大小 + 2）
+    const baseFontSize = fontSize ? parseFloat(fontSize) : 11;
+    const sectionTitleFontSize = `${baseFontSize + 2}pt`;
+
     return {
       header: {},
       headerText: {},
@@ -20,6 +28,7 @@ export const elegantTemplate: Template = {
         position: "relative",
       },
       sectionTitle: {
+        fontSize: sectionTitleFontSize,
         textTransform: "uppercase",
         letterSpacing: "3pt",
         color: themeColor,

@@ -59,7 +59,7 @@ export const ResumePDF = ({
           exp.company ||
           exp.jobTitle ||
           exp.date ||
-          (exp.descriptions && exp.descriptions.length > 0)
+          (exp.descriptions && exp.descriptions.length > 0),
       ),
     educations:
       educations.length > 0 &&
@@ -69,7 +69,7 @@ export const ResumePDF = ({
           edu.degree ||
           edu.date ||
           edu.gpa ||
-          (edu.descriptions && edu.descriptions.length > 0)
+          (edu.descriptions && edu.descriptions.length > 0),
       ),
     projects:
       projects.length > 0 &&
@@ -77,7 +77,7 @@ export const ResumePDF = ({
         (proj) =>
           proj.project ||
           proj.date ||
-          (proj.descriptions && proj.descriptions.length > 0)
+          (proj.descriptions && proj.descriptions.length > 0),
       ),
     skills:
       skills.featuredSkills.some((skill) => skill.skill) ||
@@ -87,14 +87,14 @@ export const ResumePDF = ({
 
   // 过滤出有内容且被设置为显示的板块
   const showFormsOrder = formsOrder.filter(
-    (form) => formToShow[form] && hasContent[form]
+    (form) => formToShow[form] && hasContent[form],
   );
-
   // 从模板文件中获取样式
   const templateStyles = getTemplateStyles(
     template || "classic",
     themeColor,
-    spacing
+    spacing,
+    fontSize,
   );
 
   const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {

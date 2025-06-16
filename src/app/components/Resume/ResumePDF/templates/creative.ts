@@ -4,7 +4,15 @@ export const creativeTemplate: Template = {
   id: "creative",
   name: "创意模板",
   description: "适合设计和创意行业的现代风格",
-  getStyles: (themeColor: string, spacing: any): TemplateStyles => {
+  getStyles: (
+    themeColor: string,
+    spacing: any,
+    fontSize?: string,
+  ): TemplateStyles => {
+    // 计算 sectionTitle 的字体大小（选择的字体大小 + 2）
+    const baseFontSize = fontSize ? parseFloat(fontSize) : 11;
+    const sectionTitleFontSize = `${baseFontSize + 2}pt`;
+
     return {
       header: {
         width: spacing["full"],
@@ -23,6 +31,7 @@ export const creativeTemplate: Template = {
         borderLeftColor: themeColor,
       },
       sectionTitle: {
+        fontSize: sectionTitleFontSize,
         fontWeight: "bold",
         color: "white",
         backgroundColor: themeColor,

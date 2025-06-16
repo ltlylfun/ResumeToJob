@@ -4,7 +4,15 @@ export const techTemplate: Template = {
   id: "tech",
   name: "科技模板",
   description: "适合科技领域的现代数字风格",
-  getStyles: (themeColor: string, spacing: any): TemplateStyles => {
+  getStyles: (
+    themeColor: string,
+    spacing: any,
+    fontSize?: string,
+  ): TemplateStyles => {
+    // 计算 sectionTitle 的字体大小（选择的字体大小 + 2）
+    const baseFontSize = fontSize ? parseFloat(fontSize) : 11;
+    const sectionTitleFontSize = `${baseFontSize + 2}pt`;
+
     return {
       header: {},
       headerText: {},
@@ -19,6 +27,7 @@ export const techTemplate: Template = {
         borderTopColor: themeColor,
       },
       sectionTitle: {
+        fontSize: sectionTitleFontSize,
         fontWeight: "bold",
         color: themeColor,
       },

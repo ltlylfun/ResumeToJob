@@ -4,7 +4,15 @@ export const minimalTemplate: Template = {
   id: "minimal",
   name: "极简模板",
   description: "干净利落的最小化设计",
-  getStyles: (themeColor: string, spacing: any): TemplateStyles => {
+  getStyles: (
+    themeColor: string,
+    spacing: any,
+    fontSize?: string,
+  ): TemplateStyles => {
+    // 计算 sectionTitle 的字体大小（选择的字体大小 + 2）
+    const baseFontSize = fontSize ? parseFloat(fontSize) : 11;
+    const sectionTitleFontSize = `${baseFontSize + 2}pt`;
+
     return {
       header: {}, // 无头部背景
       headerText: {},
@@ -15,6 +23,7 @@ export const minimalTemplate: Template = {
         marginTop: spacing[3],
       },
       sectionTitle: {
+        fontSize: sectionTitleFontSize,
         textTransform: "uppercase",
         letterSpacing: "1pt",
         borderBottomWidth: "0.5pt",
