@@ -11,27 +11,26 @@ import {
 } from "lib/constants";
 import dynamic from "next/dynamic";
 import { getAllFontFamiliesToLoad } from "components/fonts/lib";
+import { getFontDetails } from "components/fonts/hooks";
 
 const getIframeInitialContent = (isA4: boolean) => {
   const width = isA4 ? A4_WIDTH_PT : LETTER_WIDTH_PT;
   const allFontFamilies = getAllFontFamiliesToLoad();
 
   const allFontFamiliesPreloadLinks = allFontFamilies
-    .map(
-      (
-        font
-      ) => `<link rel="preload" as="font" href="/fonts/${font}-Regular.ttf" type="font/ttf" crossorigin="anonymous">
-<link rel="preload" as="font" href="/fonts/${font}-Bold.ttf" type="font/ttf" crossorigin="anonymous">`
-    )
+    .map((font) => {
+      const { fontsourceName, subset } = getFontDetails(font);
+      return `<link rel="preload" as="font" href="https://cdn.jsdelivr.net/fontsource/fonts/${fontsourceName}@latest/${subset}-400-normal.ttf" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" as="font" href="https://cdn.jsdelivr.net/fontsource/fonts/${fontsourceName}@latest/${subset}-700-normal.ttf" type="font/ttf" crossorigin="anonymous">`;
+    })
     .join("");
 
   const allFontFamiliesFontFaces = allFontFamilies
-    .map(
-      (
-        font
-      ) => `@font-face {font-family: "${font}"; src: url("/fonts/${font}-Regular.ttf");}
-@font-face {font-family: "${font}"; src: url("/fonts/${font}-Bold.ttf"); font-weight: bold;}`
-    )
+    .map((font) => {
+      const { fontsourceName, subset } = getFontDetails(font);
+      return `@font-face {font-family: "${font}"; src: url("https://cdn.jsdelivr.net/fontsource/fonts/${fontsourceName}@latest/${subset}-400-normal.ttf");}
+@font-face {font-family: "${font}"; src: url("https://cdn.jsdelivr.net/fontsource/fonts/${fontsourceName}@latest/${subset}-700-normal.ttf"); font-weight: bold;}`;
+    })
     .join("");
 
   return `<!DOCTYPE html>
@@ -69,7 +68,7 @@ const ResumeIframe = ({
   const isA4 = documentSize === "A4";
   const iframeInitialContent = useMemo(
     () => getIframeInitialContent(isA4),
-    [isA4]
+    [isA4],
   );
 
   if (enablePDFViewer) {
@@ -125,5 +124,5 @@ const DynamicPDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((module) => module.PDFViewer),
   {
     ssr: false,
-  }
+  },
 );
