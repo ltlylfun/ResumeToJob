@@ -3,20 +3,11 @@ import { useState } from "react";
 import { ResumeForm } from "components/ResumeForm";
 import { Resume } from "components/Resume";
 import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
-import { useAppSelector, useAppDispatch } from "../lib/redux/hooks";
-import {
-  selectCurrentResume,
-  selectAllResumes,
-} from "../lib/redux/resumeManagerSlice";
 import { useResumeSync } from "../lib/hooks/useResumeSync";
 
 export default function Create() {
   const [activeTab, setActiveTab] = useState<"form" | "preview">("form");
   const { language } = useLanguageRedux();
-  const dispatch = useAppDispatch();
-
-  const currentResume = useAppSelector(selectCurrentResume);
-  const allResumes = useAppSelector(selectAllResumes);
 
   // 自动同步简历内容
   useResumeSync();

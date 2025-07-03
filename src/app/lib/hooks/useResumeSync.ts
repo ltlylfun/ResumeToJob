@@ -1,16 +1,15 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectResume } from "lib/redux/resumeManagerSlice";
 import {
   selectCurrentResumeId,
   updateResumeContent,
 } from "lib/redux/resumeManagerSlice";
-import type { AppDispatch } from "lib/redux/store";
 
 export const useResumeSync = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const currentResumeContent = useSelector(selectResume);
-  const currentResumeId = useSelector(selectCurrentResumeId);
+  const dispatch = useAppDispatch();
+  const currentResumeContent = useAppSelector(selectResume);
+  const currentResumeId = useAppSelector(selectCurrentResumeId);
 
   useEffect(() => {
     if (currentResumeId && currentResumeContent) {

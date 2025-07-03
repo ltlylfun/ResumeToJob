@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "lib/redux/store";
+import { deepClone } from "lib/deep-clone";
 import type {
   ResumeData,
   ResumeManagerState,
@@ -136,7 +137,7 @@ export const resumeManagerSlice = createSlice({
             createdAt: now,
             updatedAt: now,
           },
-          content: { ...sourceResume.content },
+          content: deepClone(sourceResume.content),
         };
 
         state.resumes.push(newResume);
