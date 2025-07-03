@@ -8,7 +8,7 @@ import {
 } from "components/Resume/ResumeControlBar";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { useAppSelector } from "lib/redux/hooks";
-import { selectResume } from "lib/redux/resumeSlice";
+import { selectResume } from "lib/redux/resumeManagerSlice";
 import { selectSettings } from "lib/redux/settingsSlice";
 import { DEBUG_RESUME_PDF_FLAG } from "lib/constants";
 import {
@@ -41,7 +41,7 @@ export const Resume = () => {
   const settings = useAppSelector(selectSettings);
   const document = useMemo(
     () => <ResumePDF resume={resume} settings={settings} isPDF={true} />,
-    [resume, settings]
+    [resume, settings],
   );
 
   useRegisterReactPDFFont();

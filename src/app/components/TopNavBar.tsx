@@ -32,6 +32,10 @@ export const TopNavBar = () => {
         en: "Community Help",
         zh: "寻求社区建议",
       },
+      resetDefault: {
+        en: "Reset Default",
+        zh: "恢复默认",
+      },
     };
 
     return translations[key]?.[language] || key;
@@ -59,8 +63,21 @@ export const TopNavBar = () => {
     if (confirm(message)) {
       window.open(
         "https://github.com/ltlylfun/ResumeToJob/discussions/categories/resume-help",
-        "_blank"
+        "_blank",
       );
+    }
+  };
+
+  // 处理恢复默认点击
+  const handleResetDefaultClick = () => {
+    const message =
+      language === "zh"
+        ? "是否要恢复默认，会删除所有信息，请做好备份。\n\n点击确定后将清除所有数据并刷新网页。"
+        : "Are you sure you want to reset to default? This will delete all information, please make a backup.\n\nClick OK to clear all data and refresh the page.";
+
+    if (confirm(message)) {
+      localStorage.clear();
+      window.location.reload();
     }
   };
 
@@ -74,7 +91,7 @@ export const TopNavBar = () => {
       aria-label="Site Header"
       className={cx(
         "flex h-[var(--top-nav-bar-height)] items-center border-b-2 border-gray-100 px-3 lg:px-12",
-        isHomePage && "bg-dot"
+        isHomePage && "bg-dot",
       )}
     >
       <div className="flex h-10 w-full items-center justify-between">
@@ -102,6 +119,12 @@ export const TopNavBar = () => {
             className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
           >
             {translate("communityHelp")}
+          </button>
+          <button
+            onClick={handleResetDefaultClick}
+            className="rounded-md px-1.5 py-2 text-red-500 hover:bg-red-50 focus-visible:bg-red-50 lg:px-4"
+          >
+            {translate("resetDefault")}
           </button>
           {[["/resume-builder", translate("build")]].map(([href, text]) => (
             <Link
@@ -176,6 +199,15 @@ export const TopNavBar = () => {
                 className="px-4 py-3 text-left text-gray-700 hover:bg-gray-100"
               >
                 {translate("communityHelp")}
+              </button>
+              <button
+                onClick={() => {
+                  handleResetDefaultClick();
+                  closeMenu();
+                }}
+                className="px-4 py-3 text-left text-red-600 hover:bg-red-50"
+              >
+                {translate("resetDefault")}
               </button>
               {[["/resume-builder", translate("build")]].map(([href, text]) => (
                 <Link

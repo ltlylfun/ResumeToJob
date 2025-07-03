@@ -62,6 +62,7 @@ ResumeToJob 是一个免费开源的在线简历制作工具，帮助求职者�
 - 🌏 支持中英文界面
 - 🖥️ 实时预览编辑效果
 - ✏️ 支持 Markdown 格式，让内容编辑更简单
+- 📁 简历管理功能，支持多份简历创建、切换、克隆和导入导出
 
 ### 📝 Markdown 格式支持
 
@@ -74,6 +75,40 @@ ResumeToJob 是一个免费开源的在线简历制作工具，帮助求职者�
 - **无序列表**：输入 `- ` 或 `* ` 创建无序列表（注意后面的空格）
 - **有序列表**：输入 `1. ` 创建有序列表（注意后面的空格）
 - **粗体文本**：输入 `**文本**` 或 `__文本__` 创建粗体文本
+
+### 📁 简历管理功能
+
+ResumeToJob 提供强大的简历管理功能，让您轻松管理多份简历：
+
+- **创建多份简历**：为不同岗位创建专门的简历版本
+- **快速切换**：在多份简历间一键切换
+- **克隆复制**：基于现有简历快速创建新版本
+- **导入导出**：支持本地备份和恢复所有简历数据
+- **搜索功能**：通过关键词快速找到目标简历
+- **编辑管理**：随时修改简历标题和描述信息
+
+在简历编辑界面点击"简历管理"按钮即可访问这些功能。
+
+### 📤 简历导入导出功能
+
+ResumeToJob 提供便捷的简历导入导出功能，让您轻松管理和分享简历数据：
+
+- **导出功能**：将您的所有简历数据导出为 JSON 文件，方便备份和迁移
+- **导入功能**：从之前导出的 JSON 文件中恢复简历数据
+- **跨设备使用**：通过导入导出功能实现简历在不同设备间的迁移
+- **数据分享**：可以将简历数据分享给他人
+
+点击简历管理按钮即可看到导入与导出功能。出于无账号登录即使用以及保护隐私的出发点，未来不会更新数据跨设备同步功能，不过可以通过导入导出分享来实现跨设备使用。
+
+### 🔄 恢复默认功能
+
+如果您遇到以下情况，可以使用恢复默认功能：
+
+- **清空所有记录**：当您需要重新开始，清除所有已保存的简历数据
+- **数据兼容性问题**：网站升级后，如果出现数据不兼容的情况，点击此按钮可以初始化数据
+- **重置到初始状态**：恢复到网站的默认设置和示例简历
+
+⚠️ **注意**：此操作将清除所有本地保存的简历数据，请在使用前确保已导出重要的简历文件。
 
 ### 🤝 参与贡献
 
@@ -139,6 +174,7 @@ ResumeToJob is a free open-source online resume builder that helps job seekers q
 - 🌏 Multi-language interface (English & Chinese)
 - 🖥️ Real-time preview of edits
 - ✏️ Markdown format support for easier content editing
+- 📁 Resume management with support for creating, switching, cloning, and importing/exporting multiple resumes
 
 ### 📝 Markdown Format Support
 
@@ -151,6 +187,40 @@ This project supports Markdown format to make resume content editing easier:
 - **Unordered lists**: Type `- ` or `* ` to create unordered lists (note the space after)
 - **Ordered lists**: Type `1. ` to create ordered lists (note the space after)
 - **Bold text**: Type `**text**` or `__text__` to create bold text
+
+### 📁 Resume Management
+
+ResumeToJob provides powerful resume management features to help you organize multiple resumes:
+
+- **Create Multiple Resumes**: Build dedicated resume versions for different positions
+- **Quick Switching**: Seamlessly switch between multiple resumes with one click
+- **Clone Resumes**: Quickly create new versions based on existing resumes
+- **Import/Export**: Support local backup and restore of all resume data
+- **Search Function**: Find target resumes quickly using keywords
+- **Edit Management**: Modify resume titles and descriptions anytime
+
+Access these features by clicking the "Manager Resumes" button in the resume editor.
+
+### 📤 Resume Import/Export Feature
+
+ResumeToJob provides convenient resume import and export functionality for easy data management and sharing:
+
+- **Export Feature**: Export all your resume data as a JSON file for backup and migration
+- **Import Feature**: Restore resume data from previously exported JSON files
+- **Cross-Device Usage**: Transfer resumes between different devices using import/export functionality
+- **Data Sharing**: Share resume data with others
+
+Click the "Manager Resumes" button to access the import and export functions. For the sake of no-account login usage and privacy protection, we will not update cross-device data synchronization features in the future. However, cross-device usage can be achieved through import/export sharing.
+
+### 🔄Reset to Default
+
+You can use the reset to default function in the following situations:
+
+- **Clear All Records**: When you need to start over and clear all saved resume data
+- **Data Compatibility Issues**: If data incompatibility occurs after website upgrades, click this button to initialize the data
+- **Reset to Initial State**: Restore to the website's default settings and sample resume
+
+⚠️ **Warning**: This operation will clear all locally saved resume data. Please ensure you have exported important resume files before using this feature.
 
 ### 🤝 Contribute
 

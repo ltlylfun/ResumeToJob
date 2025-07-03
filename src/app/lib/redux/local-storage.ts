@@ -74,8 +74,8 @@ export const saveStateToLocalStorage = (state: RootState) => {
       if (process.env.NODE_ENV === "development") {
         console.warn(
           `状态大小(${Math.round(
-            stateSize / 1024 / 1024
-          )}MB)接近localStorage限制，这可能导致保存失败`
+            stateSize / 1024 / 1024,
+          )}MB)接近localStorage限制，这可能导致保存失败`,
         );
       }
     }
@@ -88,7 +88,7 @@ export const saveStateToLocalStorage = (state: RootState) => {
       console.error("数据保存到 localStorage 后无法验证");
     } else if (process.env.NODE_ENV === "development") {
       console.info(
-        `成功保存状态到 localStorage，大小: ${Math.round(stateSize / 1024)}KB`
+        `成功保存状态到 localStorage，大小: ${Math.round(stateSize / 1024)}KB`,
       );
     }
   } catch (e) {

@@ -3,10 +3,29 @@ import { useState } from "react";
 import { ResumeForm } from "components/ResumeForm";
 import { Resume } from "components/Resume";
 import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
+import { useAppSelector, useAppDispatch } from "../lib/redux/hooks";
+import {
+  selectCurrentResume,
+  selectAllResumes,
+} from "../lib/redux/resumeManagerSlice";
+import { useResumeSync } from "../lib/hooks/useResumeSync";
 
 export default function Create() {
   const [activeTab, setActiveTab] = useState<"form" | "preview">("form");
   const { language } = useLanguageRedux();
+  const dispatch = useAppDispatch();
+
+  const currentResume = useAppSelector(selectCurrentResume);
+  const allResumes = useAppSelector(selectAllResumes);
+
+  // 自动同步简历内容
+  useResumeSync();
+
+  // 简历管理系统已经在全局的 useSetInitialStore hook 中初始化
+  // 这里不需要额外的初始化逻辑
+
+  // 数据现在通过 Redux store 自动保存到 localStorage
+  // 不需要单独的保存逻辑，因为 useSaveStateToLocalStorageOnChange 会处理
 
   const translate = (key: "edit" | "preview") => {
     const translations = {

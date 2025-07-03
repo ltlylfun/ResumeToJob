@@ -35,6 +35,14 @@ export const EditorInstructions = () => {
       en: "These shortcuts help you format your resume content more efficiently.",
       zh: "这些快捷方式可以帮助您更高效地格式化您的简历内容。",
     },
+    resumeManagement: {
+      en: "Resume Management",
+      zh: "简历管理",
+    },
+    resumeManagementDesc: {
+      en: "Support for creating, switching, cloning, and importing/exporting multiple resumes",
+      zh: "支持多份简历创建、切换、克隆和导入导出",
+    },
   };
 
   return (
@@ -64,6 +72,15 @@ export const EditorInstructions = () => {
           <p className="mt-3 text-sm text-gray-600">
             {translations.hint[language]}
           </p>
+
+          <div className="mt-4 border-t border-blue-200 pt-3">
+            <h4 className="mb-2 font-medium text-blue-700">
+              {translations.resumeManagement[language]}
+            </h4>
+            <p className="text-sm text-blue-700">
+              {translations.resumeManagementDesc[language]}
+            </p>
+          </div>
         </div>
       )}
     </div>

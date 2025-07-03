@@ -6,7 +6,10 @@ import {
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
 import { useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
-import { changeEducations, selectEducations } from "lib/redux/resumeSlice";
+import {
+  changeEducations,
+  selectEducations,
+} from "lib/redux/resumeManagerSlice";
 import type { ResumeEducation } from "lib/redux/types";
 import {
   changeFormHeading,
@@ -64,7 +67,7 @@ export const EducationsForm = () => {
 
       return translations[key]?.[language] || key;
     },
-    [language]
+    [language],
   );
   // 更新表单标题（仅在用户未自定义时）
   useEffect(() => {
@@ -72,7 +75,7 @@ export const EducationsForm = () => {
       updateFormHeadingIfNotCustomized({
         field: form,
         value: translate("educations"),
-      })
+      }),
     );
   }, [dispatch, language, form, translate]);
 
@@ -154,7 +157,7 @@ export const EducationsForm = () => {
               </div>
             </FormSection>
           );
-        }
+        },
       )}
     </Form>
   );

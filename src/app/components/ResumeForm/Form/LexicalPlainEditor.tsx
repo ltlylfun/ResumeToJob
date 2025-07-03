@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useAppSelector } from "lib/redux/hooks";
+import { selectCurrentResumeId } from "lib/redux/resumeManagerSlice";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -124,11 +126,17 @@ export const LexicalPlainEditor = <K extends string>({
 }: LexicalPlainEditorProps<K>) => {
   // 使用一个键来重新初始化编辑器
   const [editorKey, setEditorKey] = useState(0);
+  const currentResumeId = useAppSelector(selectCurrentResumeId);
 
   // 完全重载编辑器的函数
   const reloadEditor = () => {
     setEditorKey((prev) => prev + 1);
   };
+
+  // 当简历切换时重新初始化编辑器
+  useEffect(() => {
+    reloadEditor();
+  }, [currentResumeId]);
 
   // 监听窗口聚焦事件，当用户重新进入页面时刷新编辑器
   useEffect(() => {
@@ -158,7 +166,7 @@ export const LexicalPlainEditor = <K extends string>({
         console.error(error);
       },
     }),
-    [name]
+    [name],
   );
 
   // 防抖函数
@@ -190,7 +198,7 @@ export const LexicalPlainEditor = <K extends string>({
         debounceRef.current = null;
       }, 100); // 延迟100ms更新状态
     },
-    [onChange, name, value]
+    [onChange, name, value],
   );
 
   return (

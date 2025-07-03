@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import resumeReducer from "lib/redux/resumeSlice";
 import settingsReducer from "lib/redux/settingsSlice";
 import languageReducer from "lib/redux/languageSlice";
+import resumeManagerReducer from "lib/redux/resumeManagerSlice";
 
 export const store = configureStore({
   reducer: {
-    resume: resumeReducer,
     settings: settingsReducer,
     language: languageReducer,
+    resumeManager: resumeManagerReducer,
   },
 });
 
