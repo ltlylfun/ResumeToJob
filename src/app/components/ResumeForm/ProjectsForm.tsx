@@ -6,7 +6,7 @@ import {
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
 import { useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
-import { selectProjects, changeProjects } from "lib/redux/resumeSlice";
+import { selectProjects, changeProjects } from "lib/redux/resumeManagerSlice";
 import type { ResumeProject } from "lib/redux/types";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 import {
@@ -51,7 +51,7 @@ export const ProjectsForm = () => {
 
       return translations[key]?.[language] || key;
     },
-    [language]
+    [language],
   );
   // 更新表单标题（仅在用户未自定义时）
   useEffect(() => {
@@ -59,7 +59,7 @@ export const ProjectsForm = () => {
       updateFormHeadingIfNotCustomized({
         field: "projects",
         value: translate("projects"),
-      })
+      }),
     );
   }, [dispatch, language, translate]);
 

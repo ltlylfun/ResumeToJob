@@ -6,7 +6,7 @@ import {
 import { FeaturedSkillInput } from "components/ResumeForm/Form/FeaturedSkillInput";
 import { useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
-import { selectSkills, changeSkills } from "lib/redux/resumeSlice";
+import { selectSkills, changeSkills } from "lib/redux/resumeManagerSlice";
 import {
   selectThemeColor,
   changeFormHeading,
@@ -53,7 +53,7 @@ export const SkillsForm = () => {
 
       return translations[key]?.[language] || key;
     },
-    [language]
+    [language],
   );
   const handleSkillsChange = (field: "descriptions", value: string[]) => {
     dispatch(changeSkills({ field, value }));
@@ -61,7 +61,7 @@ export const SkillsForm = () => {
   const handleFeaturedSkillsChange = (
     idx: number,
     skill: string,
-    rating: number
+    rating: number,
   ) => {
     dispatch(changeSkills({ field: "featuredSkills", idx, skill, rating }));
   };
@@ -72,7 +72,7 @@ export const SkillsForm = () => {
       updateFormHeadingIfNotCustomized({
         field: form,
         value: translate("skills"),
-      })
+      }),
     );
   }, [dispatch, language, form, translate]);
 

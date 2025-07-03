@@ -3,7 +3,7 @@ import {
   initialProfile,
   initialProject,
   initialWorkExperience,
-} from "lib/redux/resumeSlice";
+} from "lib/redux/resumeManagerSlice";
 import type { Resume } from "lib/redux/types";
 import { deepClone } from "lib/deep-clone";
 import kenan from "public/assets/kenan.jpg";
@@ -118,7 +118,7 @@ export const START_HOME_RESUME: Resume = {
       (item: any) => ({
         skill: "",
         rating: item.rating,
-      })
+      }),
     ),
     descriptions: [],
   },

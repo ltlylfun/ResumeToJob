@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import {
   changeWorkExperiences,
   selectWorkExperiences,
-} from "lib/redux/resumeSlice";
+} from "lib/redux/resumeManagerSlice";
 import type { ResumeWorkExperience } from "lib/redux/types";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 import {
@@ -57,7 +57,7 @@ export const WorkExperiencesForm = () => {
 
       return translations[key]?.[language] || key;
     },
-    [language]
+    [language],
   );
   const showDelete = workExperiences.length > 1;
   // 更新表单标题（仅在用户未自定义时）
@@ -66,7 +66,7 @@ export const WorkExperiencesForm = () => {
       updateFormHeadingIfNotCustomized({
         field: "workExperiences",
         value: translate("workExperiences"),
-      })
+      }),
     );
   }, [dispatch, language, translate]);
 
@@ -137,7 +137,7 @@ export const WorkExperiencesForm = () => {
               />
             </FormSection>
           );
-        }
+        },
       )}
     </Form>
   );

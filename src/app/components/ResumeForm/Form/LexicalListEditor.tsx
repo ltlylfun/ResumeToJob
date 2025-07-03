@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useAppSelector } from "lib/redux/hooks";
+import { selectCurrentResumeId } from "lib/redux/resumeManagerSlice";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
@@ -312,11 +314,17 @@ export const LexicalListEditor = <T extends string>({
 }: ListEditorProps<T>) => {
   // 使用一个键来重新初始化编辑器
   const [editorKey, setEditorKey] = useState(0);
+  const currentResumeId = useAppSelector(selectCurrentResumeId);
 
   // 完全重载编辑器的函数
   const reloadEditor = () => {
     setEditorKey((prev) => prev + 1);
   };
+
+  // 当简历切换时重新初始化编辑器
+  useEffect(() => {
+    reloadEditor();
+  }, [currentResumeId]);
 
   // 监听窗口聚焦事件，当用户重新进入页面时刷新编辑器
   useEffect(() => {
@@ -358,7 +366,7 @@ export const LexicalListEditor = <T extends string>({
         console.error(error);
       },
     }),
-    [name]
+    [name],
   );
   // 防抖函数
   const debounceRef = useRef<any>(null);
@@ -384,7 +392,7 @@ export const LexicalListEditor = <T extends string>({
         debounceRef.current = null;
       }, 150); // 延迟150ms更新状态
     },
-    [onChange, name, value]
+    [onChange, name, value],
   );
   return (
     <InputGroupWrapper label={label} className={labelClassName}>

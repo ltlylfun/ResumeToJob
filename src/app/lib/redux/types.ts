@@ -59,3 +59,25 @@ export interface Resume {
 }
 
 export type ResumeKey = keyof Resume;
+
+// 新增：简历元数据
+export interface ResumeMetadata {
+  id: string;
+  title: string;
+  description?: string;
+  tags?: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+// 新增：完整的简历数据结构
+export interface ResumeData {
+  metadata: ResumeMetadata;
+  content: Resume;
+}
+
+// 新增：简历管理状态
+export interface ResumeManagerState {
+  resumes: ResumeData[];
+  currentResumeId: string | null;
+}

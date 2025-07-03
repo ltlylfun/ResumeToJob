@@ -27,7 +27,7 @@ import {
   addSectionInForm,
   deleteSectionInFormByIdx,
   moveSectionInForm,
-} from "lib/redux/resumeSlice";
+} from "lib/redux/resumeManagerSlice";
 
 /**
  * BaseForm is the bare bone form, i.e. just the outline with no title and no control buttons.
@@ -106,7 +106,11 @@ export const Form = ({
   };
   const setHeading = (heading: string) => {
     dispatch(
-      changeFormHeading({ field: form, value: heading, isUserCustomized: true })
+      changeFormHeading({
+        field: form,
+        value: heading,
+        isUserCustomized: true,
+      }),
     );
   };
 
@@ -201,7 +205,7 @@ export const FormSection = ({
       )}
       <div className="relative grid grid-cols-6 gap-3">
         {children}
-        <div className={`absolute right-0 top-0 flex gap-0.5 `}>
+        <div className={`absolute right-0 top-0 flex gap-0.5`}>
           <div
             className={`transition-all duration-300 ${
               showMoveUp ? "" : "invisible opacity-0"

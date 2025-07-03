@@ -6,7 +6,7 @@ import {
   BulletListTextarea,
 } from "components/ResumeForm/Form/InputGroup";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
-import { changeProfile, selectProfile } from "lib/redux/resumeSlice";
+import { changeProfile, selectProfile } from "lib/redux/resumeManagerSlice";
 import { ResumeProfile } from "lib/redux/types";
 import { CameraIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import { changeFormHeading } from "lib/redux/settingsSlice";
@@ -80,7 +80,7 @@ export const ProfileForm = () => {
   };
   const handleProfileChange = (
     field: keyof ResumeProfile,
-    value: string | string[]
+    value: string | string[],
   ) => {
     dispatch(changeProfile({ field, value: value as any }));
   };

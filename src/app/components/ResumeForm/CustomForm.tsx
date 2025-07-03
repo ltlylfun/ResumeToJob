@@ -2,7 +2,7 @@ import { Form } from "components/ResumeForm/Form";
 import { BulletListTextarea } from "components/ResumeForm/Form/InputGroup";
 import { useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
-import { changeCustom, selectCustom } from "lib/redux/resumeSlice";
+import { changeCustom, selectCustom } from "lib/redux/resumeManagerSlice";
 import {
   changeFormHeading,
   updateFormHeadingIfNotCustomized,
@@ -35,7 +35,7 @@ export const CustomForm = () => {
 
       return translations[key]?.[language] || key;
     },
-    [language]
+    [language],
   );
   const handleCustomChange = (field: "descriptions", value: string[]) => {
     dispatch(changeCustom({ field, value }));
@@ -46,7 +46,7 @@ export const CustomForm = () => {
       updateFormHeadingIfNotCustomized({
         field: form,
         value: translate("custom"),
-      })
+      }),
     );
   }, [dispatch, language, form, translate]);
 

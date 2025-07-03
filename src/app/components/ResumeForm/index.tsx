@@ -20,6 +20,7 @@ import { ProjectsForm } from "components/ResumeForm/ProjectsForm";
 import { SkillsForm } from "components/ResumeForm/SkillsForm";
 import { ThemeForm } from "components/ResumeForm/ThemeForm";
 import { CustomForm } from "components/ResumeForm/CustomForm";
+import { ResumeManagerButton } from "components/ResumeManager/ResumeManagerButton";
 import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { cx } from "lib/cx";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
@@ -74,7 +75,7 @@ export const ResumeForm = () => {
           updateFormHeadingIfNotCustomized({
             field: form as ShowForm,
             value: texts[language] || texts["zh"],
-          })
+          }),
         );
       });
     };
@@ -85,13 +86,14 @@ export const ResumeForm = () => {
     <div
       className={cx(
         "flex justify-center scrollbar-thin scrollbar-track-gray-100 md:h-[calc(100vh-var(--top-nav-bar-height))] md:justify-end md:overflow-y-scroll",
-        isHover ? "scrollbar-thumb-gray-200" : "scrollbar-thumb-gray-100"
+        isHover ? "scrollbar-thumb-gray-200" : "scrollbar-thumb-gray-100",
       )}
       onMouseOver={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
       <section className="flex max-w-2xl flex-col gap-8 p-[var(--resume-padding)]">
         <EditorInstructions />
+        <ResumeManagerButton />
         <ProfileForm />
         {formsOrder.map((form) => {
           const Component = formTypeToComponent[form];

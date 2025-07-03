@@ -9,7 +9,6 @@ import {
   loadStateFromLocalStorage,
   saveStateToLocalStorage,
 } from "lib/redux/local-storage";
-import { initialResumeState, setResume } from "lib/redux/resumeSlice";
 import {
   initialSettings,
   setSettings,
@@ -17,8 +16,8 @@ import {
   type Settings,
   type ShowForm,
 } from "lib/redux/settingsSlice";
+import { setAllResumes, createResume } from "lib/redux/resumeManagerSlice";
 import { deepMerge } from "lib/deep-merge";
-import type { Resume } from "lib/redux/types";
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -33,7 +32,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
  */
 const debounce = <T extends (...args: any[]) => any>(
   func: T,
-  delay: number
+  delay: number,
 ) => {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
@@ -99,7 +98,7 @@ export const useSetInitialStore = () => {
     // 标记为已初始化
     storeInitialized = true;
 
-    // 尝试从 localStorage 加载状态
+    // 从 localStorage 加载状态
     const state = loadStateFromLocalStorage();
 
     // 获取当前语言
@@ -124,33 +123,11 @@ export const useSetInitialStore = () => {
     // 根据当前语言选择正确的标题
     const languageHeadings = formHeadings[currentLanguage] || formHeadings.zh;
 
-    if (!state) {
-      // 如果没有本地存储的状态，但有语言设置，则更新表单标题
-      dispatch(
-        setSettings({
-          ...initialSettings,
-          formToHeading: languageHeadings,
-        })
-      );
-      return;
-    }
-
-    if (state.resume) {
-      // We merge the initial state with the stored state to ensure
-      // backward compatibility, since new fields might be added to
-      // the initial state over time.
-      const mergedResumeState = deepMerge(
-        initialResumeState,
-        state.resume
-      ) as Resume;
-      dispatch(setResume(mergedResumeState));
-    }
-
-    if (state.settings) {
-      // 只为用户未自定义的标题设置语言标题，保留用户自定义的标题
+    // 初始化设置
+    if (state?.settings) {
+      // 处理现有设置，保留用户自定义的标题
       const updatedFormToHeading = { ...languageHeadings };
 
-      // 如果存储的设置中有 customizedHeadings 和 formToHeading，则保留用户自定义的标题
       if (state.settings.customizedHeadings && state.settings.formToHeading) {
         (Object.keys(state.settings.customizedHeadings) as ShowForm[]).forEach(
           (formKey) => {
@@ -161,7 +138,7 @@ export const useSetInitialStore = () => {
               updatedFormToHeading[formKey] =
                 state.settings.formToHeading[formKey];
             }
-          }
+          },
         );
       }
 
@@ -172,9 +149,26 @@ export const useSetInitialStore = () => {
 
       const mergedSettingsState = deepMerge(
         initialSettings,
-        settingsWithLanguage
+        settingsWithLanguage,
       ) as Settings;
       dispatch(setSettings(mergedSettingsState));
+    } else {
+      // 使用默认设置
+      dispatch(
+        setSettings({
+          ...initialSettings,
+          formToHeading: languageHeadings,
+        }),
+      );
+    }
+
+    // 初始化简历管理状态
+    if (state?.resumeManager) {
+      // 如果有现有的简历数据，使用它们
+      dispatch(setAllResumes(state.resumeManager));
+    } else {
+      // 创建默认简历
+      dispatch(createResume({ title: "default" }));
     }
   }, [dispatch]);
 };
