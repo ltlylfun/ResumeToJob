@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   selectCurrentResume,
   selectAllResumes,
+  switchResume,
 } from "lib/redux/resumeManagerSlice";
 import { ResumeManager } from "./index";
 import { useLanguageRedux } from "lib/hooks/useLanguageRedux";
@@ -10,9 +11,14 @@ import { useLanguageRedux } from "lib/hooks/useLanguageRedux";
 export const ResumeManagerButton: React.FC = () => {
   const [isManagerOpen, setIsManagerOpen] = useState(false);
   const { language } = useLanguageRedux();
+  const dispatch = useDispatch();
 
   const currentResume = useSelector(selectCurrentResume);
   const allResumes = useSelector(selectAllResumes);
+
+  const handleSwitchResume = (resumeId: string) => {
+    dispatch(switchResume(resumeId));
+  };
 
   const t = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
@@ -62,7 +68,7 @@ export const ResumeManagerButton: React.FC = () => {
             {allResumes.slice(0, 4).map((resume) => (
               <button
                 key={resume.metadata.id}
-                onClick={() => setIsManagerOpen(true)}
+                onClick={() => handleSwitchResume(resume.metadata.id)}
                 className={`rounded-md px-3 py-1 text-xs transition-colors ${
                   resume.metadata.id === currentResume?.metadata.id
                     ? "bg-blue-100 text-blue-800 ring-1 ring-blue-200"
