@@ -20,8 +20,6 @@
 
 #### [不知道如何写好简历？查看这份简历 tips](RESUME_TIPS.md)
 
-#### [还是不会写？需要建议？在讨论区提问【虽然没什么人:(，但我一定回复:)】或分享经验](https://github.com/ltlylfun/ResumeToJob/discussions/categories/resume-help)
-
 <p align="center">
   <a href="https://github.com/ltlylfun/ResumeToJob/stargazers">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/ltlylfun/ResumeToJob?style=for-the-badge&logo=github&color=FFB33A">
