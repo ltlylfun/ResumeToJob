@@ -50,7 +50,7 @@ const ResumeControlBar = ({
 
   // Hook to update pdf when document changes
   useEffect(() => {
-    update();
+    update(document);
   }, [update, document]);
 
   if (!showToolbar) return null;
@@ -100,7 +100,7 @@ export const ResumeControlBarCSR = dynamic(
   () => Promise.resolve(ResumeControlBar),
   {
     ssr: false,
-  }
+  },
 );
 
 export const ResumeControlBarBorder = () => (

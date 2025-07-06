@@ -14,7 +14,7 @@
     "@lexical/markdown": "^0.31.1",
     "@lexical/react": "^0.31.1",
     "@lexical/rich-text": "^0.31.1",
-    "@react-pdf/renderer": "^3.1.10",
+    "@react-pdf/renderer": "^3.4.5",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.2.5",
     "@vercel/analytics": "^1.0.1",
