@@ -42,7 +42,7 @@ export const DEFAULT_THEME_COLOR = "#38bdf8"; // sky-400
 export const DEFAULT_FONT_FAMILY = "Roboto";
 export const DEFAULT_FONT_SIZE = "11"; // text-base https://tailwindcss.com/docs/font-size
 export const DEFAULT_FONT_COLOR = "#000000"; // text-neutral-800
-export const DEFAULT_TEMPLATE = "elegant"; // 默认模板
+export const DEFAULT_TEMPLATE = "minimal"; // 默认模板
 
 // 为了适应不同语言环境的初始表单标题
 export const formHeadings = {
@@ -96,14 +96,14 @@ export const settingsSlice = createSlice({
   reducers: {
     changeSettings: (
       draft,
-      action: PayloadAction<{ field: GeneralSetting; value: string }>
+      action: PayloadAction<{ field: GeneralSetting; value: string }>,
     ) => {
       const { field, value } = action.payload;
       draft[field] = value;
     },
     changeShowForm: (
       draft,
-      action: PayloadAction<{ field: ShowForm; value: boolean }>
+      action: PayloadAction<{ field: ShowForm; value: boolean }>,
     ) => {
       const { field, value } = action.payload;
       draft.formToShow[field] = value;
@@ -114,7 +114,7 @@ export const settingsSlice = createSlice({
         field: ShowForm;
         value: string;
         isUserCustomized?: boolean;
-      }>
+      }>,
     ) => {
       const { field, value, isUserCustomized = true } = action.payload;
       draft.formToHeading[field] = value;
@@ -126,7 +126,7 @@ export const settingsSlice = createSlice({
     // 新增：仅在用户未自定义时更新标题（用于语言切换）
     updateFormHeadingIfNotCustomized: (
       draft,
-      action: PayloadAction<{ field: ShowForm; value: string }>
+      action: PayloadAction<{ field: ShowForm; value: string }>,
     ) => {
       const { field, value } = action.payload;
       // 只有在用户未自定义该标题时才更新
@@ -136,7 +136,7 @@ export const settingsSlice = createSlice({
     },
     changeFormOrder: (
       draft,
-      action: PayloadAction<{ form: ShowForm; type: "up" | "down" }>
+      action: PayloadAction<{ form: ShowForm; type: "up" | "down" }>,
     ) => {
       const { form, type } = action.payload;
       const lastIdx = draft.formsOrder.length - 1;
