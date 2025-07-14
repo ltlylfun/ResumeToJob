@@ -12,7 +12,6 @@ export const ResumeCarousel = () => {
   const { language } = useLanguageRedux();
   const resume = getResumeByLang(language);
 
-  // 模板相关状态
   const templates = getAllTemplates();
   const [templateIndex, setTemplateIndex] = useState(0);
   const [settings, setSettings] = useState({
@@ -23,13 +22,11 @@ export const ResumeCarousel = () => {
 
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // 切换到下一个模板 - 使用 useCallback 包装
   const nextTemplate = useCallback(() => {
     if (isTransitioning) return;
 
     setIsTransitioning(true);
 
-    // 为了使动画更自然，我们先淡出，然后再改变模板
     setTimeout(() => {
       const nextIndex = (templateIndex + 1) % templates.length;
       setTemplateIndex(nextIndex);
@@ -38,20 +35,17 @@ export const ResumeCarousel = () => {
         template: templates[nextIndex]?.id || "elegant",
       }));
 
-      // 切换后再淡入，创造更流畅的效果
       setTimeout(() => {
         setIsTransitioning(false);
       }, 350);
     }, 350);
   }, [templateIndex, templates, isTransitioning]);
 
-  // 切换到上一个模板 - 使用 useCallback 包装
   const prevTemplate = useCallback(() => {
     if (isTransitioning) return;
 
     setIsTransitioning(true);
 
-    // 为了使动画更自然，我们先淡出，然后再改变模板
     setTimeout(() => {
       const prevIndex =
         (templateIndex - 1 + templates.length) % templates.length;
@@ -61,14 +55,12 @@ export const ResumeCarousel = () => {
         template: templates[prevIndex]?.id || "elegant",
       }));
 
-      // 切换后再淡入，创造更流畅的效果
       setTimeout(() => {
         setIsTransitioning(false);
       }, 350);
     }, 350);
   }, [templateIndex, templates, isTransitioning]);
 
-  // 自动轮播
   useEffect(() => {
     const interval = setInterval(() => {
       nextTemplate();
@@ -84,7 +76,7 @@ export const ResumeCarousel = () => {
       if (isTransitioning) return;
 
       const index = templates.findIndex(
-        (template) => template.id === templateId
+        (template) => template.id === templateId,
       );
 
       // 如果点击当前模板，不执行切换
@@ -107,7 +99,7 @@ export const ResumeCarousel = () => {
         }, 350);
       }
     },
-    [templates, templateIndex, isTransitioning]
+    [templates, templateIndex, isTransitioning],
   );
 
   // 设置缩放比例 - 因为组件只在桌面端显示，所以直接返回桌面比例

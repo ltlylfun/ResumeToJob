@@ -10,7 +10,6 @@ interface Feature {
   description: string;
 }
 
-// 定义特性列表的基本结构，后续会根据当前语言动态生成
 const getFeatures = (language: string): Feature[] => {
   const features: Record<string, Feature> = {
     parser: {

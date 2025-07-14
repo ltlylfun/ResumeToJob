@@ -8,7 +8,6 @@ import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 export const Hero = () => {
   const { language } = useLanguageRedux();
 
-  // 翻译函数，处理所有文本内容
   const translate = (key: string): string => {
     const translations: Record<string, Record<string, string>> = {
       title: {

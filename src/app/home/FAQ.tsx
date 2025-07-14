@@ -4,45 +4,7 @@ import { FadeIn } from "components/animations/FadeIn";
 import { StaggeredFadeIn } from "components/animations/StaggeredFadeIn";
 import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 
-// 获取基于当前语言的FAQ项目
 const getFAQItems = (language: string) => [
-  {
-    question:
-      language === "en"
-        ? "Is this resume builder completely free?"
-        : "这个简历生成器完全免费吗？",
-    answer:
-      language === "en"
-        ? "Yes, ResumeToJob is completely free to use. No registration required, no hidden fees, you can use all features freely."
-        : "是的，ResumeToJob是完全免费的工具，无需注册账号，没有隐藏收费，您可以随意使用所有功能。",
-  },
-  {
-    question:
-      language === "en"
-        ? "Where is my resume data stored?"
-        : "我的简历数据会被保存在哪里？",
-    answer:
-      language === "en"
-        ? "Your resume data is only saved in your browser's local storage and is not uploaded to any server. This means your data is private and secure, but it also means clearing browser data will result in information loss."
-        : "您的简历数据仅保存在浏览器的本地存储中，不会上传到任何服务器。这意味着您的数据是私密安全的，但也意味着清除浏览器数据会导致信息丢失。",
-  },
-  {
-    question: language === "en" ? "Origin of this project" : "该项目的由来",
-    answer:
-      language === "en"
-        ? "This is a secondary development project based on open-resume. Open-resume is an excellent open-source project, but I discovered it lacked some needed features during use, such as personal photo display and theme switching. So I developed this project based on open-resume and shared it on GitHub."
-        : "这是基于open-resume的二次开发项目。open-resume是一个非常优秀的开源项目，但我在使用过程中发现缺少一些需要的功能，如个人照片显示，主题切换等功能，所以我基于open-resume二次开发了这个项目，并分享在github上",
-  },
-  {
-    question:
-      language === "en"
-        ? "Can I customize resume templates?"
-        : "我可以自定义简历模板吗？",
-    answer:
-      language === "en"
-        ? "Of course. Contributions of resume templates on GitHub are welcome."
-        : "当然可以。欢迎github贡献简历模版。",
-  },
   {
     question:
       language === "en"
@@ -52,6 +14,16 @@ const getFAQItems = (language: string) => [
       language === "en"
         ? "This is usually because you haven't selected the correct font or the fonts haven't loaded properly due to slow network speeds. Please ensure the fonts have loaded completely before exporting your resume."
         : "没有选择正确的字体或者因为网速慢字体未加载好。请确保字体完全加载后再导出简历。",
+  },
+  {
+    question:
+      language === "en"
+        ? "Why don't I see Chinese fonts in the font options?"
+        : "为什么我的字体选项里没有中文字体？",
+    answer:
+      language === "en"
+        ? "Because Chinese fonts are large, ResumeToJob checks your browser language settings. If your browser language does not include Chinese, Chinese fonts will not be loaded."
+        : "由于中文字体较大，ResumeToJob会查看你的浏览器语言设置，如果你的浏览器语言没有包括中文，那么就不会加载中文字体。",
   },
 ];
 
@@ -63,10 +35,8 @@ export const FAQ = () => {
     setOpenIndex(openIndex === index ? -1 : index);
   };
 
-  // 获取当前语言的FAQ项目
   const faqItems = getFAQItems(language);
 
-  // 翻译函数
   const translate = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
       title: {
@@ -74,8 +44,8 @@ export const FAQ = () => {
         zh: "常见问题",
       },
       subtitle: {
-        en: "Everything you want to know about ResumeToJob",
-        zh: "关于ResumeToJob您想了解的一切",
+        en: "Frequently encountered issues about ResumeToJob on GitHub",
+        zh: "关于ResumeToJob的Github常见Issues",
       },
     };
 
@@ -128,7 +98,6 @@ export const FAQ = () => {
   );
 };
 
-// 简单的图标组件
 const PlusIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

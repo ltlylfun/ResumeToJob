@@ -18,8 +18,6 @@
 
 #### [有 🪜，但还有问题？提交 Issue，帮助我们改进](https://github.com/ltlylfun/ResumeToJob/issues)
 
-#### [不知道如何写好简历？查看这份简历 tips](RESUME_TIPS.md)
-
 <p align="center">
   <a href="https://github.com/ltlylfun/ResumeToJob/stargazers">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/ltlylfun/ResumeToJob?style=for-the-badge&logo=github&color=FFB33A">

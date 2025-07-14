@@ -31,6 +31,10 @@ export const EditorInstructions = () => {
       en: "Type '**text**' or '__text__' to make text bold",
       zh: "输入 '**文本**' 或 '__文本__' 创建粗体文本",
     },
+    autoList: {
+      en: "When you press Enter at the end of a list item, a new list item is automatically created. Press Enter again to cancel the auto-list.",
+      zh: "换行时默认会添加相同的 Markdown 列表项，按回车键可取消自动添加列表。",
+    },
     hint: {
       en: "These shortcuts help you format your resume content more efficiently.",
       zh: "这些快捷方式可以帮助您更高效地格式化您的简历内容。",
@@ -68,6 +72,7 @@ export const EditorInstructions = () => {
             <li>{translations.unorderedList[language]}</li>
             <li>{translations.orderedList[language]}</li>
             <li>{translations.boldText[language]}</li>
+            <li>{translations.autoList[language]}</li>
           </ul>
           <p className="mt-3 text-sm text-gray-600">
             {translations.hint[language]}

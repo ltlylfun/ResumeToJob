@@ -99,7 +99,7 @@ export const END_HOME_RESUME = END_HOME_RESUME_ZH;
 export const START_HOME_RESUME: Resume = {
   profile: {
     ...deepClone(initialProfile),
-    photoUrl: END_HOME_RESUME_ZH.profile.photoUrl, // 确保照片在开始就显示
+    photoUrl: END_HOME_RESUME_ZH.profile.photoUrl,
   },
   workExperiences: END_HOME_RESUME_ZH.workExperiences.map((_, index) => {
     const workExp = deepClone(initialWorkExperience);
