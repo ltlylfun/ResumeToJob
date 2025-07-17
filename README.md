@@ -108,10 +108,6 @@ ResumeToJob 提供便捷的简历导入导出功能，让您轻松管理和分�
 
 ⚠️ **注意**：此操作将清除所有本地保存的简历数据，请在使用前确保已导出重要的简历文件。
 
-### 🤝 参与贡献
-
-我们欢迎社区贡献者参与项目开发，特别是添加新的简历模板。请查看 [模板贡献指南](TEMPLATE_CONTRIBUTION.md) 了解如何创建和提交您的模板。
-
 ### 🔗 在线使用
 
 访问 [https://resumetojob.ltlyl.fun/](https://resumetojob.ltlyl.fun/) 立即体验
@@ -221,10 +217,6 @@ You can use the reset to default function in the following situations:
 - **Reset to Initial State**: Restore to the website's default settings and sample resume
 
 ⚠️ **Warning**: This operation will clear all locally saved resume data. Please ensure you have exported important resume files before using this feature.
-
-### 🤝 Contribute
-
-We welcome community contributors to participate in project development, especially adding new resume templates. Check out the [Template Contribution Guide](TEMPLATE_CONTRIBUTION.md) to learn how to create and submit your templates.
 
 ### 🔗 Online Usage
 

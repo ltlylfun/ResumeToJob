@@ -1,5 +1,6 @@
 import "globals.css";
 import { TopNavBar } from "components/TopNavBar";
+import { Footer } from "components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { Providers } from "./providers";
 import ClientLayout from "./ClientLayout";
@@ -15,11 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-CN">
-      <body>
+      <body className="flex min-h-screen flex-col">
         <Providers>
           <ClientLayout>
             <TopNavBar />
-            {children}
+            <div className="flex-1">{children}</div>
+            <Footer />
             <Analytics />
           </ClientLayout>
         </Providers>
