@@ -101,20 +101,11 @@ export const useSetInitialStore = () => {
     // 从 localStorage 加载状态
     const state = loadStateFromLocalStorage();
 
-    // 获取当前语言
+    // 获取当前语言（从Redux状态中获取，如果没有则使用默认值）
     const getCurrentLanguage = (): "zh" | "en" => {
-      if (typeof window !== "undefined") {
-        try {
-          const savedLanguage = localStorage.getItem("language");
-          if (
-            savedLanguage &&
-            (savedLanguage === "zh" || savedLanguage === "en")
-          ) {
-            return savedLanguage;
-          }
-        } catch (e) {
-          console.error("获取语言设置失败:", e);
-        }
+      // 优先从Redux状态中获取语言设置
+      if (state?.language?.current) {
+        return state.language.current;
       }
       return "zh"; // 默认使用中文
     };

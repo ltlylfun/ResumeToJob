@@ -5,18 +5,23 @@ import { SupportedLanguage } from "./types";
 // 判断是否在浏览器环境
 const isBrowser = typeof window !== "undefined";
 
-// 从本地存储或浏览器设置获取初始语言
+// 更新 HTML lang 属性的公共函数
+const updateHtmlLangAttribute = (language: SupportedLanguage) => {
+  if (isBrowser) {
+    try {
+      document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+    } catch (error) {
+      console.error("Failed to set HTML lang attribute", error);
+    }
+  }
+};
+
+// 从浏览器设置获取初始语言（不再从localStorage读取，统一由Redux管理）
 function getInitialLanguage(): SupportedLanguage {
   if (!isBrowser) return "zh"; // 服务器端渲染默认使用中文
 
   try {
-    // 尝试从localStorage获取
-    const savedLanguage = localStorage.getItem("language");
-    if (savedLanguage && (savedLanguage === "zh" || savedLanguage === "en")) {
-      return savedLanguage as SupportedLanguage;
-    }
-
-    // 如果没有localStorage设置，根据浏览器语言偏好智能选择
+    // 根据浏览器语言偏好智能选择
     const browserLanguage = navigator.language.toLowerCase();
     return browserLanguage.startsWith("zh") ? "zh" : "en";
   } catch (error) {
@@ -39,23 +44,14 @@ export const languageSlice = createSlice({
   reducers: {
     setLanguage: (state, action: PayloadAction<SupportedLanguage>) => {
       state.current = action.payload;
-
-      // 保存到本地存储
-      if (isBrowser) {
-        try {
-          localStorage.setItem("language", action.payload);
-
-          // 更新 HTML lang 属性
-          document.documentElement.lang =
-            action.payload === "zh" ? "zh-CN" : "en";
-        } catch (error) {
-          console.error("Failed to set language in localStorage", error);
-        }
-      }
+      // 更新 HTML lang 属性
+      updateHtmlLangAttribute(action.payload);
     },
     initializeLanguage: (state) => {
       if (isBrowser) {
         state.current = getInitialLanguage();
+        // 同时更新 HTML lang 属性
+        updateHtmlLangAttribute(state.current);
       }
     },
   },
