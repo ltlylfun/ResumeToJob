@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "lib/redux/store";
 import { deepClone } from "lib/deep-clone";
+import { generateUniqueId } from "lib/utils/string-utils";
 import type {
   ResumeData,
   ResumeManagerState,
@@ -203,7 +204,7 @@ export const resumeManagerSlice = createSlice({
         // 确保ID唯一
         const existingIds = state.resumes.map((r) => r.metadata.id);
         if (existingIds.includes(resume.metadata.id)) {
-          resume.metadata.id = `resume-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+          resume.metadata.id = generateUniqueId("resume");
         }
         state.resumes.push(resume);
       });
@@ -335,22 +336,19 @@ export const resumeManagerSlice = createSlice({
         switch (form) {
           case "workExperiences": {
             const newWorkExperience = structuredClone(initialWorkExperience);
-            newWorkExperience.id =
-              Date.now().toString() + Math.random().toString(36).substr(2, 9);
+            newWorkExperience.id = generateUniqueId();
             currentResume.content.workExperiences.push(newWorkExperience);
             break;
           }
           case "educations": {
             const newEducation = structuredClone(initialEducation);
-            newEducation.id =
-              Date.now().toString() + Math.random().toString(36).substr(2, 9);
+            newEducation.id = generateUniqueId();
             currentResume.content.educations.push(newEducation);
             break;
           }
           case "projects": {
             const newProject = structuredClone(initialProject);
-            newProject.id =
-              Date.now().toString() + Math.random().toString(36).substr(2, 9);
+            newProject.id = generateUniqueId();
             currentResume.content.projects.push(newProject);
             break;
           }
