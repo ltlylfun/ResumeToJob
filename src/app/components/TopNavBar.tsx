@@ -7,6 +7,7 @@ import { cx } from "lib/cx";
 import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { DismissibleBanner } from "./DismissibleBanner";
+import { clearLocalStorage } from "../lib/redux/local-storage";
 
 export const TopNavBar = () => {
   const pathName = usePathname();
@@ -77,7 +78,14 @@ export const TopNavBar = () => {
         : "Are you sure you want to reset to default? This will delete all information, please make a backup.\n\nClick OK to clear all data and refresh the page.";
 
     if (confirm(message)) {
-      localStorage.clear();
+      try {
+        clearLocalStorage();
+        console.info("用户手动重置应用状态");
+      } catch (error) {
+        console.error("重置应用状态失败:", error);
+        // 如果清除失败，回退到清除整个 localStorage
+        localStorage.clear();
+      }
       window.location.reload();
     }
   };

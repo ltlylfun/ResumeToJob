@@ -1,11 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import {
-  useAppSelector,
-  useAppDispatch,
-  useSaveStateToLocalStorageOnChange,
-  useSetInitialStore,
-} from "lib/redux/hooks";
+import { useAppSelector, useAppDispatch } from "lib/redux/hooks";
 import {
   ShowForm,
   selectFormsOrder,
@@ -34,8 +29,8 @@ const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
 };
 
 export const ResumeForm = () => {
-  useSetInitialStore();
-  // 移除重复的 useSaveStateToLocalStorageOnChange，因为已经在 providers.tsx 中调用了
+  // 初始化逻辑已移动到 providers.tsx 中的 StoreInitializer 组件
+  // 这样确保无论用户访问哪个页面，都会正确初始化状态
 
   const formsOrder = useAppSelector(selectFormsOrder);
   const [isHover, setIsHover] = useState(false);

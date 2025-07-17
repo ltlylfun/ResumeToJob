@@ -55,14 +55,6 @@ export const useSaveStateToLocalStorageOnChange = () => {
   useEffect(() => {
     console.info("初始化 Redux 状态保存到 localStorage 的监听");
 
-    // 从 localStorage 加载初始状态
-    const initialState = loadStateFromLocalStorage();
-    if (initialState) {
-      console.info("应用启动时从 localStorage 恢复了状态");
-    } else {
-      console.info("localStorage 中没有找到初始状态，将使用默认状态");
-    }
-
     // 使用防抖动函数包装保存操作，延迟500毫秒
     const debouncedSave = debounce((state: RootState) => {
       saveStateToLocalStorage(state);
@@ -95,33 +87,47 @@ export const useSetInitialStore = () => {
 
     console.info("开始初始化 Redux 存储");
 
-    // 标记为已初始化
-    storeInitialized = true;
+    try {
+      // 标记为已初始化
+      storeInitialized = true;
 
-    // 从 localStorage 加载状态
-    const state = loadStateFromLocalStorage();
+      // 从 localStorage 加载状态
+      const state = loadStateFromLocalStorage();
 
-    // 获取当前语言（从Redux状态中获取，如果没有则使用默认值）
-    const getCurrentLanguage = (): "zh" | "en" => {
-      // 优先从Redux状态中获取语言设置
-      if (state?.language?.current) {
-        return state.language.current;
+      if (state) {
+        console.info("从 localStorage 恢复状态", {
+          hasResumeManager: !!state.resumeManager,
+          resumeCount: state.resumeManager?.resumes?.length || 0,
+          currentResumeId: state.resumeManager?.currentResumeId,
+          hasSettings: !!state.settings,
+          hasLanguage: !!state.language,
+        });
+      } else {
+        console.info("localStorage 中没有找到保存的状态，将创建默认状态");
       }
-      return "zh"; // 默认使用中文
-    };
-    const currentLanguage = getCurrentLanguage();
 
-    // 根据当前语言选择正确的标题
-    const languageHeadings = formHeadings[currentLanguage] || formHeadings.zh;
+      // 获取当前语言（从Redux状态中获取，如果没有则使用默认值）
+      const getCurrentLanguage = (): "zh" | "en" => {
+        // 优先从Redux状态中获取语言设置
+        if (state?.language?.current) {
+          return state.language.current;
+        }
+        return "zh"; // 默认使用中文
+      };
+      const currentLanguage = getCurrentLanguage();
 
-    // 初始化设置
-    if (state?.settings) {
-      // 处理现有设置，保留用户自定义的标题
-      const updatedFormToHeading = { ...languageHeadings };
+      // 根据当前语言选择正确的标题
+      const languageHeadings = formHeadings[currentLanguage] || formHeadings.zh;
 
-      if (state.settings.customizedHeadings && state.settings.formToHeading) {
-        (Object.keys(state.settings.customizedHeadings) as ShowForm[]).forEach(
-          (formKey) => {
+      // 初始化设置
+      if (state?.settings) {
+        // 处理现有设置，保留用户自定义的标题
+        const updatedFormToHeading = { ...languageHeadings };
+
+        if (state.settings.customizedHeadings && state.settings.formToHeading) {
+          (
+            Object.keys(state.settings.customizedHeadings) as ShowForm[]
+          ).forEach((formKey) => {
             if (
               state.settings.customizedHeadings[formKey] &&
               state.settings.formToHeading[formKey]
@@ -129,37 +135,57 @@ export const useSetInitialStore = () => {
               updatedFormToHeading[formKey] =
                 state.settings.formToHeading[formKey];
             }
-          },
+          });
+        }
+
+        const settingsWithLanguage = {
+          ...state.settings,
+          formToHeading: updatedFormToHeading,
+        };
+
+        const mergedSettingsState = deepMerge(
+          initialSettings,
+          settingsWithLanguage,
+        ) as Settings;
+        dispatch(setSettings(mergedSettingsState));
+      } else {
+        // 使用默认设置
+        dispatch(
+          setSettings({
+            ...initialSettings,
+            formToHeading: languageHeadings,
+          }),
         );
       }
 
-      const settingsWithLanguage = {
-        ...state.settings,
-        formToHeading: updatedFormToHeading,
-      };
+      // 初始化简历管理状态
+      if (state?.resumeManager) {
+        // 验证简历数据的完整性
+        const resumeManager = state.resumeManager;
+        if (resumeManager.resumes && Array.isArray(resumeManager.resumes)) {
+          console.info(`恢复 ${resumeManager.resumes.length} 个简历`);
+          dispatch(setAllResumes(resumeManager));
+        } else {
+          console.warn("简历数据格式不正确，创建默认简历");
+          dispatch(createResume({ title: "default" }));
+        }
+      } else {
+        // 创建默认简历
+        console.info("创建默认简历");
+        dispatch(createResume({ title: "default" }));
+      }
 
-      const mergedSettingsState = deepMerge(
-        initialSettings,
-        settingsWithLanguage,
-      ) as Settings;
-      dispatch(setSettings(mergedSettingsState));
-    } else {
-      // 使用默认设置
-      dispatch(
-        setSettings({
-          ...initialSettings,
-          formToHeading: languageHeadings,
-        }),
-      );
-    }
-
-    // 初始化简历管理状态
-    if (state?.resumeManager) {
-      // 如果有现有的简历数据，使用它们
-      dispatch(setAllResumes(state.resumeManager));
-    } else {
-      // 创建默认简历
-      dispatch(createResume({ title: "default" }));
+      console.info("Redux 存储初始化完成");
+    } catch (error) {
+      console.error("初始化 Redux 存储时发生错误:", error);
+      // 发生错误时，重置标志并创建默认状态
+      storeInitialized = false;
+      try {
+        dispatch(createResume({ title: "default" }));
+        console.info("已创建默认简历作为备用");
+      } catch (fallbackError) {
+        console.error("创建默认简历失败:", fallbackError);
+      }
     }
   }, [dispatch]);
 };

@@ -37,12 +37,25 @@ export const loadStateFromLocalStorage = () => {
     }
 
     const parsedState = JSON.parse(stringifiedState);
-    if (process.env.NODE_ENV === "development") {
-      console.info("成功从 localStorage 加载状态");
+
+    // 验证数据结构的基本完整性
+    if (parsedState && typeof parsedState === "object") {
+      if (process.env.NODE_ENV === "development") {
+        console.info("成功从 localStorage 加载状态");
+      }
+      return parsedState;
+    } else {
+      console.warn("localStorage 中的数据格式不正确，将清除并使用默认状态");
+      clearLocalStorage();
+      return undefined;
     }
-    return parsedState;
   } catch (e) {
     console.error("从 localStorage 加载数据失败:", e);
+    // 如果是解析错误，清除损坏的数据
+    if (e instanceof SyntaxError) {
+      console.warn("localStorage 中的数据已损坏，将清除并使用默认状态");
+      clearLocalStorage();
+    }
     return undefined;
   }
 };
@@ -96,6 +109,18 @@ export const saveStateToLocalStorage = (state: RootState) => {
     if (e instanceof DOMException && e.name === "QuotaExceededError") {
       console.error("localStorage 配额已满，无法保存状态。请考虑减少状态大小");
     }
+  }
+};
+
+// 清除 localStorage 中的应用状态
+export const clearLocalStorage = () => {
+  try {
+    if (isLocalStorageAvailable()) {
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      console.info("已清除 localStorage 中的应用状态");
+    }
+  } catch (e) {
+    console.error("清除 localStorage 失败:", e);
   }
 };
 
