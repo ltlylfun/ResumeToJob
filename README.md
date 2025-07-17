@@ -53,12 +53,14 @@ ResumeToJob 是一个免费开源的在线简历制作工具，帮助求职者�
 
 - 🎨 多种精美简历模板
 - 📱 响应式设计，支持移动端和桌面端
-- 🔒 注重隐私，所有数据存储在本地
+- 🔒 注重隐私，所有数据存储在浏览器本地
 - 📤 一键导出 PDF 格式简历
 - 🌏 支持中英文界面
 - 🖥️ 实时预览编辑效果
 - ✏️ 支持 Markdown 格式，让内容编辑更简单
 - 📁 简历管理功能，支持多份简历创建、切换、克隆和导入导出
+
+> ⚠️ **重要提示**：简历数据存储在浏览器本地，以防意外情况丢失，建议使用【管理简历】功能导出保存
 
 ### 📝 Markdown 格式支持
 
@@ -165,12 +167,14 @@ ResumeToJob is a free open-source online resume builder that helps job seekers q
 
 - 🎨 Multiple beautiful resume templates
 - 📱 Responsive design for both mobile and desktop
-- 🔒 Privacy-focused with all data stored locally
+- 🔒 Privacy-focused with all data stored in browser locally
 - 📤 One-click PDF export
 - 🌏 Multi-language interface (English & Chinese)
 - 🖥️ Real-time preview of edits
 - ✏️ Markdown format support for easier content editing
 - 📁 Resume management with support for creating, switching, cloning, and importing/exporting multiple resumes
+
+> ⚠️ **Important Notice**: Resume data is stored in browser locally. To prevent accidental loss, it is recommended to use the [manage resumes] function to export and save
 
 ### 📝 Markdown Format Support
 
