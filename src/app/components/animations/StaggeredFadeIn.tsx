@@ -4,9 +4,9 @@ import { FadeIn } from "./FadeIn";
 
 interface StaggeredFadeInProps {
   children: React.ReactNode;
-  staggerDelay?: number; // 每个元素之间的延迟（毫秒）
-  baseDelay?: number; // 第一个元素的延迟（毫秒）
-  duration?: number; // 每个元素的动画持续时间
+  staggerDelay?: number;
+  baseDelay?: number;
+  duration?: number;
   direction?: "up" | "down" | "left" | "right" | "none";
   distance?: number;
   className?: string;
@@ -31,7 +31,7 @@ export const StaggeredFadeIn = ({
     <Component className={className}>
       {childrenArray.map((child, index) => {
         const delay = baseDelay + index * staggerDelay;
-        
+
         return (
           <FadeIn
             key={index}

@@ -35,7 +35,7 @@ export const useTailwindBreakpoints = () => {
     isLg,
     isXl,
     is2xl,
-    // 添加断点值本身
+
     sm: TailwindBreakpoint.sm,
     md: TailwindBreakpoint.md,
     lg: TailwindBreakpoint.lg,

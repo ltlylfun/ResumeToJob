@@ -21,7 +21,7 @@ export interface Settings {
     skills: string;
     custom: string;
   };
-  // 跟踪用户是否手动更改了表单标题
+
   customizedHeadings: {
     workExperiences: boolean;
     educations: boolean;
@@ -38,13 +38,11 @@ export type GeneralSetting = Exclude<
   "formToShow" | "formToHeading" | "customizedHeadings" | "formsOrder"
 >;
 
-export const DEFAULT_THEME_COLOR = "#38bdf8"; // sky-400
+export const DEFAULT_THEME_COLOR = "#38bdf8";
 export const DEFAULT_FONT_FAMILY = "Roboto";
-export const DEFAULT_FONT_SIZE = "11"; // text-base https://tailwindcss.com/docs/font-size
-export const DEFAULT_FONT_COLOR = "#000000"; // text-neutral-800
-export const DEFAULT_TEMPLATE = "minimal"; // 默认模板
-
-// 为了适应不同语言环境的初始表单标题
+export const DEFAULT_FONT_SIZE = "11";
+export const DEFAULT_FONT_COLOR = "#000000";
+export const DEFAULT_TEMPLATE = "minimal";
 export const formHeadings = {
   zh: {
     workExperiences: "工作经历",
@@ -66,7 +64,7 @@ export const initialSettings: Settings = {
   themeColor: DEFAULT_THEME_COLOR,
   fontFamily: DEFAULT_FONT_FAMILY,
   fontSize: DEFAULT_FONT_SIZE,
-  documentSize: "A4", // 将默认值从 "Letter" 改为 "A4",因为日常使用确实是a4
+  documentSize: "A4",
   template: DEFAULT_TEMPLATE,
   formToShow: {
     workExperiences: true,
@@ -76,10 +74,8 @@ export const initialSettings: Settings = {
     custom: false,
   },
   formToHeading: {
-    // 根据语言设置初始表单标题，默认使用中文
     ...formHeadings.zh,
   },
-  // 初始状态下，所有标题都未被用户自定义
   customizedHeadings: {
     workExperiences: false,
     educations: false,
@@ -118,18 +114,15 @@ export const settingsSlice = createSlice({
     ) => {
       const { field, value, isUserCustomized = true } = action.payload;
       draft.formToHeading[field] = value;
-      // 如果是用户自定义的更改，标记为已自定义
       if (isUserCustomized) {
         draft.customizedHeadings[field] = true;
       }
     },
-    // 新增：仅在用户未自定义时更新标题（用于语言切换）
     updateFormHeadingIfNotCustomized: (
       draft,
       action: PayloadAction<{ field: ShowForm; value: string }>,
     ) => {
       const { field, value } = action.payload;
-      // 只有在用户未自定义该标题时才更新
       if (!draft.customizedHeadings[field]) {
         draft.formToHeading[field] = value;
       }

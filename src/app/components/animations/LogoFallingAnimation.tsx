@@ -26,11 +26,9 @@ export const LogoFallingAnimation = ({
   const animationRef = useRef<number | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-  // 检测是否是移动设备，如果是则减少logo数量
   const isMobileDevice = () => {
     return window.innerWidth < 768;
   };
-  // 初始化logo位置
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -39,11 +37,9 @@ export const LogoFallingAnimation = ({
         const { width, height } = containerRef.current.getBoundingClientRect();
         setDimensions({ width, height });
 
-        // 移动设备上显示更少的logo
         const actualLogoCount = isMobileDevice()
           ? Math.max(6, Math.floor(logoCount / 2))
           : logoCount;
-        // 移动设备上使用更小的尺寸
         const actualMaxSize = isMobileDevice()
           ? Math.max(30, maxSize * 0.7)
           : maxSize;
@@ -53,12 +49,12 @@ export const LogoFallingAnimation = ({
           const size = Math.random() * (actualMaxSize - minSize) + minSize;
           newLogos.push({
             x: Math.random() * width,
-            y: Math.random() * height * 2 - height, // 有些在屏幕上方，有些在屏幕下方
+            y: Math.random() * height * 2 - height,
             size,
             speed: Math.random() * (maxSpeed - minSpeed) + minSpeed,
             opacity: Math.random() * (maxOpacity - minOpacity) + minOpacity,
             rotation: Math.random() * 360,
-            rotationSpeed: (Math.random() - 0.5) * (isMobileDevice() ? 1 : 2), // 移动设备上旋转更慢
+            rotationSpeed: (Math.random() - 0.5) * (isMobileDevice() ? 1 : 2),
           });
         }
         setLogos(newLogos);
@@ -80,7 +76,6 @@ export const LogoFallingAnimation = ({
     };
   }, [logoCount, minSize, maxSize, minSpeed, maxSpeed, minOpacity, maxOpacity]);
 
-  // 动画效果
   useEffect(() => {
     if (logos.length === 0 || !containerRef.current) return;
 
@@ -88,10 +83,9 @@ export const LogoFallingAnimation = ({
       setLogos((prevLogos) =>
         prevLogos.map((logo) => {
           let newY = logo.y + logo.speed;
-          let newX = logo.x + Math.sin(newY / 50) * 0.5; // 让logo左右摆动
+          let newX = logo.x + Math.sin(newY / 50) * 0.5;
           let newRotation = logo.rotation + logo.rotationSpeed;
 
-          // 当logo移出屏幕底部时，重新在屏幕上方生成
           if (newY > dimensions.height + logo.size) {
             newY = -logo.size;
             newX = Math.random() * dimensions.width;
@@ -103,7 +97,7 @@ export const LogoFallingAnimation = ({
             x: newX,
             rotation: newRotation % 360,
           };
-        })
+        }),
       );
 
       animationRef.current = requestAnimationFrame(animate);

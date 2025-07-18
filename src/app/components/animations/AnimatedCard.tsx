@@ -5,9 +5,9 @@ import { cx } from "lib/cx";
 interface AnimatedCardProps {
   children: React.ReactNode;
   className?: string;
-  hoverScale?: number; // 悬停时的放大倍数
-  hoverRotate?: boolean; // 是否启用3D旋转效果
-  clickEffect?: boolean; // 是否启用点击效果
+  hoverScale?: number;
+  hoverRotate?: boolean;
+  clickEffect?: boolean;
 }
 
 export const AnimatedCard: React.FC<AnimatedCardProps> = ({
@@ -22,7 +22,6 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({
   const [isPressed, setIsPressed] = useState(false);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
-  // 检测设备类型
   React.useEffect(() => {
     const checkIfMobile = () => {
       setIsMobileDevice(window.innerWidth < 768);
@@ -33,24 +32,21 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    // 在移动设备上禁用复杂动画效果
     if (!hoverRotate || isMobileDevice) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left; // 鼠标相对于卡片的 X 坐标
-    const y = e.clientY - rect.top; // 鼠标相对于卡片的 Y 坐标
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-    // 计算鼠标位置相对于卡片中心的偏移量
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    // 将偏移量映射到旋转角度范围 (-10度 到 10度)
-    const rotateX = ((y - centerY) / centerY) * -5; // 上下移动影响 X 轴旋转
-    const rotateY = ((x - centerX) / centerX) * 5; // 左右移动影响 Y 轴旋转
+    const rotateX = ((y - centerY) / centerY) * -5;
+    const rotateY = ((x - centerX) / centerX) * 5;
 
     setMousePosition({ x: rotateY, y: rotateX });
   };
-  // 计算样式
+
   const style: React.CSSProperties = {
     transform:
       isHovering && !isMobileDevice
@@ -68,7 +64,7 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({
       className={cx(
         "overflow-hidden rounded-lg transition-all duration-300",
         className,
-        isHovering ? "shadow-lg" : "shadow"
+        isHovering ? "shadow-lg" : "shadow",
       )}
       style={style}
       onMouseEnter={() => setIsHovering(true)}

@@ -4,11 +4,11 @@ import { cx } from "lib/cx";
 
 interface FadeInProps {
   children: React.ReactNode;
-  delay?: number; // 毫秒
-  duration?: number; // 毫秒
+  delay?: number;
+  duration?: number;
   className?: string;
   direction?: "up" | "down" | "left" | "right" | "none";
-  distance?: number; // 像素
+  distance?: number;
   once?: boolean;
 }
 
@@ -35,7 +35,7 @@ export const FadeIn = ({
         setIsVisible(false);
       }
     });
-    
+
     const currentElement = domRef.current;
     if (currentElement) {
       observer.observe(currentElement);
@@ -48,7 +48,6 @@ export const FadeIn = ({
     };
   }, [once]);
 
-  // 基于方向计算初始位置
   let transform = "translate(0, 0)";
   if (direction === "up") transform = `translateY(${distance}px)`;
   if (direction === "down") transform = `translateY(-${distance}px)`;
@@ -63,8 +62,8 @@ export const FadeIn = ({
   };
 
   return (
-    <div 
-      ref={domRef} 
+    <div
+      ref={domRef}
       className={cx("transition-all", className)}
       style={animationStyle}
     >

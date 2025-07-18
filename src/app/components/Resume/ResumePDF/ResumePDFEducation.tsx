@@ -28,7 +28,6 @@ export const ResumePDFEducation = ({
     >
       {educations.map(
         ({ id, school, degree, date, gpa, descriptions = [] }, idx) => {
-          // Hide school name if it is the same as the previous school
           const hideSchoolName =
             idx > 0 && school === educations[idx - 1].school;
           const showDescriptions = descriptions.join() !== "";
@@ -67,7 +66,7 @@ export const ResumePDFEducation = ({
               )}
             </View>
           );
-        }
+        },
       )}
     </ResumePDFSection>
   );

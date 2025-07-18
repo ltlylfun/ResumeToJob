@@ -48,10 +48,6 @@ const getIframeInitialContent = (isA4: boolean) => {
 </html>`;
 };
 
-/**
- * Iframe is used here for style isolation, since react pdf uses pt unit.
- * It creates a sandbox document body that uses letter/A4 pt size as width.
- */
 const ResumeIframe = ({
   documentSize,
   scale,
@@ -88,9 +84,6 @@ const ResumeIframe = ({
         maxHeight: `${height * scale}px`,
       }}
     >
-      {/* There is an outer div and an inner div here. The inner div sets the iframe width and uses transform scale to zoom in/out the resume iframe.
-        While zooming out or scaling down via transform, the element appears smaller but still occupies the same width/height. Therefore, we use the 
-        outer div to restrict the max width & height proportionally */}
       <div
         style={{
           width: `${width}px`,
@@ -102,7 +95,6 @@ const ResumeIframe = ({
         <Frame
           style={{ width: "100%", height: "100%" }}
           initialContent={iframeInitialContent}
-          // key is used to force component to re-mount when document size changes
           key={isA4 ? "A4" : "LETTER"}
         >
           {children}
@@ -112,14 +104,10 @@ const ResumeIframe = ({
   );
 };
 
-/**
- * Load iframe client side since iframe can't be SSR
- */
 export const ResumeIframeCSR = dynamic(() => Promise.resolve(ResumeIframe), {
   ssr: false,
 });
 
-// PDFViewer is only used for debugging. Its size is quite large, so we make it dynamic import
 const DynamicPDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((module) => module.PDFViewer),
   {

@@ -48,7 +48,6 @@ const ResumeControlBar = ({
 
   const [instance, update] = usePDF({ document });
 
-  // Hook to update pdf when document changes
   useEffect(() => {
     update(document);
   }, [update, document]);
@@ -93,9 +92,6 @@ const ResumeControlBar = ({
   );
 };
 
-/**
- * Load ResumeControlBar client side since it uses usePDF, which is a web specific API
- */
 export const ResumeControlBarCSR = dynamic(
   () => Promise.resolve(ResumeControlBar),
   {

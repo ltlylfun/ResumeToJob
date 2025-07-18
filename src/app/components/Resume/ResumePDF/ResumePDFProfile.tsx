@@ -65,12 +65,12 @@ export const ResumePDFProfile = ({
       return (
         <div
           style={{
-            width: "80pt", // 增加了宽度，从60pt改为80pt
-            height: "80pt", // 增加了高度，从60pt改为80pt
+            width: "80pt",
+            height: "80pt",
             marginLeft: "12pt",
             overflow: "hidden",
             borderRadius: "4pt",
-            position: "relative", // 为Next.js Image组件添加相对定位
+            position: "relative",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -80,7 +80,7 @@ export const ResumePDFProfile = ({
             src={photoUrl}
             alt="Profile"
             style={{
-              objectFit: "contain", // 修改为contain而不是cover，以保持原始比例
+              objectFit: "contain",
               width: "100%",
               height: "100%",
             }}
@@ -155,7 +155,7 @@ export const ResumePDFProfile = ({
                 break;
               }
               case "phone": {
-                src = `tel:${value.replace(/[^\d+]/g, "")}`; // Keep only + and digits
+                src = `tel:${value.replace(/[^\d+]/g, "")}`;
                 break;
               }
               default: {

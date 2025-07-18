@@ -1,7 +1,5 @@
 import { StyleSheet } from "@react-pdf/renderer";
 
-// Tailwindcss Spacing Design System: https://tailwindcss.com/docs/theme#spacing
-// It is converted from rem to pt (1rem = 12pt) since https://react-pdf.org/styling only accepts pt unit
 export const spacing = {
   0: "0",
   0.5: "1.5pt",
@@ -57,6 +55,6 @@ export const styles = StyleSheet.create({
   icon: {
     width: "13pt",
     height: "13pt",
-    fill: "#525252", // text-neutral-600
+    fill: "#525252",
   },
 });

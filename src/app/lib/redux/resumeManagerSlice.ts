@@ -16,7 +16,6 @@ import type {
 } from "lib/redux/types";
 import type { ShowForm } from "lib/redux/settingsSlice";
 
-// 从 resumeSlice 移植的初始状态定义
 export const initialProfile: ResumeProfile = {
   name: "",
   summary: [],
@@ -73,7 +72,6 @@ export const initialResumeState: Resume = {
   custom: initialCustom,
 };
 
-// Keep the field & value type in sync with CreateHandleChangeArgsWithDescriptions (components\ResumeForm\types.ts)
 export type CreateChangeActionWithDescriptions<T> = {
   idx: number;
 } & (
@@ -93,7 +91,6 @@ export const resumeManagerSlice = createSlice({
   name: "resumeManager",
   initialState,
   reducers: {
-    // 创建新简历
     createResume: (
       state,
       action: PayloadAction<{
@@ -118,7 +115,6 @@ export const resumeManagerSlice = createSlice({
       state.currentResumeId = newResume.metadata.id;
     },
 
-    // 克隆现有简历
     cloneResume: (
       state,
       action: PayloadAction<{ resumeId: string; title: string }>,
@@ -146,19 +142,16 @@ export const resumeManagerSlice = createSlice({
       }
     },
 
-    // 删除简历
     deleteResume: (state, action: PayloadAction<string>) => {
       const resumeId = action.payload;
       state.resumes = state.resumes.filter((r) => r.metadata.id !== resumeId);
 
-      // 如果删除的是当前简历，切换到第一个简历
       if (state.currentResumeId === resumeId) {
         state.currentResumeId =
           state.resumes.length > 0 ? state.resumes[0].metadata.id : null;
       }
     },
 
-    // 切换当前简历
     switchResume: (state, action: PayloadAction<string>) => {
       const resumeId = action.payload;
       if (state.resumes.some((r) => r.metadata.id === resumeId)) {
@@ -166,7 +159,6 @@ export const resumeManagerSlice = createSlice({
       }
     },
 
-    // 更新简历元数据
     updateResumeMetadata: (
       state,
       action: PayloadAction<{ id: string; metadata: Partial<ResumeMetadata> }>,
@@ -183,7 +175,6 @@ export const resumeManagerSlice = createSlice({
       }
     },
 
-    // 更新简历内容
     updateResumeContent: (
       state,
       action: PayloadAction<{ id: string; content: Resume }>,
@@ -197,11 +188,9 @@ export const resumeManagerSlice = createSlice({
       }
     },
 
-    // 导入简历数据
     importResumes: (state, action: PayloadAction<ResumeData[]>) => {
       const importedResumes = action.payload;
       importedResumes.forEach((resume) => {
-        // 确保ID唯一
         const existingIds = state.resumes.map((r) => r.metadata.id);
         if (existingIds.includes(resume.metadata.id)) {
           resume.metadata.id = generateUniqueId("resume");
@@ -210,12 +199,10 @@ export const resumeManagerSlice = createSlice({
       });
     },
 
-    // 设置所有简历数据（用于初始化）
     setAllResumes: (state, action: PayloadAction<ResumeManagerState>) => {
       return { ...action.payload };
     },
 
-    // 从 resumeSlice 移植的简历内容编辑 actions
     changeProfile: (
       state,
       action: PayloadAction<{
@@ -429,7 +416,7 @@ export const {
   updateResumeContent,
   importResumes,
   setAllResumes,
-  // 从 resumeSlice 移植的 actions
+
   changeProfile,
   changeWorkExperiences,
   changeEducations,
@@ -442,7 +429,6 @@ export const {
   setResume,
 } = resumeManagerSlice.actions;
 
-// Selectors
 export const selectAllResumes = (state: RootState) =>
   state.resumeManager.resumes;
 export const selectCurrentResumeId = (state: RootState) =>
@@ -454,7 +440,6 @@ export const selectCurrentResume = (state: RootState) => {
     : null;
 };
 
-// 从 resumeSlice 移植的 selectors - 这些现在基于当前选中的简历
 export const selectResume = (state: RootState) => {
   const currentResume = selectCurrentResume(state);
   return currentResume ? currentResume.content : initialResumeState;
