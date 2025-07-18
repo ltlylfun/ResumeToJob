@@ -30,10 +30,7 @@ export const TopNavBar = () => {
         en: "Bug Report",
         zh: "反馈问题",
       },
-      communityHelp: {
-        en: "Community Help",
-        zh: "寻求社区建议",
-      },
+
       resetDefault: {
         en: "Reset Default",
         zh: "恢复默认",
@@ -52,21 +49,6 @@ export const TopNavBar = () => {
 
     if (confirm(message)) {
       window.open("https://github.com/ltlylfun/ResumeToJob/issues", "_blank");
-    }
-  };
-
-  // 处理社区建议点击
-  const handleCommunityHelpClick = () => {
-    const message =
-      language === "zh"
-        ? "你可以在GitHub Discussions中展示你的简历(不要忘记隐藏个人信息)，社区会提供帮助。\n\n点击确定将跳转到GitHub Discussions页面。"
-        : "You can showcase your resume in GitHub Discussions (don't forget to hide personal information), and the community will provide help.\n\nClick OK to jump to the GitHub Discussions page.";
-
-    if (confirm(message)) {
-      window.open(
-        "https://github.com/ltlylfun/ResumeToJob/discussions/categories/resume-help",
-        "_blank",
-      );
     }
   };
 
@@ -124,12 +106,6 @@ export const TopNavBar = () => {
               className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
             >
               {translate("bugReport")}
-            </button>
-            <button
-              onClick={handleCommunityHelpClick}
-              className="rounded-md px-1.5 py-2 text-gray-500 hover:bg-gray-100 focus-visible:bg-gray-100 lg:px-4"
-            >
-              {translate("communityHelp")}
             </button>
             <button
               onClick={handleResetDefaultClick}
@@ -202,15 +178,7 @@ export const TopNavBar = () => {
                 >
                   {translate("bugReport")}
                 </button>
-                <button
-                  onClick={() => {
-                    handleCommunityHelpClick();
-                    closeMenu();
-                  }}
-                  className="px-4 py-3 text-left text-gray-700 hover:bg-gray-100"
-                >
-                  {translate("communityHelp")}
-                </button>
+
                 <button
                   onClick={() => {
                     handleResetDefaultClick();
