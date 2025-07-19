@@ -8,14 +8,16 @@ import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { DismissibleBanner } from "./DismissibleBanner";
 import { clearLocalStorage } from "../lib/redux/local-storage";
+import { ConfirmModal } from "./ConfirmModal";
 
 export const TopNavBar = () => {
   const pathName = usePathname();
   const isHomePage = pathName === "/";
   const { language } = useLanguageRedux();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [bugReportModalOpen, setBugReportModalOpen] = useState(false);
+  const [resetDefaultModalOpen, setResetDefaultModalOpen] = useState(false);
 
-  // 本地翻译函数，替代全局翻译
   const translate = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
       build: {
@@ -30,10 +32,33 @@ export const TopNavBar = () => {
         en: "Bug Report",
         zh: "反馈问题",
       },
-
       resetDefault: {
         en: "Reset Default",
         zh: "恢复默认",
+      },
+      bugReportTitle: {
+        en: "Bug Report",
+        zh: "反馈问题",
+      },
+      bugReportMessage: {
+        en: "If you find bugs or things you think are not good, please report issues in GitHub Issues.\n\nClick OK to jump to the GitHub Issues page.",
+        zh: "如果发现bug或者你认为不好的地方，请在GitHub Issues中反馈问题。\n\n点击确定将跳转到GitHub Issues页面。",
+      },
+      resetDefaultTitle: {
+        en: "Reset Default",
+        zh: "恢复默认",
+      },
+      resetDefaultMessage: {
+        en: "Are you sure you want to reset to default? This will delete all information, please make a backup.\n\nClick OK to clear all data and refresh the page.",
+        zh: "是否要恢复默认，会删除所有信息，请做好备份。\n\n点击确定后将清除所有数据并刷新网页。",
+      },
+      confirm: {
+        en: "OK",
+        zh: "确定",
+      },
+      cancel: {
+        en: "Cancel",
+        zh: "取消",
       },
     };
 
@@ -42,34 +67,32 @@ export const TopNavBar = () => {
 
   // 处理bug反馈点击
   const handleBugReportClick = () => {
-    const message =
-      language === "zh"
-        ? "如果发现bug或者你认为不好的地方，请在GitHub Issues中反馈问题。\n\n点击确定将跳转到GitHub Issues页面。"
-        : "If you find bugs or things you think are not good, please report issues in GitHub Issues.\n\nClick OK to jump to the GitHub Issues page.";
+    setBugReportModalOpen(true);
+  };
 
-    if (confirm(message)) {
-      window.open("https://github.com/ltlylfun/ResumeToJob/issues", "_blank");
-    }
+  // 确认bug反馈
+  const handleBugReportConfirm = () => {
+    setBugReportModalOpen(false);
+    window.open("https://github.com/ltlylfun/ResumeToJob/issues", "_blank");
   };
 
   // 处理恢复默认点击
   const handleResetDefaultClick = () => {
-    const message =
-      language === "zh"
-        ? "是否要恢复默认，会删除所有信息，请做好备份。\n\n点击确定后将清除所有数据并刷新网页。"
-        : "Are you sure you want to reset to default? This will delete all information, please make a backup.\n\nClick OK to clear all data and refresh the page.";
+    setResetDefaultModalOpen(true);
+  };
 
-    if (confirm(message)) {
-      try {
-        clearLocalStorage();
-        console.info("用户手动重置应用状态");
-      } catch (error) {
-        console.error("重置应用状态失败:", error);
-        // 如果清除失败，回退到清除整个 localStorage
-        localStorage.clear();
-      }
-      window.location.reload();
+  // 确认恢复默认
+  const handleResetDefaultConfirm = () => {
+    setResetDefaultModalOpen(false);
+    try {
+      clearLocalStorage();
+      console.info("用户手动重置应用状态");
+    } catch (error) {
+      console.error("重置应用状态失败:", error);
+      // 如果清除失败，回退到清除整个 localStorage
+      localStorage.clear();
     }
+    window.location.reload();
   };
 
   // 关闭移动端菜单
@@ -209,6 +232,29 @@ export const TopNavBar = () => {
           )}
         </div>
       </header>
+
+      {/* Bug反馈确认模态框 */}
+      <ConfirmModal
+        isOpen={bugReportModalOpen}
+        onClose={() => setBugReportModalOpen(false)}
+        onConfirm={handleBugReportConfirm}
+        title={translate("bugReportTitle")}
+        message={translate("bugReportMessage")}
+        confirmText={translate("confirm")}
+        cancelText={translate("cancel")}
+      />
+
+      {/* 恢复默认确认模态框 */}
+      <ConfirmModal
+        isOpen={resetDefaultModalOpen}
+        onClose={() => setResetDefaultModalOpen(false)}
+        onConfirm={handleResetDefaultConfirm}
+        title={translate("resetDefaultTitle")}
+        message={translate("resetDefaultMessage")}
+        confirmText={translate("confirm")}
+        cancelText={translate("cancel")}
+        confirmButtonClass="bg-red-600 hover:bg-red-700 text-white"
+      />
     </>
   );
 };
