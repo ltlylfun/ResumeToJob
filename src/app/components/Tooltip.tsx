@@ -66,7 +66,7 @@ export const Tooltip = ({
           >
             {text}
           </div>,
-          document.body
+          document.body,
         )}
     </span>
   );

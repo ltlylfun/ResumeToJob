@@ -94,7 +94,7 @@ export const FontFamilySelectionsCSR = dynamic(
   () => Promise.resolve(FontFamilySelections),
   {
     ssr: false,
-  }
+  },
 );
 
 export const FontSizeSelections = ({

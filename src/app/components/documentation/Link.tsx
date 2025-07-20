@@ -15,7 +15,7 @@ export const Link = ({
       target="_blank"
       className={cx(
         "underline underline-offset-2 hover:decoration-2",
-        className
+        className,
       )}
     >
       {children}

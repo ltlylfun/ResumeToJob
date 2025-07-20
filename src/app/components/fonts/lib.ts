@@ -14,7 +14,7 @@ const getPreferredNonEnglishFontFamilies = () => {
     const fontLanguages = NON_ENGLISH_FONT_FAMILY_TO_LANGUAGE[fontFamily];
     const userPreferredLanguages = navigator.languages ?? [navigator.language];
     return userPreferredLanguages.some((preferredLanguage) =>
-      fontLanguages.includes(preferredLanguage)
+      fontLanguages.includes(preferredLanguage),
     );
   });
 };

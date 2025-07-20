@@ -22,7 +22,7 @@ export const Heading = ({
       className={cx(
         "mt-[2em] text-gray-900",
         HEADING_CLASSNAMES[level],
-        className
+        className,
       )}
     >
       {children}
