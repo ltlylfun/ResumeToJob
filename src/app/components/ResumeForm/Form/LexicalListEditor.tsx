@@ -130,7 +130,10 @@ function EditorInitializer({ value = [] }: { value: string[] }) {
           return;
         }
 
-        const markdownString = value.join("\n");
+        // 将自定义的 • 符号转换回标准 markdown 格式，以便 Lexical 正确解析
+        const markdownString = value
+          .map((line) => line.replace(/^• /, "- "))
+          .join("\n");
         $convertFromMarkdownString(markdownString, LIST_TRANSFORMERS);
       });
     } else {
@@ -178,9 +181,9 @@ export const LexicalListEditor = <T extends string>({
       namespace: `LexicalListEditor-${name}`,
       theme: {
         list: {
-          ul: "list-disc ml-6",
-          ol: "list-decimal ml-6",
-          listitem: "ml-1",
+          ul: "list-disc ml-6 pl-0",
+          ol: "list-decimal ml-6 pl-0",
+          listitem: "ml-1 pl-0",
         },
         text: {
           base: "text-base font-normal",
@@ -230,7 +233,7 @@ export const LexicalListEditor = <T extends string>({
         >
           <RichTextPlugin
             contentEditable={
-              <ContentEditable className="min-h-[75px] py-2 outline-none [&_.font-bold]:font-bold [&_strong]:font-bold" />
+              <ContentEditable className="min-h-[75px] py-2 outline-none [&_.font-bold]:font-bold [&_ol]:list-decimal [&_strong]:font-bold [&_ul]:list-disc" />
             }
             placeholder={
               value.length === 0 ? (
