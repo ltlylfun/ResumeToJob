@@ -68,5 +68,3 @@ export const DeleteIconButton = ({
     </IconButton>
   );
 };
-
-// BulletListIconButton 已不再需要，改为使用 Lexical 编辑器的 Markdown 快捷方式

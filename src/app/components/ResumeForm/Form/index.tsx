@@ -15,7 +15,7 @@ import {
   selectShowByForm,
   ShowForm,
 } from "lib/redux/settingsSlice";
-import { useLanguageRedux } from "../../../lib/hooks/useLanguageRedux";
+
 import {
   BuildingOfficeIcon,
   AcademicCapIcon,
@@ -29,10 +29,6 @@ import {
   moveSectionInForm,
 } from "lib/redux/resumeManagerSlice";
 
-/**
- * BaseForm is the bare bone form, i.e. just the outline with no title and no control buttons.
- * ProfileForm uses this to compose its outline.
- */
 export const BaseForm = ({
   children,
   className,
@@ -66,39 +62,6 @@ export const Form = ({
 }) => {
   const showForm = useAppSelector(selectShowByForm(form));
   const heading = useAppSelector(selectHeadingByForm(form));
-  const { language } = useLanguageRedux();
-
-  // 翻译函数
-  const translate = (key: string) => {
-    const translations: Record<string, Record<string, string>> = {
-      addWork: {
-        en: "Add Work Experience",
-        zh: "添加工作经历",
-      },
-      addEducation: {
-        en: "Add Education",
-        zh: "添加教育经历",
-      },
-      addProject: {
-        en: "Add Project",
-        zh: "添加项目",
-      },
-      deleteEducation: {
-        en: "Delete Education",
-        zh: "删除教育经历",
-      },
-      deleteWork: {
-        en: "Delete Work Experience",
-        zh: "删除工作经历",
-      },
-      deleteProject: {
-        en: "Delete Project",
-        zh: "删除项目",
-      },
-    };
-
-    return translations[key]?.[language] || key;
-  };
 
   const dispatch = useAppDispatch();
   const setShowForm = (showForm: boolean) => {

@@ -52,7 +52,6 @@ export const minimalTemplate: Template = {
         letterSpacing: "0.5pt",
       },
       projectTitle: {
-        textDecoration: "underline",
         textDecorationColor: themeColor,
       },
     };

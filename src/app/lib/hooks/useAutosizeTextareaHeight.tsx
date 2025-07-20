@@ -1,8 +1,5 @@
 import { useEffect, useRef } from "react";
 
-/**
- * Hook to autosize textarea height.
- */
 export const useAutosizeTextareaHeight = ({ value }: { value: string }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 

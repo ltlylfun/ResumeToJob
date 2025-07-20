@@ -13,6 +13,7 @@ import type { AppDispatch } from "lib/redux/store";
 import { Button } from "../Button";
 import { useLanguageRedux } from "lib/hooks/useLanguageRedux";
 import { ResumeImportExport } from "./ResumeImportExport";
+import { ConfirmModal } from "../ConfirmModal";
 
 interface ResumeManagerProps {
   isOpen: boolean;
@@ -34,6 +35,15 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
   const [editingResume, setEditingResume] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [deleteConfirm, setDeleteConfirm] = useState<{
+    isOpen: boolean;
+    resumeId: string | null;
+    resumeTitle: string;
+  }>({
+    isOpen: false,
+    resumeId: null,
+    resumeTitle: "",
+  });
 
   const t = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
@@ -60,6 +70,14 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
         zh: "确定要删除这份简历吗？此操作无法撤销。",
         en: "Are you sure you want to delete this resume? This action cannot be undone.",
       },
+      "confirm-delete-title": {
+        zh: "删除简历",
+        en: "Delete Resume",
+      },
+      "confirm-delete-message": {
+        zh: '确定要删除简历 "{title}" 吗？\n\n此操作无法撤销，所有相关数据将被永久删除。',
+        en: 'Are you sure you want to delete the resume "{title}"?\n\nThis action cannot be undone and all related data will be permanently deleted.',
+      },
     };
     return translations[key]?.[language] || key;
   };
@@ -81,10 +99,31 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
     dispatch(cloneResume({ resumeId, title: cloneTitle }));
   };
 
-  const handleDeleteResume = (resumeId: string) => {
-    if (window.confirm(t("confirm-delete"))) {
-      dispatch(deleteResume(resumeId));
+  const handleDeleteResume = (resumeId: string, resumeTitle: string) => {
+    setDeleteConfirm({
+      isOpen: true,
+      resumeId,
+      resumeTitle,
+    });
+  };
+
+  const handleConfirmDelete = () => {
+    if (deleteConfirm.resumeId) {
+      dispatch(deleteResume(deleteConfirm.resumeId));
     }
+    setDeleteConfirm({
+      isOpen: false,
+      resumeId: null,
+      resumeTitle: "",
+    });
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteConfirm({
+      isOpen: false,
+      resumeId: null,
+      resumeTitle: "",
+    });
   };
 
   const handleSwitchResume = (resumeId: string) => {
@@ -322,7 +361,12 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
                           {t("clone")}
                         </button>
                         <button
-                          onClick={() => handleDeleteResume(resume.metadata.id)}
+                          onClick={() =>
+                            handleDeleteResume(
+                              resume.metadata.id,
+                              resume.metadata.title,
+                            )
+                          }
                           className="rounded px-3 py-1 text-sm text-red-600 transition-colors hover:bg-red-50"
                         >
                           {t("delete")}
@@ -336,6 +380,20 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
           </div>
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={deleteConfirm.isOpen}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        title={t("confirm-delete-title")}
+        message={t("confirm-delete-message").replace(
+          "{title}",
+          deleteConfirm.resumeTitle,
+        )}
+        confirmText={t("delete")}
+        cancelText={t("cancel")}
+        confirmButtonClass="bg-red-600 hover:bg-red-700 text-white"
+      />
     </div>
   );
 };

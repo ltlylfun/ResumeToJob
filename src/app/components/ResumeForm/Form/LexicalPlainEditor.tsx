@@ -11,18 +11,15 @@ import {
   $createTextNode,
   $getRoot,
   EditorState,
-  LexicalEditor,
 } from "lexical";
 import { InputGroupWrapper, INPUT_CLASS_NAME } from "./InputGroup";
 import { saveStateToLocalStorage } from "lib/redux/local-storage";
 import { store } from "lib/redux/store";
 
-// 简单的错误边界函数
 function ErrorBoundary({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-// 自定义占位符组件
 function Placeholder({ placeholder }: { placeholder: string }) {
   return (
     <div className="pointer-events-none absolute left-[13px] top-1/2 -translate-y-1/2 text-gray-400">
@@ -42,12 +39,10 @@ interface LexicalPlainEditorProps<K extends string> {
   autoResizable?: boolean;
 }
 
-// 手动保存状态到本地储存
 const forceSaveToLocalStorage = () => {
   saveStateToLocalStorage(store.getState());
 };
 
-// 初始化编辑器内容的组件
 function EditorInitializer<K extends string>({
   value = "",
 }: {
@@ -58,10 +53,8 @@ function EditorInitializer<K extends string>({
   const isInitializedRef = useRef<boolean>(false);
   const isEditingRef = useRef<boolean>(false);
 
-  // 监听编辑器焦点事件
   useEffect(() => {
     const unregisterListener = editor.registerUpdateListener(() => {
-      // 检测用户是否正在编辑
       if (
         editor.isEditable() &&
         document.activeElement === editor.getRootElement()
@@ -76,17 +69,13 @@ function EditorInitializer<K extends string>({
   }, [editor]);
 
   useEffect(() => {
-    // 避免在用户正在输入时更新内容
     if (isEditingRef.current) {
-      // 只更新引用，不改变编辑器内容
       prevValueRef.current = value;
       return;
     }
 
-    // 如果值相同或者已经初始化后(除非用户没有编辑)，则不更新
     if (prevValueRef.current === value) return;
 
-    // 只在首次加载或明确需要重置编辑器时更新内容
     if (!isInitializedRef.current || value === "") {
       isInitializedRef.current = true;
       prevValueRef.current = value;
@@ -95,10 +84,8 @@ function EditorInitializer<K extends string>({
         const root = $getRoot();
         root.clear();
 
-        // 创建段落节点
         const paragraph = $createParagraphNode();
 
-        // 如果有值，添加文本
         if (value) {
           paragraph.append($createTextNode(value));
         }
@@ -106,10 +93,9 @@ function EditorInitializer<K extends string>({
         root.append(paragraph);
       });
     } else {
-      // 如果用户已经开始编辑，只静默更新引用
       prevValueRef.current = value;
     }
-  }, [editor, value]); // 添加 value 作为依赖，确保编辑器内容根据 value 更新
+  }, [editor, value]);
 
   return null;
 }
@@ -124,21 +110,17 @@ export const LexicalPlainEditor = <K extends string>({
   onChange,
   autoResizable = false,
 }: LexicalPlainEditorProps<K>) => {
-  // 使用一个键来重新初始化编辑器
   const [editorKey, setEditorKey] = useState(0);
   const currentResumeId = useAppSelector(selectCurrentResumeId);
 
-  // 完全重载编辑器的函数
   const reloadEditor = () => {
     setEditorKey((prev) => prev + 1);
   };
 
-  // 当简历切换时重新初始化编辑器
   useEffect(() => {
     reloadEditor();
   }, [currentResumeId]);
 
-  // 监听窗口聚焦事件，当用户重新进入页面时刷新编辑器
   useEffect(() => {
     const handleFocus = () => {
       reloadEditor();
@@ -149,7 +131,6 @@ export const LexicalPlainEditor = <K extends string>({
     return () => {
       window.removeEventListener("focus", handleFocus);
 
-      // 在组件卸载时确保状态被保存
       forceSaveToLocalStorage();
     };
   }, []);
@@ -169,10 +150,8 @@ export const LexicalPlainEditor = <K extends string>({
     [name],
   );
 
-  // 防抖函数
   const debounceRef = useRef<any>(null);
 
-  // 处理内容变化
   const handleEditorChange = React.useCallback(
     (editorState: EditorState) => {
       let newContent = "";
@@ -182,21 +161,18 @@ export const LexicalPlainEditor = <K extends string>({
         newContent = root.getTextContent();
       });
 
-      // 使用防抖延迟更新，以避免频繁的状态更新导致光标跳转
       if (debounceRef.current) {
         clearTimeout(debounceRef.current);
       }
 
       debounceRef.current = setTimeout(() => {
-        // 避免无意义的更新
         if (newContent !== value) {
           onChange(name, newContent);
 
-          // 内容变化时立即保存到本地存储
           setTimeout(forceSaveToLocalStorage, 10);
         }
         debounceRef.current = null;
-      }, 100); // 延迟100ms更新状态
+      }, 100);
     },
     [onChange, name, value],
   );
