@@ -1,5 +1,13 @@
 "use client";
 import { ReactNode } from "react";
+import {
+  DocumentMagnifyingGlassIcon,
+  PaintBrushIcon,
+  DevicePhoneMobileIcon,
+  LockClosedIcon,
+  ArrowDownTrayIcon,
+  CheckBadgeIcon,
+} from "@heroicons/react/24/outline";
 import { FadeIn } from "components/animations/FadeIn";
 import { StaggeredFadeIn } from "components/animations/StaggeredFadeIn";
 import { useLanguageRedux } from "../lib/hooks/useLanguageRedux";
@@ -13,7 +21,7 @@ interface Feature {
 const getFeatures = (language: string): Feature[] => {
   const features: Record<string, Feature> = {
     parser: {
-      icon: <span className="text-3xl">🧠</span>,
+      icon: <DocumentMagnifyingGlassIcon className="h-8 w-8 text-sky-700" />,
       title: language === "en" ? "Resume Parsing" : "简历解析",
       description:
         language === "en"
@@ -21,7 +29,7 @@ const getFeatures = (language: string): Feature[] => {
           : "我们可以解析您的PDF简历，让你编写简历更加轻松（功能优化中，即将上线）",
     },
     templates: {
-      icon: <span className="text-3xl">🎨</span>,
+      icon: <PaintBrushIcon className="h-8 w-8 text-sky-700" />,
       title: language === "en" ? "Multiple Templates" : "多种精美模板",
       description:
         language === "en"
@@ -29,7 +37,7 @@ const getFeatures = (language: string): Feature[] => {
           : "提供多种专业设计的简历模板，满足不同行业标准和求职申请的各种需求",
     },
     responsive: {
-      icon: <span className="text-3xl">📱</span>,
+      icon: <DevicePhoneMobileIcon className="h-8 w-8 text-sky-700" />,
       title: language === "en" ? "Responsive Design" : "响应式设计",
       description:
         language === "en"
@@ -37,7 +45,7 @@ const getFeatures = (language: string): Feature[] => {
           : "在任何设备上都能流畅工作，从手机到平板再到桌面电脑，提供优化的操作界面",
     },
     security: {
-      icon: <span className="text-3xl">🔒</span>,
+      icon: <LockClosedIcon className="h-8 w-8 text-sky-700" />,
       title: language === "en" ? "Local Data Security" : "本地数据安全",
       description:
         language === "en"
@@ -45,7 +53,7 @@ const getFeatures = (language: string): Feature[] => {
           : "您的简历数据完全存储在本地浏览器中，永远不会上传到外部服务器，确保您的隐私安全",
     },
     export: {
-      icon: <span className="text-3xl">🚀</span>,
+      icon: <ArrowDownTrayIcon className="h-8 w-8 text-sky-700" />,
       title: language === "en" ? "Quick Export" : "快速导出下载",
       description:
         language === "en"
@@ -53,7 +61,7 @@ const getFeatures = (language: string): Feature[] => {
           : "只需一键即可导出专业高质量的PDF文件，随时准备投递您的求职申请",
     },
     ats: {
-      icon: <span className="text-3xl">💯</span>,
+      icon: <CheckBadgeIcon className="h-8 w-8 text-sky-700" />,
       title: language === "en" ? "ATS-Friendly Format" : "ATS友好格式",
       description:
         language === "en"
