@@ -13,10 +13,10 @@ export const END_HOME_RESUME_ZH: Resume = {
   profile: {
     name: "江户川 柯南",
     summary: ["• 帝丹高中-休学中", "• 帝丹小学-在读"],
-    email: "Konan@Konan.com",
-    phone: "11111111111",
+    email: "xxxxxxxxxxxxx",
+    phone: "xxxxxxxxxxxx",
     location: "米花町5丁目毛利侦探事务所",
-    url: "konan.com",
+    url: "https://resumetojob.ltlyl.fun/",
     photoUrl: kenan.src,
   },
   workExperiences: [
