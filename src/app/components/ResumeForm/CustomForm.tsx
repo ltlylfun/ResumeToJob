@@ -3,10 +3,7 @@ import { BulletListTextarea } from "components/ResumeForm/Form/InputGroup";
 import { useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeCustom, selectCustom } from "lib/redux/resumeManagerSlice";
-import {
-  changeFormHeading,
-  updateFormHeadingIfNotCustomized,
-} from "lib/redux/settingsSlice";
+import { updateFormHeadingIfNotCustomized } from "lib/redux/settingsSlice";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const CustomForm = () => {
@@ -40,7 +37,7 @@ export const CustomForm = () => {
   const handleCustomChange = (field: "descriptions", value: string[]) => {
     dispatch(changeCustom({ field, value }));
   };
-  // 更新表单标题（仅在用户未自定义时）
+
   useEffect(() => {
     dispatch(
       updateFormHeadingIfNotCustomized({

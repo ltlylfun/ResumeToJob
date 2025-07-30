@@ -30,7 +30,6 @@ const ResumeControlBar = ({
   });
   const { language } = useLanguageRedux();
 
-  // 翻译函数
   const translate = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
       autoscale: {

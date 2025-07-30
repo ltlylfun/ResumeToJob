@@ -4,7 +4,6 @@ import { useAppSelector, useAppDispatch } from "lib/redux/hooks";
 import {
   ShowForm,
   selectFormsOrder,
-  changeFormHeading,
   updateFormHeadingIfNotCustomized,
 } from "lib/redux/settingsSlice";
 import { EditorInstructions } from "./EditorInstructions";
@@ -37,9 +36,7 @@ export const ResumeForm = () => {
   const { language } = useLanguageRedux();
   const dispatch = useAppDispatch();
 
-  // 初始化所有表单标题
   useEffect(() => {
-    // 根据当前语言设置所有表单标题
     const updateFormHeadings = () => {
       const translations: Record<ShowForm, Record<string, string>> = {
         workExperiences: {
@@ -64,7 +61,6 @@ export const ResumeForm = () => {
         },
       };
 
-      // 为每个表单设置正确的标题（仅在用户未自定义时）
       Object.entries(translations).forEach(([form, texts]) => {
         dispatch(
           updateFormHeadingIfNotCustomized({

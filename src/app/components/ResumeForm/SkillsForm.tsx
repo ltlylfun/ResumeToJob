@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectSkills, changeSkills } from "lib/redux/resumeManagerSlice";
 import {
   selectThemeColor,
-  changeFormHeading,
   updateFormHeadingIfNotCustomized,
 } from "lib/redux/settingsSlice";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";

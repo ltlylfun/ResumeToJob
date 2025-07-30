@@ -1,9 +1,5 @@
 "use client";
 
-/**
- * Suppress ResumePDF development errors.
- * See ResumePDF doc string for context.
- */
 if (typeof window !== "undefined" && window.location.hostname === "localhost") {
   const consoleError = console.error;
   const SUPPRESSED_WARNINGS = ["DOCUMENT", "PAGE", "TEXT", "VIEW"];

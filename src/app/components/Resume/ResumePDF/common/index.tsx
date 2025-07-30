@@ -110,7 +110,7 @@ export const ResumePDFSection = React.memo(
           <DebugText
             style={{
               fontWeight: "bold",
-              letterSpacing: "0.3pt", // tracking-wide -> 0.025em * 12 pt = 0.3pt
+              letterSpacing: "0.3pt",
             }}
           >
             {heading}
@@ -142,7 +142,6 @@ export const ResumePDFText = React.memo(
 
 ResumePDFText.displayName = "ResumePDFText";
 
-// 列表项解析结果类型
 interface ListItemInfo {
   content: string;
   bulletMark: string;
@@ -150,7 +149,6 @@ interface ListItemInfo {
   isList: boolean;
 }
 
-// 组件 Props 类型定义
 interface ResumePDFSectionProps {
   themeColor?: string;
   heading?: string;

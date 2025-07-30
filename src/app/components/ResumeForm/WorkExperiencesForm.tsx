@@ -12,10 +12,7 @@ import {
 } from "lib/redux/resumeManagerSlice";
 import type { ResumeWorkExperience } from "lib/redux/types";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
-import {
-  changeFormHeading,
-  updateFormHeadingIfNotCustomized,
-} from "lib/redux/settingsSlice";
+import { updateFormHeadingIfNotCustomized } from "lib/redux/settingsSlice";
 
 export const WorkExperiencesForm = () => {
   const workExperiences = useAppSelector(selectWorkExperiences);
@@ -60,7 +57,7 @@ export const WorkExperiencesForm = () => {
     [language],
   );
   const showDelete = workExperiences.length > 1;
-  // 更新表单标题（仅在用户未自定义时）
+
   useEffect(() => {
     dispatch(
       updateFormHeadingIfNotCustomized({
@@ -80,9 +77,6 @@ export const WorkExperiencesForm = () => {
               value,
             ]: CreateHandleChangeArgsWithDescriptions<ResumeWorkExperience>
           ) => {
-            // TS doesn't support passing union type to single call signature
-            // https://github.com/microsoft/TypeScript/issues/54027
-            // any is used here as a workaround
             dispatch(changeWorkExperiences({ idx, field, value } as any));
           };
           const showMoveUp = idx !== 0;

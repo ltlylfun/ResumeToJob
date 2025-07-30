@@ -5,7 +5,7 @@ import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 export const EditorInstructions = () => {
   const { language } = useLanguageRedux();
   const [isExpanded, setIsExpanded] = useState(false);
-  // 翻译内容
+
   const translations: Record<string, Record<"en" | "zh", string>> = {
     title: {
       en: "Editor Instructions",

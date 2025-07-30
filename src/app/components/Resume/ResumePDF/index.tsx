@@ -35,7 +35,6 @@ export const ResumePDF = ({
   } = settings;
   const themeColor = settings.themeColor || DEFAULT_FONT_COLOR;
 
-  // 检查各个板块是否有内容
   const hasContent = {
     workExperiences:
       workExperiences.length > 0 &&

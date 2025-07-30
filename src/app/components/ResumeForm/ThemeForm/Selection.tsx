@@ -86,10 +86,6 @@ const FontFamilySelections = ({
   );
 };
 
-/**
- * Load FontFamilySelections client side since it calls getAllFontFamiliesToLoad,
- * which uses navigator object that is only available on client side
- */
 export const FontFamilySelectionsCSR = dynamic(
   () => Promise.resolve(FontFamilySelections),
   {
@@ -111,7 +107,7 @@ export const FontSizeSelections = ({
   const standardSizePt = FONT_FAMILY_TO_STANDARD_SIZE_IN_PT[fontFamily];
   const compactSizePt = standardSizePt - 1;
   const { language } = useLanguageRedux();
-  // 字体大小选项的翻译
+
   const getSizeLabel = (idx: number) => {
     const labels: Record<string, string[]> = {
       en: ["Compact", "Standard", "Large"],
@@ -156,7 +152,6 @@ export const DocumentSizeSelections = ({
 }) => {
   const { language } = useLanguageRedux();
 
-  // 文档大小描述的翻译
   const getDocSizeDescription = (type: string) => {
     if (type === "Letter") {
       return language === "en" ? "(US, Canada)" : "(美国, 加拿大)";
@@ -198,7 +193,6 @@ export const TemplateSelections = ({
   const templates = getAllTemplates();
   const { language } = useLanguageRedux();
 
-  // 模板名称和描述的翻译
   const translateTemplate = (template: Template) => {
     const translations: Record<
       string,

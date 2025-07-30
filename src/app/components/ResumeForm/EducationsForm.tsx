@@ -11,10 +11,7 @@ import {
   selectEducations,
 } from "lib/redux/resumeManagerSlice";
 import type { ResumeEducation } from "lib/redux/types";
-import {
-  changeFormHeading,
-  updateFormHeadingIfNotCustomized,
-} from "lib/redux/settingsSlice";
+import { updateFormHeadingIfNotCustomized } from "lib/redux/settingsSlice";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const EducationsForm = () => {
@@ -69,7 +66,7 @@ export const EducationsForm = () => {
     },
     [language],
   );
-  // 更新表单标题（仅在用户未自定义时）
+
   useEffect(() => {
     dispatch(
       updateFormHeadingIfNotCustomized({

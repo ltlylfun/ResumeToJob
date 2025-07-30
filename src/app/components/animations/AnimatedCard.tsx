@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { cx } from "lib/cx";
 
 interface AnimatedCardProps {
@@ -22,7 +22,7 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({
   const [isPressed, setIsPressed] = useState(false);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkIfMobile = () => {
       setIsMobileDevice(window.innerWidth < 768);
     };

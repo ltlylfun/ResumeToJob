@@ -5,7 +5,6 @@ import { SupportedLanguage } from "../lib/redux/types";
 export const LanguageSwitcher = () => {
   const { language, setLanguage } = useLanguageRedux();
 
-  // 本地翻译函数，替代全局翻译
   const translate = () => {
     return language === "en" ? "中文" : "English";
   };

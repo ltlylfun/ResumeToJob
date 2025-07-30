@@ -2,14 +2,13 @@ import { useRef, useEffect } from "react";
 import { BaseForm } from "components/ResumeForm/Form";
 import {
   Input,
-  Textarea,
   BulletListTextarea,
 } from "components/ResumeForm/Form/InputGroup";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeProfile, selectProfile } from "lib/redux/resumeManagerSlice";
 import { ResumeProfile } from "lib/redux/types";
 import { CameraIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import { changeFormHeading } from "lib/redux/settingsSlice";
+
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const ProfileForm = () => {
@@ -103,8 +102,6 @@ export const ProfileForm = () => {
       fileInputRef.current.value = "";
     }
   };
-
-  // ProfileForm本身不在formToHeading中，所以不需要调用changeFormHeading
 
   return (
     <BaseForm>
