@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { BaseForm } from "components/ResumeForm/Form";
 import {
   Input,

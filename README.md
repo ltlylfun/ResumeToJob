@@ -37,6 +37,7 @@
 <div align="center">
   <img src="https://github.com/user-attachments/assets/e63a39e1-af17-4ae7-8e42-1830e28864bf" alt="ResumeToJob Screenshot" width="800" />
 </div>
+
 ---
 
 <a id="chinese-version"></a>
@@ -80,6 +81,7 @@ ResumeToJob 是一个免费开源的在线简历制作工具，帮助求职者�
     <img src="https://avatars.githubusercontent.com/wegoof" width="40" alt="@wegoof" title="@wegoof" />
   </a>
 </p>
+
 ---
 
 <a id="english-version"></a>

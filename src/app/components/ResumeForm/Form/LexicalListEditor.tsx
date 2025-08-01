@@ -16,7 +16,6 @@ import {
   BOLD_STAR,
   BOLD_UNDERSCORE,
   $convertToMarkdownString,
-  $convertFromMarkdownString,
 } from "@lexical/markdown";
 import {
   $createParagraphNode,
@@ -26,7 +25,9 @@ import {
   $isRangeSelection,
   TextNode,
   ParagraphNode,
+  $createTextNode,
 } from "lexical";
+import { $createListNode, $createListItemNode } from "@lexical/list";
 import { InputGroupWrapper, INPUT_CLASS_NAME } from "./InputGroup";
 import { saveStateToLocalStorage } from "lib/redux/local-storage";
 import { store } from "lib/redux/store";
@@ -130,11 +131,17 @@ function EditorInitializer({ value = [] }: { value: string[] }) {
           return;
         }
 
-        // 将自定义的 • 符号转换回标准 markdown 格式，以便 Lexical 正确解析
-        const markdownString = value
-          .map((line) => line.replace(/^• /, "- "))
-          .join("\n");
-        $convertFromMarkdownString(markdownString, LIST_TRANSFORMERS);
+        // 直接创建列表节点，避免使用 $convertFromMarkdownString 可能引起的自动聚焦
+        const listNode = $createListNode("bullet");
+
+        value.forEach((item) => {
+          const listItemNode = $createListItemNode();
+          const textContent = item.replace(/^• /, "").trim();
+          listItemNode.append($createTextNode(textContent));
+          listNode.append(listItemNode);
+        });
+
+        root.append(listNode);
       });
     } else {
       prevValueRef.current = [...value];
@@ -164,14 +171,7 @@ export const LexicalListEditor = <T extends string>({
   }, [currentResumeId]);
 
   useEffect(() => {
-    const handleFocus = () => {
-      reloadEditor();
-    };
-
-    window.addEventListener("focus", handleFocus);
-
     return () => {
-      window.removeEventListener("focus", handleFocus);
       forceSaveToLocalStorage();
     };
   }, []);

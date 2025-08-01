@@ -122,15 +122,7 @@ export const LexicalPlainEditor = <K extends string>({
   }, [currentResumeId]);
 
   useEffect(() => {
-    const handleFocus = () => {
-      reloadEditor();
-    };
-
-    window.addEventListener("focus", handleFocus);
-
     return () => {
-      window.removeEventListener("focus", handleFocus);
-
       forceSaveToLocalStorage();
     };
   }, []);
