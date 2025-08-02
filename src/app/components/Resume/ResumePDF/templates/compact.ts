@@ -3,7 +3,6 @@ import type { Template, TemplateStyles } from "./index";
 export const compactTemplate: Template = {
   id: "compact",
   name: "紧凑模板",
-  description: "适合需要展示大量内容的求职者",
   getStyles: (
     themeColor: string,
     spacing: any,

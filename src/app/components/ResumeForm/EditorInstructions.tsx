@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { useLanguageRedux } from "../../lib/hooks/useLanguageRedux";
 
 export const EditorInstructions = () => {
@@ -52,7 +53,8 @@ export const EditorInstructions = () => {
   return (
     <div className="mb-6 rounded-md bg-blue-50 p-4 shadow-sm">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-medium text-blue-800">
+        <h3 className="flex items-center gap-2 text-lg font-medium text-blue-800">
+          <InformationCircleIcon className="h-6 w-6 text-blue-600" />
           {translations.title[language]}
         </h3>
         <button

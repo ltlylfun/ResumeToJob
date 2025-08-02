@@ -3,7 +3,6 @@ import type { Template, TemplateStyles } from "./index";
 export const minimalTemplate: Template = {
   id: "minimal",
   name: "极简模板",
-  description: "干净利落的最小化设计",
   getStyles: (
     themeColor: string,
     spacing: any,

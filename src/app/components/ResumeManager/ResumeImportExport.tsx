@@ -109,7 +109,7 @@ export const ResumeImportExport: React.FC = () => {
     <div className="flex gap-2">
       <button
         onClick={handleExportAll}
-        className="rounded-lg bg-green-600 px-4 py-2 text-sm text-white transition-colors hover:bg-green-700"
+        className="rounded-lg border border-green-600 bg-white px-4 py-2 text-sm text-green-700 transition-colors hover:bg-green-50 disabled:opacity-50"
         title={t("export-all")}
         disabled={allResumes.length === 0}
       >
@@ -118,7 +118,7 @@ export const ResumeImportExport: React.FC = () => {
 
       <button
         onClick={() => fileInputRef.current?.click()}
-        className="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-700"
+        className="rounded-lg border border-blue-600 bg-white px-4 py-2 text-sm text-blue-700 transition-colors hover:bg-blue-50"
         title={t("import-resumes")}
       >
         {t("import-resumes")}

@@ -29,7 +29,6 @@ export type TemplateStyles = {
 export interface Template {
   id: string;
   name: string;
-  description: string;
   getStyles: (
     themeColor: string,
     spacing: any,

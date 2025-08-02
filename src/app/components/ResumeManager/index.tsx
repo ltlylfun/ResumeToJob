@@ -211,7 +211,7 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
                 <ResumeImportExport />
                 <Button
                   onClick={() => setShowCreateForm(true)}
-                  className="whitespace-nowrap rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
+                  className="whitespace-nowrap rounded-lg border border-gray-800 bg-white px-4 py-2 text-gray-800 transition-colors hover:bg-gray-50"
                 >
                   {t("create-new")}
                 </Button>
@@ -242,6 +242,7 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
                   <Button
                     onClick={handleCreateResume}
                     disabled={!newResumeTitle.trim()}
+                    className="rounded-lg border border-gray-800 bg-white px-4 py-2 text-gray-800 transition-colors hover:bg-gray-50 disabled:opacity-50"
                   >
                     {t("create")}
                   </Button>
@@ -250,7 +251,7 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
                       setShowCreateForm(false);
                       setNewResumeTitle("");
                     }}
-                    className="rounded-lg border border-gray-300 px-4 py-2 transition-colors hover:bg-gray-50"
+                    className="rounded-lg border border-gray-400 bg-white px-4 py-2 text-gray-600 transition-colors hover:bg-gray-50"
                   >
                     {t("cancel")}
                   </Button>
@@ -287,7 +288,7 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
                             />
                             <button
                               onClick={() => handleSaveEdit(resume.metadata.id)}
-                              className="rounded bg-blue-600 px-3 py-1 text-white transition-colors hover:bg-blue-700"
+                              className="rounded border border-gray-800 bg-white px-3 py-1 text-gray-800 transition-colors hover:bg-gray-50"
                             >
                               {t("save")}
                             </button>
@@ -296,7 +297,7 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
                                 setEditingResume(null);
                                 setEditTitle("");
                               }}
-                              className="rounded border border-gray-300 px-3 py-1 transition-colors hover:bg-gray-50"
+                              className="rounded border border-gray-400 bg-white px-3 py-1 text-gray-600 transition-colors hover:bg-gray-50"
                             >
                               {t("cancel")}
                             </button>
@@ -335,7 +336,7 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
                             onClick={() =>
                               handleSwitchResume(resume.metadata.id)
                             }
-                            className="rounded bg-blue-600 px-3 py-1 text-sm text-white transition-colors hover:bg-blue-700"
+                            className="rounded border border-gray-800 bg-white px-3 py-1 text-sm text-gray-800 transition-colors hover:bg-gray-50"
                           >
                             {t("switch")}
                           </Button>
@@ -345,7 +346,7 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
                             setEditingResume(resume.metadata.id);
                             setEditTitle(resume.metadata.title);
                           }}
-                          className="rounded px-3 py-1 text-sm text-gray-600 transition-colors hover:bg-gray-100"
+                          className="rounded border border-gray-400 bg-white px-3 py-1 text-sm text-gray-600 transition-colors hover:bg-gray-50"
                         >
                           {t("edit")}
                         </button>
@@ -356,7 +357,7 @@ export const ResumeManager: React.FC<ResumeManagerProps> = ({
                               resume.metadata.title,
                             )
                           }
-                          className="rounded px-3 py-1 text-sm text-gray-600 transition-colors hover:bg-gray-100"
+                          className="rounded border border-gray-400 bg-white px-3 py-1 text-sm text-gray-600 transition-colors hover:bg-gray-50"
                         >
                           {t("clone")}
                         </button>

@@ -3,7 +3,6 @@ import type { Template, TemplateStyles } from "./index";
 export const elegantTemplate: Template = {
   id: "elegant",
   name: "优雅模板",
-  description: "简约大气的高级设计",
   getStyles: (
     themeColor: string,
     spacing: any,

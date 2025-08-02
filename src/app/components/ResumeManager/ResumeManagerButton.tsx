@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FolderIcon } from "@heroicons/react/24/outline";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectCurrentResume,
@@ -38,7 +39,7 @@ export const ResumeManagerButton: React.FC = () => {
     <div className="mb-6 rounded-md border border-gray-200 bg-white p-4 shadow-sm">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-2xl">📁</span>
+          <FolderIcon className="h-7 w-7 text-blue-600" />
           <div>
             <h3 className="text-lg font-medium text-gray-900">
               {t("manage-resumes")}
@@ -52,7 +53,7 @@ export const ResumeManagerButton: React.FC = () => {
         </div>
         <button
           onClick={() => setIsManagerOpen(true)}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+          className="rounded-lg border border-gray-800 bg-white px-4 py-2 text-sm font-medium text-gray-800 transition-colors hover:bg-gray-50"
         >
           {t("manage-button")}
         </button>
@@ -71,8 +72,8 @@ export const ResumeManagerButton: React.FC = () => {
                 onClick={() => handleSwitchResume(resume.metadata.id)}
                 className={`rounded-md px-3 py-1 text-xs transition-colors ${
                   resume.metadata.id === currentResume?.metadata.id
-                    ? "bg-blue-100 text-blue-800 ring-1 ring-blue-200"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    ? "border border-blue-600 bg-blue-50 text-blue-800"
+                    : "border border-gray-800 bg-white text-gray-800 hover:bg-gray-50"
                 }`}
                 title={resume.metadata.description || resume.metadata.title}
               >
@@ -82,7 +83,7 @@ export const ResumeManagerButton: React.FC = () => {
             {allResumes.length > 4 && (
               <button
                 onClick={() => setIsManagerOpen(true)}
-                className="rounded-md bg-gray-100 px-3 py-1 text-xs text-gray-600 hover:bg-gray-200"
+                className="rounded-md border border-gray-800 bg-white px-3 py-1 text-xs text-gray-800 hover:bg-gray-50"
               >
                 +{allResumes.length - 4} {t("more")}
               </button>

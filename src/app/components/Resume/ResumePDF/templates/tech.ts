@@ -3,7 +3,6 @@ import type { Template, TemplateStyles } from "./index";
 export const techTemplate: Template = {
   id: "tech",
   name: "科技模板",
-  description: "适合科技领域的现代数字风格",
   getStyles: (
     themeColor: string,
     spacing: any,

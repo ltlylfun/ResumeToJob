@@ -3,7 +3,6 @@ import type { Template, TemplateStyles } from "./index";
 export const creativeTemplate: Template = {
   id: "creative",
   name: "创意模板",
-  description: "适合设计和创意行业的现代风格",
   getStyles: (
     themeColor: string,
     spacing: any,

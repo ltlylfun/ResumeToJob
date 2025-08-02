@@ -47,7 +47,7 @@ export const ThemeForm = () => {
       },
       fontFamily: {
         en: "Font Family",
-        zh: "字体（注意中英文字体，仅英文导出无中文）",
+        zh: "字体（仅思源黑体有中文，其它会乱码）",
       },
       fontSize: {
         en: "Font Size",

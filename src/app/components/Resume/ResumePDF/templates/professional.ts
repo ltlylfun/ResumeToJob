@@ -3,7 +3,6 @@ import type { Template, TemplateStyles } from "./index";
 export const professionalTemplate: Template = {
   id: "professional",
   name: "专业模板",
-  description: "强调专业性和清晰度的企业风格",
   getStyles: (
     themeColor: string,
     spacing: any,

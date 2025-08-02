@@ -3,7 +3,6 @@ import type { Template, TemplateStyles } from "./index";
 export const classicTemplate: Template = {
   id: "classic",
   name: "经典模板",
-  description: "简洁明了的传统设计",
   getStyles: (
     themeColor: string,
     spacing: any,

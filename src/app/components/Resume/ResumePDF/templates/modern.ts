@@ -3,7 +3,6 @@ import type { Template, TemplateStyles } from "./index";
 export const modernTemplate: Template = {
   id: "modern",
   name: "现代模板",
-  description: "带有彩色标题区的现代设计",
   getStyles: (
     themeColor: string,
     spacing: any,
