@@ -70,11 +70,15 @@ const extractContentFromEditor = (editorState: EditorState): string[] => {
       .split("\n")
       .filter((line) => line.trim())
       .map((line) => {
-        // 标准化列表前缀为项目使用的格式
-        return line
-          .replace(/^-\s/, "• ") // 将 "- " 转换为 "• "
-          .replace(/^\*\s/, "• ") // 将 "* " 转换为 "• "
-          .trim();
+        const trimmedLine = line.trim();
+
+        if (/^\d+\.\s/.test(trimmedLine)) {
+          return trimmedLine;
+        } else if (/^[-*]\s/.test(trimmedLine)) {
+          return trimmedLine.replace(/^[-*]\s/, "• ");
+        } else {
+          return trimmedLine;
+        }
       });
   });
 };
@@ -131,17 +135,73 @@ function EditorInitializer({ value = [] }: { value: string[] }) {
           return;
         }
 
-        // 直接创建列表节点，避免使用 $convertFromMarkdownString 可能引起的自动聚焦
-        const listNode = $createListNode("bullet");
+        const groups: Array<{
+          type: "paragraph" | "bullet" | "number";
+          items: string[];
+          startNumber?: number;
+        }> = [];
 
         value.forEach((item) => {
-          const listItemNode = $createListItemNode();
-          const textContent = item.replace(/^• /, "").trim();
-          listItemNode.append($createTextNode(textContent));
-          listNode.append(listItemNode);
+          const trimmedItem = item.trim();
+
+          const isBulletList = /^[•\-\*]\s/.test(trimmedItem);
+          const isNumberedList = /^\d+\.\s/.test(trimmedItem);
+
+          if (isBulletList) {
+            const lastGroup = groups[groups.length - 1];
+            if (lastGroup && lastGroup.type === "bullet") {
+              lastGroup.items.push(trimmedItem);
+            } else {
+              groups.push({ type: "bullet", items: [trimmedItem] });
+            }
+          } else if (isNumberedList) {
+            const numberMatch = trimmedItem.match(/^(\d+)\.\s/);
+            const currentNumber = numberMatch
+              ? parseInt(numberMatch[1], 10)
+              : 1;
+
+            const lastGroup = groups[groups.length - 1];
+            if (lastGroup && lastGroup.type === "number") {
+              lastGroup.items.push(trimmedItem);
+            } else {
+              groups.push({
+                type: "number",
+                items: [trimmedItem],
+                startNumber: currentNumber,
+              });
+            }
+          } else {
+            groups.push({ type: "paragraph", items: [trimmedItem] });
+          }
         });
 
-        root.append(listNode);
+        groups.forEach((group) => {
+          if (group.type === "paragraph") {
+            group.items.forEach((item) => {
+              const paragraphNode = $createParagraphNode();
+              paragraphNode.append($createTextNode(item));
+              root.append(paragraphNode);
+            });
+          } else {
+            const listNode = $createListNode(group.type);
+            if (group.type === "number" && group.startNumber) {
+              listNode.setStart(group.startNumber);
+            }
+
+            group.items.forEach((item) => {
+              const textContent = item
+                .replace(/^[•\-\*]\s/, "")
+                .replace(/^\d+\.\s/, "")
+                .trim();
+
+              const listItemNode = $createListItemNode();
+              listItemNode.append($createTextNode(textContent));
+              listNode.append(listItemNode);
+            });
+
+            root.append(listNode);
+          }
+        });
       });
     } else {
       prevValueRef.current = [...value];
