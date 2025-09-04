@@ -66,12 +66,6 @@ const parseMarkdownText = (text: string, parentNode: any) => {
       parentNode.append(textNode);
     }
   }
-
-  // 如果没有找到任何 markdown 语法，添加整个文本
-  if (lastIndex === 0) {
-    const textNode = $createTextNode(text);
-    parentNode.append(textNode);
-  }
 };
 
 const LexicalNodes = [ListNode, ListItemNode, TextNode, ParagraphNode];
