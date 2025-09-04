@@ -32,6 +32,48 @@ import { InputGroupWrapper, INPUT_CLASS_NAME } from "./InputGroup";
 import { saveStateToLocalStorage } from "lib/redux/local-storage";
 import { store } from "lib/redux/store";
 
+const parseMarkdownText = (text: string, parentNode: any) => {
+  const boldRegex = /(\*\*([^*]+)\*\*|__([^_]+)__)/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = boldRegex.exec(text)) !== null) {
+    // 添加粗体前的普通文本
+    if (match.index > lastIndex) {
+      const normalText = text.substring(lastIndex, match.index);
+      if (normalText) {
+        const textNode = $createTextNode(normalText);
+        parentNode.append(textNode);
+      }
+    }
+
+    // 添加粗体文本
+    const boldText = match[2] || match[3]; // 匹配 **text** 或 __text__
+    if (boldText) {
+      const boldTextNode = $createTextNode(boldText);
+      boldTextNode.setFormat('bold');
+      parentNode.append(boldTextNode);
+    }
+
+    lastIndex = boldRegex.lastIndex;
+  }
+
+  // 添加剩余的普通文本
+  if (lastIndex < text.length) {
+    const remainingText = text.substring(lastIndex);
+    if (remainingText) {
+      const textNode = $createTextNode(remainingText);
+      parentNode.append(textNode);
+    }
+  }
+
+  // 如果没有找到任何 markdown 语法，添加整个文本
+  if (lastIndex === 0) {
+    const textNode = $createTextNode(text);
+    parentNode.append(textNode);
+  }
+};
+
 const LexicalNodes = [ListNode, ListItemNode, TextNode, ParagraphNode];
 
 const LIST_TRANSFORMERS = [
@@ -179,7 +221,7 @@ function EditorInitializer({ value = [] }: { value: string[] }) {
           if (group.type === "paragraph") {
             group.items.forEach((item) => {
               const paragraphNode = $createParagraphNode();
-              paragraphNode.append($createTextNode(item));
+              parseMarkdownText(item, paragraphNode);
               root.append(paragraphNode);
             });
           } else {
@@ -195,7 +237,7 @@ function EditorInitializer({ value = [] }: { value: string[] }) {
                 .trim();
 
               const listItemNode = $createListItemNode();
-              listItemNode.append($createTextNode(textContent));
+              parseMarkdownText(textContent, listItemNode);
               listNode.append(listItemNode);
             });
 
