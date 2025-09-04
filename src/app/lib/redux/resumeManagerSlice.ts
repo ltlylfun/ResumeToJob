@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createSelector, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "lib/redux/store";
 import { deepClone } from "lib/deep-clone";
 import { generateUniqueId } from "lib/utils/string-utils";
@@ -433,48 +433,53 @@ export const selectAllResumes = (state: RootState) =>
   state.resumeManager.resumes;
 export const selectCurrentResumeId = (state: RootState) =>
   state.resumeManager.currentResumeId;
-export const selectCurrentResume = (state: RootState) => {
-  const currentId = state.resumeManager.currentResumeId;
-  return currentId
-    ? state.resumeManager.resumes.find((r) => r.metadata.id === currentId)
-    : null;
-};
 
-export const selectResume = (state: RootState) => {
-  const currentResume = selectCurrentResume(state);
-  return currentResume ? currentResume.content : initialResumeState;
-};
+export const selectCurrentResume = createSelector(
+  [selectAllResumes, selectCurrentResumeId],
+  (resumes, currentId) =>
+    currentId ? resumes.find((r) => r.metadata.id === currentId) : null
+);
 
-export const selectProfile = (state: RootState) => {
-  const currentResume = selectCurrentResume(state);
-  return currentResume ? currentResume.content.profile : initialProfile;
-};
+export const selectResume = createSelector(
+  [selectCurrentResume],
+  (currentResume) => (currentResume ? currentResume.content : initialResumeState)
+);
 
-export const selectWorkExperiences = (state: RootState) => {
-  const currentResume = selectCurrentResume(state);
-  return currentResume
-    ? currentResume.content.workExperiences
-    : [initialWorkExperience];
-};
+export const selectProfile = createSelector(
+  [selectCurrentResume],
+  (currentResume) => (currentResume ? currentResume.content.profile : initialProfile)
+);
 
-export const selectEducations = (state: RootState) => {
-  const currentResume = selectCurrentResume(state);
-  return currentResume ? currentResume.content.educations : [initialEducation];
-};
+export const selectWorkExperiences = createSelector(
+  [selectCurrentResume],
+  (currentResume) =>
+    currentResume
+      ? currentResume.content.workExperiences
+      : [initialWorkExperience]
+);
 
-export const selectProjects = (state: RootState) => {
-  const currentResume = selectCurrentResume(state);
-  return currentResume ? currentResume.content.projects : [initialProject];
-};
+export const selectEducations = createSelector(
+  [selectCurrentResume],
+  (currentResume) => 
+    currentResume ? currentResume.content.educations : [initialEducation]
+);
 
-export const selectSkills = (state: RootState) => {
-  const currentResume = selectCurrentResume(state);
-  return currentResume ? currentResume.content.skills : initialSkills;
-};
+export const selectProjects = createSelector(
+  [selectCurrentResume],
+  (currentResume) => 
+    currentResume ? currentResume.content.projects : [initialProject]
+);
 
-export const selectCustom = (state: RootState) => {
-  const currentResume = selectCurrentResume(state);
-  return currentResume ? currentResume.content.custom : initialCustom;
-};
+export const selectSkills = createSelector(
+  [selectCurrentResume],
+  (currentResume) => 
+    currentResume ? currentResume.content.skills : initialSkills
+);
+
+export const selectCustom = createSelector(
+  [selectCurrentResume],
+  (currentResume) => 
+    currentResume ? currentResume.content.custom : initialCustom
+);
 
 export default resumeManagerSlice.reducer;
