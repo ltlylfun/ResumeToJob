@@ -18,6 +18,8 @@ export const END_HOME_RESUME_ZH: Resume = {
     location: "米花町5丁目毛利侦探事务所",
     url: "https://resumetojob.ltlyl.fun/",
     photoUrl: kenan.src,
+
+    photoSize: 80,
   },
   workExperiences: [
     {

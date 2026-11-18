@@ -8,6 +8,8 @@ export interface ResumeProfile {
   summary: string[];
   location: string;
   photoUrl: string;
+  
+  photoSize: number;
 }
 
 export interface ResumeWorkExperience {
