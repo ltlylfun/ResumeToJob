@@ -24,6 +24,8 @@ export const initialProfile: ResumeProfile = {
   location: "",
   url: "",
   photoUrl: "",
+
+  photoSize: 80,
 };
 
 export const initialWorkExperience: ResumeWorkExperience = {
@@ -203,11 +205,11 @@ export const resumeManagerSlice = createSlice({
       return { ...action.payload };
     },
 
-    changeProfile: (
+    changeProfile: ( 
       state,
       action: PayloadAction<{
         field: keyof ResumeProfile;
-        value: string | string[];
+        value: string | string[]| number;
       }>,
     ) => {
       const currentResume = state.resumes.find(
@@ -215,7 +217,7 @@ export const resumeManagerSlice = createSlice({
       );
       if (currentResume) {
         const { field, value } = action.payload;
-        currentResume.content.profile[field] = value as any;
+        (currentResume.content.profile as Record<string,any>)[field] = value;
         currentResume.metadata.updatedAt = new Date().toISOString();
       }
     },

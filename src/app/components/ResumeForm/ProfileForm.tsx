@@ -16,11 +16,11 @@ export const ProfileForm = () => {
   const dispatch = useAppDispatch();
   const t = useTranslations("resumeForm.profile");
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { name, email, phone, url, summary, location, photoUrl } = profile;
+  const { name, email, phone, url, summary, location, photoUrl, photoSize } = profile;
   const form = "profile";
   const handleProfileChange = (
     field: keyof ResumeProfile,
-    value: string | string[],
+    value: string | string[] | number,
   ) => {
     dispatch(changeProfile({ field, value: value as any }));
   };
@@ -136,6 +136,27 @@ export const ProfileForm = () => {
             <div className="text-sm text-gray-500">
               <p>{t("uploadProfessionalPhoto")}</p>
             </div>
+            {photoUrl && (
+              <div className="mt-3 flex items-center gap-3">
+                <label htmlFor="photo-size" className="text-sm font-medium">
+                  {t("photoSize")}
+                </label>
+                <input
+                  id="photo-size"
+                  type="range"
+                  min={40}
+                  max={160}
+                  step={5}
+                  value={photoSize ?? 80}
+                  onChange={(e) =>
+                    handleProfileChange("photoSize", Number(e.target.value))
+                  }
+                  className="w-40"
+                />
+                <span className="text-sm text-gray-500">{photoSize ?? 80}</span>
+              </div>
+            )}
+
           </div>
         </div>
       </div>

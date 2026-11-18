@@ -24,10 +24,13 @@ export const ResumePDFProfile = ({
   isPDF: boolean;
   templateStyles: TemplateStyles;
 }) => {
-  const { name, email, phone, url, summary, location, photoUrl } = profile;
+  const { name, email, phone, url, summary, location, photoUrl,photoSize} = profile;
   const iconProps = { email, phone, location, url };
 
   const hasPhoto = Boolean(photoUrl);
+
+  const photoSizePt = `${photoSize ?? 80}pt`; // 若没有这个字段，默认 80，跟原来的值一样。
+
   const hasSummary =
     Array.isArray(summary) &&
     summary.length > 0 &&
@@ -41,8 +44,8 @@ export const ResumePDFProfile = ({
       return (
         <View
           style={{
-            width: "80pt", // 增加了宽度，从60pt改为80pt
-            height: "80pt", // 增加了高度，从60pt改为80pt
+            width: photoSizePt, // 用photoSizePt代替死数据
+            height: photoSizePt, // 用photoSizePt代替死数据
             marginLeft: spacing["4"],
             overflow: "hidden",
             borderRadius: "4pt",
@@ -65,8 +68,8 @@ export const ResumePDFProfile = ({
       return (
         <div
           style={{
-            width: "80pt",
-            height: "80pt",
+            width: photoSizePt,
+            height: photoSizePt,
             marginLeft: "12pt",
             overflow: "hidden",
             borderRadius: "4pt",

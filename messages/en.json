@@ -90,6 +90,7 @@
       "location": "Location",
       "photoUrl": "Photo URL",
       "photo": "Photo",
+      "photoSize": "Photo size",
       "uploadProfessionalPhoto": "Upload a professional photo",
       "checkCarefully": "Check carefully",
       "website": "Website",

@@ -90,6 +90,7 @@
       "location": "地址",
       "photoUrl": "照片URL",
       "photo": "照片",
+      "photoSize": "照片大小",
       "uploadProfessionalPhoto": "上传专业证件照",
       "checkCarefully": "仔细检查，别填错",
       "website": "个人网站",
